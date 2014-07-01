@@ -1,0 +1,3 @@
+menu_bg_tabs-colour #752271
+menu_bg_colour #9a5d98
+main menu_bg #eadbe9

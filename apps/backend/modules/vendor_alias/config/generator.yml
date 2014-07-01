@@ -1,0 +1,12 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      VendorAlias
+    theme:            default
+    css:             /sf/sf_admin/css/admin_main.css
+    list:
+       display : [title,vendors]
+       sort: [title,asc]
+       object_actions:
+        _edit: ~  
+        _delete: ~

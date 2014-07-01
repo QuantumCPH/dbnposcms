@@ -1,0 +1,30 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      DibsCall
+    theme:            default
+    css:             /sf/sf_admin/css/admin_main.css
+    fields:
+      transaction_from_id: { name: "Request From" }
+      callurl: 
+        params: size=10x5  rich=true
+         
+     
+    list:
+   
+      display: [id, callurl, transaction_from,created_at,agent_receipt, customer_receipt]
+      sort: [created_at, desc]
+      fields:
+       transaction_from: { name: "Request From" }
+       callurl: 
+        params: size=10x5  rich=true
+         
+         
+       
+      max_per_page: 100000
+      object_actions:
+      actions:
+        
+                  
+      filters: [transaction_from_id]  
+    

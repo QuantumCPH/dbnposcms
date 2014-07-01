@@ -1,0 +1,18 @@
+default:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    title:         Sahdia - CMS Portal
+    #description:  symfony project
+    #keywords:     symfony, project
+    #language:     en
+    #robots:       index, follow
+ 
+  
+  stylesheets:    [poscms.css,../bootstrap/css/bootstrap.css,../bootstrap/css/bootstrap-theme.css,../font-awesome/css/font-awesome.css,../bootstrap-daterangepicker/daterangepicker-bs3.css,DT_bootstrap.css,chosen.css,ui-lightness/jquery-ui-1.10.4.custom.css,jquery.custombox.css,multi-select.css,TableTools.css]
+
+  javascripts:    [jquery-2.0.3.js,jquery-ui-1.10.4.custom.js ,jquery.validate.js,jquery.multi-select.js,jquery.dataTables.js,jquery.dataTables.columnFilter.js,DT_bootstrap.js,bootstrap-filestyle.min.js,../bootstrap/js/bootstrap.js,chosen.jquery.js,chosen.proto.js,jquery.dataTables.editable.js,jquery.custombox.js,ZeroClipboard.js,TableTools.js,../bootstrap-daterangepicker/moment.js,jquery.slimscroll.js,../bootstrap-daterangepicker/daterangepicker.js]
+
+  has_layout:     on
+  layout:         layout

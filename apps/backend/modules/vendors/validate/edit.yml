@@ -1,0 +1,8 @@
+fields:
+  vendors{title}:
+    required:
+      msg:              Title should not be blank.
+    sfPropelUniqueValidator:
+      class:        Vendors
+      column:       title
+      unique_error: This vendor already exists. Please choose another one.

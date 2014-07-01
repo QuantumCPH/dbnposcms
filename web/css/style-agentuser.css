@@ -1,0 +1,208 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+        padding:0px;
+        margin:0px;
+        color:#0C74A5;
+}
+img{
+    border: 0px;
+}
+p, h1, form, button {
+	border:0;
+	margin:0;
+	padding:0;
+}
+h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+h3 {
+    color:#2c7e21;
+}
+.spacer {
+	clear:both;
+	height:1px;
+}
+a{
+    color: #0C74A5;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration:underline;
+}
+/* ----------- MitForm ----------- */
+.mitform {
+	margin:0 auto;
+	width:800px;
+	padding:14px;
+}
+
+.error_list{
+    float:left;
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+    margin:0px;
+    padding:2px 50px 5px 9px;
+    color:red !important;
+}
+
+#header{   
+    height: 75px;
+    margin: 0 auto 26px;
+    width: 75%;
+}
+
+#menu{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+#content{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0 auto;
+    width: 75%;
+}
+#footer{
+    border-top: 1px #DEDEDE solid;
+    margin-top: 20px;
+    padding: 5px;
+}
+ 
+
+.list-view{
+    margin: 0px;
+}
+
+.list-view th{
+    width: 150px;
+}
+
+.list-view td{
+    text-align: center;
+}
+
+.save-ok {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+/*background:#73B65A url(../images/ok.png) no-repeat scroll 5px 2px;*/
+color:#FFFFFF;
+font-size:11px;
+margin:0 !important;
+/*padding:5px 20px 5px 25px;*/
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.save-decl {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#FF0000 url(../images/alert.png) no-repeat scroll 5px 2px;
+color:#FFFFFF;
+font-size:11px;
+margin:0 !important;
+padding:5px 20px 5px 25px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.logo {    
+    padding-top: 13px;
+}
+.action-links{
+    padding: 10px 10px 10px 5px;
+    clear:both;
+}
+
+#slogan{
+    color:#0C74A5;    
+    width:1010px;
+    margin: 0 auto;
+}
+#slogan h1{
+    float:left;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+#loggedInUser{
+    float:right;
+    width: 136px;
+    white-space:nowrap;  
+}
+.clr{
+    clear:both;
+    float: none;
+}
+#menu{
+    text-align: center;
+    width: 65%;
+    margin:0 auto;
+}
+#menu ul#sddm{
+    margin: 0 auto 41px;
+    padding: 0;
+    z-index: 30;
+    width: 92%;
+}
+
+#sddm li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
+    font: bold 11px arial;
+    background:url('../images/li-bg.png') repeat-x top left;
+    border-left: 1px solid #0C74A5;
+    border-top: 1px solid #0C74A5;
+    border-bottom: 1px solid #0C74A5;
+}
+#sddm li.last
+{	
+    border-right:1px solid #0C74A5;    
+}    
+#sddm li a{
+    display: block;
+    margin: 0 0px 0 0;
+    padding: 4px 10px;
+    color: #0C74A5;
+    text-align: center;
+    text-decoration: none;
+}
+
+#sddm li a:hover{
+    text-decoration:none;
+    background: #0C74A5;
+    color:#ffffff;
+}
+
+#sddm div
+{	position: absolute;
+	visibility: hidden;
+	margin: 0;
+	padding: 0;
+	background: #0C74A5;
+	border: 1px solid #0C74A5;
+}
+
+#sddm div a
+{	position: relative;
+        display: block;
+        margin: 0;
+        padding: 5px 10px;
+        width: auto;
+        white-space: nowrap;
+        text-align: left;
+        text-decoration: none;
+        background: #0C74A5;
+        color: #FFFFFF;
+        font: 11px arial;
+}
+
+ 
+ 

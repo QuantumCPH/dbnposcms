@@ -1,0 +1,8 @@
+fields:
+  userguide{title}:
+    required:
+      msg:              The title cannot be left blank.
+  userguide{description}:
+    required:
+      msg:              The description cannot be left blank.
+ 

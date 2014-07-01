@@ -1,0 +1,22 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      Vendors
+    theme:            default
+    css:             /sf/sf_admin/css/admin_main.css
+    list:
+       display: [title,logo_image,status]
+       sort: [title,asc]
+       fields :
+        logo_image: {name: Logo}
+        created_at: { params: date_format='dd-MM-yyyy' }
+       object_actions:
+        _edit: ~
+    edit:
+      display: [title,logo,status]
+      fields: 
+        logo: {type: admin_input_file_tag,upload_dir: card_vendors_logo,params: include_link=card_vendors_logo include_remove=true}
+      actions:
+        _list: ~
+        _save: ~
+        _save_and_add: ~

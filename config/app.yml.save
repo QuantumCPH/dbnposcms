@@ -1,0 +1,72 @@
+all:
+ main_url: 'http://poscms.zap-itsolutions.com/agent.php/'
+ admin_url: 'http://poscms.zap-itsolutions.com/backend.php/'
+ b2b_url: 'http://poscms.zap-itsolutions.com/b2b.php/'
+ pdfinvoice_url: 'http://poscms.zap-itsolutions.com/uploads/invoices/pdf/'
+ web_url : 'http://poscms.zap-itsolutions.com/' 
+ agent_url: 'http://poscms.zap-itsolutions.com/agent.php/'
+ agent_customer_url: 'http://poscms.zap-itsolutions.com/b2c.php/'
+ customer_url: 'http://poscms.zap-itsolutions.com/b2c.php/'
+ admin_url: 'http://poscms.zap-itsolutions.com/backend.php/'
+ site_url: 'http://poscms.zap-itsolutions.com/b2c.php/'
+ site_title: 'Sahdia'
+ web_url: 'http://poscms.zap-itsolutions.com/'
+ logo_url: '/var/www/woiizecrm/web/uploads/vender_logos/'
+ support_email_id: 'support@poscms.zap-itsolutions.com'
+ live_site_url: 'www.woiize.com'
+ country_code: 45
+ currency_code: ' dkk'
+ currency_symbol: 'DKK'
+ language_symbol: 'en'
+ postal_address_top: 'Woiize<br />Smedeholm 13 B<br />2730 Herlev'
+ postal_address_bottom: 'Woiize - Smedeholm 13 B - 2730 Herlev'
+ vat : '20%'
+ vat_percentage: .20
+ phone_no: '+45 7027 9966'
+ email_sender_name: Woiize
+ email_sender_email: 'rs@zap-itsolutions.com'  
+ email_sender_name_cdu: Woiize
+ email_sender_email_cdu: ''
+ email_sender_name_rs: Woiize
+ email_sender_email_rs: rs@zap-itsolutions.com
+ email_support_name: Woiize
+ email_support_email: support@poscsm.zap-itsolutions.com
+ email_sender_name_order: Woiize
+ email_sender_email_order: ''
+ email_sc_registration: 'ok@woiize.com'
+ paypal_email: ak@zapna.com
+ recipient_name_support: Woiize
+ recipient_email_support: support.tech@zap-itsolutions.com
+ environment: sandbox
+ telinta_reseller: 106846
+ telinta_b2b_reseller: 106846
+ telinta_voip_product: 13195
+ telinta_cb_product: 13194
+ telinta_currency: DKK
+ telinta_soap_uri: https://mybilling.telinta.com
+ telinta_soap_user: 'API_login'
+ telinta_soap_password: 'ee4eriny'
+ telinta_account_prefix: 'WOZI'
+ account_prefix: 'WOZI'
+ telinta_account_prefix_b2b: 'WOZIB2B'
+ db_server: localhost
+ db_username: root
+ db_password: "1Qazxsw@"
+ db_name : woiize_crm
+ fonet_app_customer: 1760400
+ bonus_value: 100
+ measypay_b2c_url: 'http://admin.m-easypay.com/b2c.php/'
+ measypay_web_url: 'http://admin.m-easypay.com/'
+ measypay_db_host: "184.107.218.122"
+ measypay_db_name: "measypay"
+ measypay_db_username: root
+ measypay_db_password: "@wsxzaQ1" 
+ b2bapi_mode    : "prod"
+ paypal:
+   api_username: 'ak_api1.zapna.com'
+   api_password: 'ZKMT2KEY4A9F2JRG'
+   api_signature: 'A6KuQdwXlKSmPfrx9-s0aftrisWdAbr2KJAHBjlVX8UAL5faf4sgbwwN'
+ sms_api:
+   regular: bc366nf
+ 
+ 

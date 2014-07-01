@@ -1,0 +1,18 @@
+default:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    title:         Sahdia - CMS Portal
+    #description:  symfony project
+    #keywords:     symfony, project
+    #language:     en
+    #robots:       index, follow
+
+  stylesheets:    [poscms.css,../bootstrap/css/bootstrap.css,../bootstrap/css/bootstrap-theme.css,../font-awesome/css/font-awesome.css]
+
+  javascripts:    [jquery-2.0.3.js,jquery.validate.js,jquery.js,bootstrap-filestyle.min.js,../bootstrap/js/bootstrap.js ]
+
+
+  has_layout:     on
+  layout:         layout

@@ -1,0 +1,15 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      Items
+    theme:            default
+    css:             /sf/sf_admin/css/admin_main.css
+    list:
+      title : Items
+      display: [id,description1,description2,supplier_number,supplier_item_number,ean,group,color,size,buying_price,selling_price,taxation_code,small_pic,created_at,updated_at,created_at]
+      fields : 
+        created_at: { params: date_format='dd-MM-yyyy' }
+      object_actions:
+        _edit: ~
+        _create:
+
