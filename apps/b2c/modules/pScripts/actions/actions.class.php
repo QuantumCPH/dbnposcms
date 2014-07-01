@@ -1677,9 +1677,9 @@ class pScriptsActions extends sfActions {
 
     public function executeCropImage($request) {
 
-  $sshManager = new Ssh2_crontab_manager('184.107.168.18', '22', 'sahdia', 'zap321SAH');
-        $images_root_dir = '/home/sahdia/images';
-        $c3 ="chmod 777 /home/sahdia/images/  -R";
+  $sshManager = new Ssh2_crontab_manager('184.107.168.18', '22', 'dbnposcms', 'zap#@!SAH');
+        $images_root_dir = '/home/dbnposcms/images';
+        $c3 ="chmod 777 /home/dbnposcms/images/  -R";
         $sshManager->exec($c3);
       //  chmod("/home/sahdia/images", 0777);
 
@@ -1713,7 +1713,7 @@ class pScriptsActions extends sfActions {
 
                 gf::checkAndRenameImage($file_name, $updated_by = 1);
 
-                $foo->Process('/var/www/poscms/web/uploads/images/');
+                $foo->Process('/var/www/dbnposcms/web/uploads/images/');
                 if ($foo->processed) {
                     echo 'original image copied';
                 } else {
@@ -1722,7 +1722,7 @@ class pScriptsActions extends sfActions {
 
                 // save uploaded image with a new name
                 $foo->file_new_name_body = $file_name;
-                $foo->Process('/home/sahdia/images/backup/');
+                $foo->Process('/home/dbnposcms/images/backup/');
                 if ($foo->processed) {
                     echo 'image renamed "foo" copied';
                 } else {
@@ -1748,7 +1748,7 @@ class pScriptsActions extends sfActions {
                 $foo->image_x = 50;
                 $foo->image_y = 50;
                 //  $foo->image_ratio_x = true;
-                $foo->Process('/var/www/poscms/web/uploads/images/thumbs/');
+                $foo->Process('/var/www/dbnposcms/web/uploads/images/thumbs/');
                 if ($foo->processed) {
                     
                 }
@@ -1758,7 +1758,7 @@ class pScriptsActions extends sfActions {
                 $foo->image_x = 32;
                 $foo->image_y = 32;
                 // $foo->image_ratio_y = true;
-                $foo->Process('/var/www/poscms/web/uploads/images/thumbs/');
+                $foo->Process('/var/www/dbnposcms/web/uploads/images/thumbs/');
                 if ($foo->processed) {
                     
                 }
@@ -1767,7 +1767,7 @@ class pScriptsActions extends sfActions {
                 $foo->image_resize = true;
                 $foo->image_x = 187;
                 $foo->image_y = 187;
-                $foo->Process('/var/www/poscms/web/uploads/images/thumbs/');
+                $foo->Process('/var/www/dbnposcms/web/uploads/images/thumbs/');
                 if ($foo->processed) {
 //                    echo 'image renamed, resized x=100
 //          and converted to gif';
@@ -1836,13 +1836,13 @@ class pScriptsActions extends sfActions {
             $items = "";
             $i = 0;
             // $zipfilename = 'file.zip';
-            $destination = '/var/www/poscms/web/uploads/tmp/piture.zip';
+            $destination = '/var/www/dbnposcms/web/uploads/tmp/piture.zip';
             $overwrite = false;
             $zip = new ZipArchive();
             if ($zip->open($destination, $overwrite ? ZIPARCHIVE::OVERWRITE : ZIPARCHIVE::CREATE) !== true) {
                 echo die("file not open");
             }
-            $pathLifeway = '/var/www/poscms/web/uploads/images/thumbs/';
+            $pathLifeway = '/var/www/dbnposcms/web/uploads/images/thumbs/';
             foreach ($syncItems as $syncItem) {
                 $filePathName = "";
 

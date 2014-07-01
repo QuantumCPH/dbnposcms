@@ -55,7 +55,7 @@ class cron_jobsActions extends sfActions {
         }
 
 
-        $directory_base = "/home/sahdia/";
+        $directory_base = "/home/dbnposcms/";
         $defination_file_path = $request->getParameter("defination_file_path");
         $data_file_path = $request->getParameter("data_file_path");
         $defination_file_path = str_replace(' ', '', $defination_file_path);
@@ -192,7 +192,7 @@ class cron_jobsActions extends sfActions {
         }
 
 
-        $directory_base = "/home/sahdia/";
+        $directory_base = "/home/dbnposcms/";
         
 
 
@@ -297,7 +297,7 @@ class cron_jobsActions extends sfActions {
     }
 
     private function update_cron_job_on_server() {
-        $sshManager = new Ssh2_crontab_manager('184.107.168.18', '22', 'sahdia', 'zap321SAH');
+        $sshManager = new Ssh2_crontab_manager('184.107.168.18', '22', 'dbnposcms', 'zap#@!SAH');
         $cronjobs = CronJobsPeer::doSelect(new Criteria());
         $jobs = "";
         foreach ($cronjobs as $cronjob) {
@@ -332,13 +332,13 @@ class cron_jobsActions extends sfActions {
         $this->cron_job_id = $cronJob->getId();
         $this->job_name = $cronJob->getJobName();
 //        $cronHistories = CronJobHistoryPeer::doSelect($c);
-         $this->close_url="http://poscms.zap-itsolutions.com/backend.php/cron_jobs/index";
+         $this->close_url="http://dbnposcms.zap-itsolutions.com/backend.php/cron_jobs/index";
     }
 
       public function executeHistoryInfo(sfWebRequest $request) {
         
         $this->history_id =$request->getParameter('history_id');
-        $this->close_url="http://poscms.zap-itsolutions.com/backend.php/cron_jobs/history/id/".$request->getParameter('cron_job_id');
+        $this->close_url="http://dbnposcms.zap-itsolutions.com/backend.php/cron_jobs/history/id/".$request->getParameter('cron_job_id');
     }
     
     
