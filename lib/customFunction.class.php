@@ -6,7 +6,7 @@ class gf {
 
 
         $imagepathfile = sfConfig::get("app_web_url") . "uploads/images/thumbs/" . $image;
-        $imagepathfileww = "/var/www/poscms/web/uploads/images/thumbs/" . $image;
+        $imagepathfileww = "/var/www/dbnposcms/web/uploads/images/thumbs/" . $image;
 
         $imagepathtempno = sfConfig::get("app_web_url") . "images/no-image.png";
 
@@ -24,10 +24,10 @@ class gf {
         $image = $imagearay[0];
         $imageName = $image . "_50.jpg";
 
-        $imagepathfile = "http://poscms.zap-itsolutions.com/uploads/images/thumbs/" . $imageName;
-        $imagepathfileww = "/var/www/poscms/web/uploads/images/thumbs/" . $imageName;
+        $imagepathfile = "http://dbnposcms.zap-itsolutions.com/uploads/images/thumbs/" . $imageName;
+        $imagepathfileww = "/var/www/dbnposcms/web/uploads/images/thumbs/" . $imageName;
 
-        $imagepathtempno = "http://poscms.zap-itsolutions.com/images/no-image.png";
+        $imagepathtempno = "http://dbnposcms.zap-itsolutions.com/images/no-image.png";
 
         if (file_exists($imagepathfileww) && $image != "") {
             return $imagepathfile;
@@ -41,7 +41,7 @@ class gf {
 
         $timdt=date('YmdHis');
         $imagepathfile = sfConfig::get("app_web_url") . "uploads/images/" . $image . ".jpg?".$timdt;
-        $imagepathfileww = "/var/www/poscms/web/uploads/images/" . $image . ".jpg";
+        $imagepathfileww = "/var/www/dbnposcms/web/uploads/images/" . $image . ".jpg";
 
         $imagepathtempno = sfConfig::get("app_web_url") . "images/no-image-large.png";
 
@@ -55,17 +55,17 @@ class gf {
 
     public static function checkAndRenameImage($imageName,$updated_by) {
         $today = date('-Y-m-d-H-i');
-        if($updated_by=="") $updated_by = 111392116342;
-        $imag0 = "/home/sahdia/images/backup/" . $imageName . ".jpg";
-        $imag00 = "/home/sahdia/images/backup/" . $imageName . $today . ".jpg";
-        $imag1 = "/var/www/poscms/web/uploads/images/" . $imageName . ".jpg";
-        $imag11 = "/var/www/poscms/web/uploads/images/" . $imageName . $today . ".jpg";
-        $imag2 = "/var/www/poscms/web/uploads/images/thumbs/" . $imageName . "_32.jpg";
-        $imag22 = "/var/www/poscms/web/uploads/images/thumbs/" . $imageName . $today . "_32.jpg";
-        $imag3 = "/var/www/poscms/web/uploads/images/thumbs/" . $imageName . "_50.jpg";
-        $imag33 = "/var/www/poscms/web/uploads/images/thumbs/" . $imageName . $today . "_50.jpg";
-        $imag4 = "/var/www/poscms/web/uploads/images/thumbs/" . $imageName . "_187.jpg";
-        $imag44 = "/var/www/poscms/web/uploads/images/thumbs/" . $imageName . $today . "_187.jpg";
+        if($updated_by=="") $updated_by = 1;
+        $imag0 = "/home/dbnposcms/images/backup/" . $imageName . ".jpg";
+        $imag00 = "/home/dbnposcms/images/backup/" . $imageName . $today . ".jpg";
+        $imag1 = "/var/www/dbnposcms/web/uploads/images/" . $imageName . ".jpg";
+        $imag11 = "/var/www/dbnposcms/web/uploads/images/" . $imageName . $today . ".jpg";
+        $imag2 = "/var/www/dbnposcms/web/uploads/images/thumbs/" . $imageName . "_32.jpg";
+        $imag22 = "/var/www/dbnposcms/web/uploads/images/thumbs/" . $imageName . $today . "_32.jpg";
+        $imag3 = "/var/www/dbnposcms/web/uploads/images/thumbs/" . $imageName . "_50.jpg";
+        $imag33 = "/var/www/dbnposcms/web/uploads/images/thumbs/" . $imageName . $today . "_50.jpg";
+        $imag4 = "/var/www/dbnposcms/web/uploads/images/thumbs/" . $imageName . "_187.jpg";
+        $imag44 = "/var/www/dbnposcms/web/uploads/images/thumbs/" . $imageName . $today . "_187.jpg";
 
         if (file_exists($imag1) && $imageName != "") {
            
