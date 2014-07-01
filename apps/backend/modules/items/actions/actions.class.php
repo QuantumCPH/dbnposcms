@@ -856,7 +856,7 @@ $extension = end($temp);
                 $imgUpdate = true;
                 $foo->file_new_name_body = $file_name;
                 $foo->image_convert = 'jpg';
-                $foo->Process('/var/www/poscms/web/uploads/images/');
+                $foo->Process('/var/www/dbnposcms/web/uploads/images/');
                 if ($foo->processed) {
                     echo 'original image copied';
                 } else {
@@ -865,7 +865,7 @@ $extension = end($temp);
 
                 // save uploaded image with a new name
                 $foo->file_new_name_body = $file_name;
-                $foo->Process('/home/sahdia/images/backup/');
+                $foo->Process('/home/dbnposcms/images/backup/');
                 if ($foo->processed) {
                     echo 'image renamed "foo" copied';
                 } else {
@@ -893,7 +893,7 @@ $extension = end($temp);
                 $foo->image_y = 50;
                $foo->image_convert = 'jpg';
                 //  $foo->image_ratio_x = true;
-                $foo->Process('/var/www/poscms/web/uploads/images/thumbs/');
+                $foo->Process('/var/www/dbnposcms/web/uploads/images/thumbs/');
                 if ($foo->processed) {
                     
                 }
@@ -904,7 +904,7 @@ $extension = end($temp);
                 $foo->image_y = 32;
                 $foo->image_convert = 'jpg';
                 // $foo->image_ratio_y = true;
-                $foo->Process('/var/www/poscms/web/uploads/images/thumbs/');
+                $foo->Process('/var/www/dbnposcms/web/uploads/images/thumbs/');
                 if ($foo->processed) {
                     
                 }
@@ -915,7 +915,7 @@ $extension = end($temp);
                 $foo->image_x = 187;
                 $foo->image_y = 187;
                 $foo->image_convert = 'jpg';
-                $foo->Process('/var/www/poscms/web/uploads/images/thumbs/');
+                $foo->Process('/var/www/dbnposcms/web/uploads/images/thumbs/');
                 if ($foo->processed) {
 //                    echo 'image renamed, resized x=100
 //          and converted to gif';
@@ -1071,7 +1071,7 @@ $extension = end($temp);
                 
                 $foo->file_new_name_body = $file_name;
                 $foo->image_convert = 'jpg';
-                $foo->Process('/var/www/poscms/web/uploads/images/');
+                $foo->Process('/var/www/dbnposcms/web/uploads/images/');
                 if ($foo->processed) {
                     echo 'original image copied';
                 } else {
@@ -1080,7 +1080,7 @@ $extension = end($temp);
 
                 // save uploaded image with a new name
                 $foo->file_new_name_body = $file_name;
-                $foo->Process('/home/sahdia/images/backup/');
+                $foo->Process('/home/dbnposcms/images/backup/');
                 if ($foo->processed) {
                     echo 'image renamed "foo" copied';
                 } else {
@@ -1107,7 +1107,7 @@ $extension = end($temp);
                 $foo->image_y = 50;
                $foo->image_convert = 'jpg';
                 //  $foo->image_ratio_x = true;
-                $foo->Process('/var/www/poscms/web/uploads/images/thumbs/');
+                $foo->Process('/var/www/dbnposcms/web/uploads/images/thumbs/');
                 if ($foo->processed) {
                     
                 }
@@ -1118,7 +1118,7 @@ $extension = end($temp);
                 $foo->image_y = 32;
                 $foo->image_convert = 'jpg';
                 // $foo->image_ratio_y = true;
-                $foo->Process('/var/www/poscms/web/uploads/images/thumbs/');
+                $foo->Process('/var/www/dbnposcms/web/uploads/images/thumbs/');
                 if ($foo->processed) {
                     
                 }
@@ -1129,7 +1129,7 @@ $extension = end($temp);
                 $foo->image_x = 187;
                 $foo->image_y = 187;
                 $foo->image_convert = 'jpg';
-                $foo->Process('/var/www/poscms/web/uploads/images/thumbs/');
+                $foo->Process('/var/www/dbnposcms/web/uploads/images/thumbs/');
                 if ($foo->processed) {
 //                    echo 'image renamed, resized x=100
 //          and converted to gif';
