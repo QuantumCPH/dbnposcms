@@ -6,12 +6,12 @@ $shopId = $_REQUEST['shop_id'];
 $sync_all = $_REQUEST['sync_all'];
 
 if (isset($shopId) && $shopId != "") {
-     unlink('/var/www/poscms/web/uploads/tmp/'.$shopId.'.zip');
+     unlink('/var/www/dbnposcms/web/uploads/tmp/'.$shopId.'.zip');
 } else {
     return false;
     die;
 }
-$urlval = "SyncImages- http://poscms.zap-itsolutions.com/syimage.php?shop_id=" . $shopId."&sync_all".$sync_all;
+$urlval = "SyncImages- http://dbnposcms.zap-itsolutions.com/syimage.php?shop_id=" . $shopId."&sync_all".$sync_all;
 /*
  * Script:    DataTables server-side script for PHP and MySQL
  * Copyright: 2010 - Allan Jardine
@@ -31,7 +31,7 @@ $hostname = "184.107.168.18";
 
 //connection to the database
 $dbhandle = mysql_connect($hostname, $username, $password) or die("Unable to connect to MySQL");
-$selected = mysql_select_db("poscms", $dbhandle) or die("Could not select items");
+$selected = mysql_select_db("dbnposcms", $dbhandle) or die("Could not select items");
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
