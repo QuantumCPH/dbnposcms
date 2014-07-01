@@ -157,11 +157,11 @@ class pScriptsActions extends sfActions {
         $cronHistory->setCronJobId($cron_jobs->getId());
         $cronHistory->save();
 
-        $xml_root_dir = '/home/sahdia/' . $cron_jobs->getDefinationFilePath();
+        $xml_root_dir = '/home/dbnposcms/' . $cron_jobs->getDefinationFilePath();
 
-        $csv_root_dir = '/home/sahdia/' . $cron_jobs->getDataFilePath();
-        /* $xml_root_dir = '/home/sahdia/delivery_notes/xml';
-          $csv_root_dir = '/home/sahdia/delivery_notes/csv';
+        $csv_root_dir = '/home/dbnposcms/' . $cron_jobs->getDataFilePath();
+        /* $xml_root_dir = '/home/dbnposcms/delivery_notes/xml';
+          $csv_root_dir = '/home/dbnposcms/delivery_notes/csv';
          */
         $xml_error_dir = $xml_root_dir . '/error';
         $xml_backup_dir = $xml_root_dir . '/backup';
@@ -613,14 +613,14 @@ class pScriptsActions extends sfActions {
         $cronHistory->setCronJobId($cron_jobs->getId());
         $cronHistory->save();
 
-        $xml_root_dir = '/home/sahdia/' . $cron_jobs->getDefinationFilePath();
+        $xml_root_dir = '/home/dbnposcms/' . $cron_jobs->getDefinationFilePath();
 
-        $csv_root_dir = '/home/sahdia/' . $cron_jobs->getDataFilePath();
+        $csv_root_dir = '/home/dbnposcms/' . $cron_jobs->getDataFilePath();
 
 
-        /*  $xml_root_dir = '/home/sahdia/items/xml';
+        /*  $xml_root_dir = '/home/dbnposcms/items/xml';
 
-          $csv_root_dir = '/home/sahdia/items/csv'; */
+          $csv_root_dir = '/home/dbnposcms/items/csv'; */
 
         $xml_error_dir = $xml_root_dir . '/error';
         $xml_backup_dir = $xml_root_dir . '/backup';
@@ -1681,7 +1681,7 @@ class pScriptsActions extends sfActions {
         $images_root_dir = '/home/dbnposcms/images';
         $c3 ="chmod 777 /home/dbnposcms/images/  -R";
         $sshManager->exec($c3);
-      //  chmod("/home/sahdia/images", 0777);
+      //  chmod("/home/dbnposcms/images", 0777);
 
         $images_error_dir = $images_root_dir . '/error';
         $images_backup_dir = $images_root_dir . '/backup';
