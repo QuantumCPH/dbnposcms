@@ -53,7 +53,7 @@
             
        <div id="header">  
             <div class="logo">
-  		<?php echo image_tag(sfConfig::get("app_web_url").'images/logo-inner.png') ?>
+  		<?php //echo image_tag(sfConfig::get("app_web_url").'images/logo-inner.png') ?>
             </div> 
            <div class="logout"><span class="usr_name"><?php echo $loggedin_user->getName(); ?><br/><span class="usr_role"><?php echo $user_role;?></span></span><a href="<?php echo sfConfig::get("app_admin_url"); ?>user/logout" class="usericon"></a></div>
            <div class="clr"></div>
