@@ -321,8 +321,8 @@ class itemsLib {
         $order = new Orders();
         $order->setTotalAmount($object->total_amount);
         $order->setShopId($shop_id);
-//        $order->setCreatedAt($object->created_at);
-        $order->setCreatedAt(date("Y-m-d H:i:s"));
+       $order->setCreatedAt($object->created_at);
+      //  $order->setCreatedAt($object->updated_at);
         $order->setStatusId($object->status_id);
         $order->setTotalSoldAmount($object->sold_total_amount);
         $order->setDiscountValue($object->order_discount_value);
@@ -331,7 +331,7 @@ class itemsLib {
         $order->setDayStartId($object->day_start_id);
         $order->setShopOrderId($object->shop_order_id);
         $order->setShopReceiptNumberId($object->shop_receipt_id);
-        $order->setUpdatedAt($object->updated_at);
+        $order->setUpdatedAt(date("Y-m-d H:i:s"));
         $order->setEmployeeId($object->employee_id);
 
         if ($order->save()) {
