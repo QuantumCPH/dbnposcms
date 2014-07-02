@@ -2010,7 +2010,7 @@ Have a great day!';
                 $c = new Criteria();
                 $c->add(TransactionsPeer::SHOP_TRANSACTION_ID, $object->pos_id);
                 $c->add(TransactionsPeer::SHOP_ID, $shop_id);
-                if (TransactionPeer::doCount($c) == 0) {
+                if (TransactionsPeer::doCount($c) == 0) {
                     $saved_transactions[] = itemsLib::createTransactionUsingObject($object, $shop_id, $orderIdArr[1]);
                 }
             }
