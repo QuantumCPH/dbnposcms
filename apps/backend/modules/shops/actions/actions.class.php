@@ -177,6 +177,13 @@ class shopsActions extends sfActions {
         $shop->setCreatedBy($user_id);
         $shop->setMaxDayEndAttempts($request->getParameter("max_day_end_attempts"));
         $shop->save();
+        ///////////////////Vat Setting ////////////////////
+        $setting = SystemConfigPeer::retrieveByPK(6);
+        $shop->setVatValue($setting->getValues());
+        ///////////////////Currency Setting ////////////////////
+        $settingCurrency = SystemConfigPeer::retrieveByPK(7);
+        $shop->setCurrencyId($settingCurrency->getValues());
+        ////////////////////////////////////////////////////////////////
         $this->getUser()->setFlash('message', 'Branch is added.');
         $this->redirect('shops/index');
     }
@@ -218,7 +225,7 @@ class shopsActions extends sfActions {
         $shop->setStartValueReturnReceipt($request->getParameter('return_receipt'));
         $shop->setSaleReceiptFormatId($request->getParameter('saleFormat'));
         $shop->setReturnReceiptFormatId($request->getParameter('returnFormat'));
-         $shop->setStartValueBookout($request->getParameter('start_value_bookout'));
+        $shop->setStartValueBookout($request->getParameter('start_value_bookout'));
         $shop->setBookoutFormatId($request->getParameter('bookout_format_id'));
         $shop->setMaxDayEndAttempts($request->getParameter("max_day_end_attempts"));
         $shop->setDiscountTypeId($request->getParameter("discount_type_id"));
@@ -227,7 +234,13 @@ class shopsActions extends sfActions {
         $shop->setReceiptTaxStatmentOne($request->getParameter("receipt_tax_statement_one"));
         $shop->setReceiptTaxStatmentTwo($request->getParameter("receipt_tax_statement_two"));
         $shop->setReceiptTaxStatmentThree($request->getParameter("receipt_tax_statement_three"));
-
+        ///////////////////Vat Setting ////////////////////
+        $setting = SystemConfigPeer::retrieveByPK(6);
+        $shop->setVatValue($setting->getValues());
+        ///////////////////Currency Setting ////////////////////
+        $settingCurrency = SystemConfigPeer::retrieveByPK(7);
+        $shop->setCurrencyId($settingCurrency->getValues());
+        ////////////////////////////////////////////////////////////////
         if ($shop->save()) {
             new GcmLib("shop_updated", array($shop->getGcmKey()));
         }
@@ -320,7 +333,7 @@ class shopsActions extends sfActions {
             if ($shopUser->save()) {
                 $sc = new Criteria();
                 $sc->add(ShopsPeer::ID, $request->getParameter('shopid'));
-                if (ShopsPeer::doCount($sc)>0) {
+                if (ShopsPeer::doCount($sc) > 0) {
                     $shopObj = ShopsPeer::doSelectOne($sc);
                     if ($shopObj->getGcmKey() != "") {
                         new GcmLib("user_updated", array($shopObj->getGcmKey()));
@@ -503,7 +516,7 @@ class shopsActions extends sfActions {
         $shopUser->save();
         $sc = new Criteria();
         $sc->add(ShopsPeer::ID, $shop_id);
-        if (ShopsPeer::doCount($sc)>0) {
+        if (ShopsPeer::doCount($sc) > 0) {
             $shopObj = ShopsPeer::doSelectOne($sc);
             if ($shopObj->getGcmKey() != "") {
                 new GcmLib("user_updated", array($shopObj->getGcmKey()));
@@ -535,4 +548,3 @@ class shopsActions extends sfActions {
     }
 
 }
-

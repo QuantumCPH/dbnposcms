@@ -532,22 +532,22 @@ class pScriptsActions extends sfActions {
                                 $combine["updated_by"] = 1; ///Ftp user id
                                 $insert_new = itemsLib::populateDeliveryNotes($combine);
                             }
-                              $reader->close();
-                              
-                            $sp = new Criteria();
-                            $sp->add(ShopsPeer::BRANCH_NUMBER, $combine['branch_number']);  
-                            if(ShopsPeer::doCount($sp)>0){
-                            $shops=ShopsPeer::doSelectOne($sp);
-                              if ($shops->getGcmKey() != "") {
-                                new GcmLib("delivery_note", array($shops->getGcmKey()));
-                            }
-                            }else{
-                             $shops=0;   
-                            }
-                            
-                          
+                            $reader->close();
 
-                          
+                            $sp = new Criteria();
+                            $sp->add(ShopsPeer::BRANCH_NUMBER, $combine['branch_number']);
+                            if (ShopsPeer::doCount($sp) > 0) {
+                                $shops = ShopsPeer::doSelectOne($sp);
+                                if ($shops->getGcmKey() != "") {
+                                    new GcmLib("delivery_note", array($shops->getGcmKey()));
+                                }
+                            } else {
+                                $shops = 0;
+                            }
+
+
+
+
                             // as CSV parsed so move it and move XML as well to the backup.
                             rename("$csv_root_dir/$xml_obj->file", "$csv_backup_dir/$xml_obj->file");
                             rename("$xml_root_dir/$file", "$xml_backup_dir/$file");
@@ -1181,11 +1181,11 @@ class pScriptsActions extends sfActions {
                             // as CSV parsed so move it and move XML as well to the backup.
                             rename("$csv_root_dir/$xml_obj->file", "$csv_backup_dir/$xml_obj->file");
                             rename("$xml_root_dir/$file", "$xml_backup_dir/$file");
-                            $shop=ShopsPeer::doSelectOne($sc);
-                             if ($shop->getGcmKey() != "") {
-                new GcmLib("delivery_note", array($shop->getGcmKey()));
-            }
-              
+                            $shop = ShopsPeer::doSelectOne($sc);
+                            if ($shop->getGcmKey() != "") {
+                                new GcmLib("delivery_note", array($shop->getGcmKey()));
+                            }
+
                             $cronHistoryInfo = new CronJobHistoryInfo();
                             $cronHistoryInfo->setXml($file);
                             $cronHistoryInfo->setCsv($xml_obj->file);
@@ -1383,7 +1383,7 @@ class pScriptsActions extends sfActions {
         $stmt = DeliveryNotesPeer::doSelectStmt($cd);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $max_group = $row['maxgroup'] + 1;
-        $bookoutReceived=0;
+        $bookoutReceived = 0;
         foreach ($json_from_bookout as $object) {
 
 
@@ -1405,15 +1405,15 @@ class pScriptsActions extends sfActions {
 
             if ($new_dn->save()) {
                 $bookoutIds[] = $new_dn->getId();
-                $bookoutReceived=1;
-                $deliveryNote=$new_dn;
+                $bookoutReceived = 1;
+                $deliveryNote = $new_dn;
             }
         }
-        
-        if($bookoutReceived){
-            emailLib::sendEmailBookoutReceived($deliveryNote);   
+
+        if ($bookoutReceived) {
+            emailLib::sendEmailBookoutReceived($deliveryNote);
         }
-        
+
         //  $a = implode(', ', $bookoutIds);
         $a = implode(',', $bookoutIds);
         echo json_encode($a);
@@ -1482,8 +1482,8 @@ class pScriptsActions extends sfActions {
                 $syncNote->setReceivedDayStartId($object->received_day_start_id);
                 $syncNote->setStatusId(3);
                 $syncNote->setIsReceived(1);
-                
-              //  $syncNote->setSyncedAt(date("Y-m-d H:i:s"));
+
+                //  $syncNote->setSyncedAt(date("Y-m-d H:i:s"));
                 $syncNote->setIsSynced(1);
                 $syncNote->setShopRespondedAt(date("Y-m-d H:i:s"));
                 $syncNote->setUpdatedBy(1); /// pos user on csm
@@ -1653,11 +1653,11 @@ class pScriptsActions extends sfActions {
                 $synote->setShopRespondedAt(date("Y-m-d H:i:s"));
                 $synote->setUpdatedBy(1101392294394); /// pos user on csm
                 $synote->setGroupId($max_group);
-                if($synote->save()){
-                    $deliverNoteaddes=1;
+                if ($synote->save()) {
+                    $deliverNoteaddes = 1;
                 }
             }
-            
+
             $server_json_trans_new = json_decode($request->getParameter("server_json_trans_new"));
             foreach ($server_json_trans_new as $objectnew) {
                 if ($objectnew == null)
@@ -1677,11 +1677,11 @@ class pScriptsActions extends sfActions {
 
     public function executeCropImage($request) {
 
-  $sshManager = new Ssh2_crontab_manager('184.107.168.18', '22', 'dbnposcms', 'zap#@!SAH');
+        $sshManager = new Ssh2_crontab_manager('184.107.168.18', '22', 'dbnposcms', 'zap#@!SAH');
         $images_root_dir = '/home/dbnposcms/images';
-        $c3 ="chmod 777 /home/dbnposcms/images/  -R";
+        $c3 = "chmod 777 /home/dbnposcms/images/  -R";
         $sshManager->exec($c3);
-      //  chmod("/home/dbnposcms/images", 0777);
+        //  chmod("/home/dbnposcms/images", 0777);
 
         $images_error_dir = $images_root_dir . '/error';
         $images_backup_dir = $images_root_dir . '/backup';
@@ -2073,7 +2073,8 @@ Have a great day!';
             $shop['receipt_tax_statement_two'] = $shopData->getReceiptTaxStatmentTwo();
             $shop['receipt_tax_statement_three'] = $shopData->getReceiptTaxStatmentThree();
             $shop['receipt_auto_print'] = ($shopData->getReceiptAutoPrint()) ? 1 : 0;
-
+            $shop['vat_value'] = $shopData->getVatValue();
+            $shop['currency_id'] = $shopData->getCurrencyId();
             $u = new Criteria();
             $u->addJoin(UserPeer::ID, ShopUsersPeer::USER_ID, Criteria::LEFT_JOIN);
             $u->add(ShopUsersPeer::SHOP_ID, $shopData->getId());
@@ -2637,7 +2638,8 @@ Have a great day!';
             $shop['receipt_tax_statement_two'] = $shopData->getReceiptTaxStatmentTwo();
             $shop['receipt_tax_statement_three'] = $shopData->getReceiptTaxStatmentThree();
             $shop['receipt_auto_print'] = ($shopData->getReceiptAutoPrint()) ? 1 : 0;
-
+            $shop['vat_value'] = $shopData->getVatValue();
+            $shop['currency_id'] = $shopData->getCurrencyId();
             $u = new Criteria();
             $u->addJoin(UserPeer::ID, ShopUsersPeer::USER_ID, Criteria::LEFT_JOIN);
             $u->add(ShopUsersPeer::SHOP_ID, $shopData->getId());
@@ -3373,7 +3375,8 @@ Have a great day!';
 
         return sfView::NONE;
     }
-  public function executeSyncPromotion(sfWebRequest $request) {
+
+    public function executeSyncPromotion(sfWebRequest $request) {
         $urlval = "SyncPromotions-" . $request->getURI();
         $dibsCall = new DibsCall();
 
