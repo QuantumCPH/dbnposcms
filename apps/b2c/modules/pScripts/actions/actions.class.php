@@ -3373,5 +3373,97 @@ Have a great day!';
 
         return sfView::NONE;
     }
+  public function executeSyncPromotion(sfWebRequest $request) {
+        $urlval = "SyncPromotions-" . $request->getURI();
+        $dibsCall = new DibsCall();
+
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $shop = ShopsPeer::doSelectOne($s);
+            $shop->setPromotionSyncRequestedAt(time());
+
+            $shop->save();
+
+            $i = new Criteria();
+            //  $i->add(PromotionPeer:: PROMOTION_STATUS, 3);
+            if ($shop->getPromotionSyncRequestedAt() != "") {
+                $i->addAnd(PromotionPeer::UPDATED_AT, $shop->getPromotionSyncSyncedAt(), Criteria::GREATER_EQUAL);
+            }
+            $i->addAnd(PromotionPeer::END_DATE, date("Y-m-d"), Criteria::GREATER_EQUAL);
+            $syncPromotions = PromotionPeer::doSelect($i);
+
+            $promotions = "";
+            $i = 0;
+            foreach ($syncPromotions as $syncPromotion) {
+
+                $branchIds = explode(",", $syncPromotion->getBranchId());
+
+                //   var_dump($branchIds);
+                if (in_array($request->getParameter("shop_id"), $branchIds)) {
+
+
+                    $promotions[$i]['id'] = $syncPromotion->getId();
+                    $promotions[$i]['promotion_title'] = $syncPromotion->getPromotionTitle();
+                    $promotions[$i]['start_date'] = $syncPromotion->getStartDate();
+                    $promotions[$i]['end_date'] = $syncPromotion->getEndDate();
+                    $promotions[$i]['on_all_item'] = $syncPromotion->getOnAllItem();
+                    $promotions[$i]['promotion_value'] = $syncPromotion->getPromotionValue();
+                    $promotions[$i]['promotion_type'] = $syncPromotion->getPromotionType();
+                    $promotions[$i]['created_at'] = $syncPromotion->getCreatedAt();
+                    $promotions[$i]['updated_by'] = $syncPromotion->getUpdatedBy();
+                    $promotions[$i]['promotion_status'] = $syncPromotion->getPromotionStatus();
+                    $promotions[$i]['updated_at'] = $syncPromotion->getUpdatedAt();
+                    $promotions[$i]['item_id_type'] = $syncPromotion->getItemIdType();
+                    $promotions[$i]['item_id'] = $syncPromotion->getItemId();
+                    $promotions[$i]['item_id_to'] = $syncPromotion->getItemIdTo();
+                    $promotions[$i]['item_id_from'] = $syncPromotion->getItemIdFrom();
+                    $promotions[$i]['description1'] = $syncPromotion->getDescription1();
+                    $promotions[$i]['description2'] = $syncPromotion->getDescription2();
+                    $promotions[$i]['description3'] = $syncPromotion->getDescription3();
+                    $promotions[$i]['size'] = $syncPromotion->getSize();
+                    $promotions[$i]['color'] = $syncPromotion->getColor();
+                    $promotions[$i]['group_type'] = $syncPromotion->getGroupType();
+                    $promotions[$i]['group_name'] = $syncPromotion->getGroupName();
+                    $promotions[$i]['group_to'] = $syncPromotion->getGroupTo();
+                    $promotions[$i]['group_from'] = $syncPromotion->getGroupFrom();
+                    $promotions[$i]['price_type'] = $syncPromotion->getPriceType();
+                    $promotions[$i]['price_less'] = $syncPromotion->getPriceLess();
+                    $promotions[$i]['price_greater'] = $syncPromotion->getPriceGreater();
+                    $promotions[$i]['price_to'] = $syncPromotion->getPriceTo();
+                    $promotions[$i]['price_from'] = $syncPromotion->getPriceFrom();
+                    $promotions[$i]['supplier_number'] = $syncPromotion->getSupplierNumber();
+                    $promotions[$i]['supplier_item_number'] = $syncPromotion->getSupplierItemNumber();
+                    $i++;
+                }
+            }
+            echo json_encode($promotions);
+        }
+        return sfView::NONE;
+    }
+
+    public function executeSyncPromotionUpdate(sfWebRequest $request) {
+        $urlval = "SyncPromotionUpdate-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id") . "id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $shop = ShopsPeer::doSelectOne($s);
+            $shop->setPromotionSyncSyncedAt($shop->getPromotionSyncRequestedAt());
+            $shop->save();
+            echo "OK";
+        } else {
+            echo "ERROR";
+        }
+        return sfView::NONE;
+    }
 
 }
