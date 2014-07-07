@@ -60,6 +60,10 @@ class BaseShopsForm extends BaseFormPropel
       'receipt_auto_print'             => new sfWidgetFormInputCheckbox(),
       'bookout_format_id'              => new sfWidgetFormInput(),
       'start_value_bookout'            => new sfWidgetFormInput(),
+      'promotion_sync_requested_at'    => new sfWidgetFormDateTime(),
+      'promotion_sync_synced_at'       => new sfWidgetFormDateTime(),
+      'vat_value'                      => new sfWidgetFormInput(),
+      'currency_id'                    => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -111,6 +115,10 @@ class BaseShopsForm extends BaseFormPropel
       'receipt_auto_print'             => new sfValidatorBoolean(array('required' => false)),
       'bookout_format_id'              => new sfValidatorInteger(array('required' => false)),
       'start_value_bookout'            => new sfValidatorInteger(array('required' => false)),
+      'promotion_sync_requested_at'    => new sfValidatorDateTime(array('required' => false)),
+      'promotion_sync_synced_at'       => new sfValidatorDateTime(array('required' => false)),
+      'vat_value'                      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'currency_id'                    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('shops[%s]');
