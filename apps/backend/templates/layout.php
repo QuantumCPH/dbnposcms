@@ -118,8 +118,17 @@
                       <li class="<?php echo ($modulName=="items"&&$actionName=="itemExport")?'active active_imports':'imports'?>">
                          <a href="<?php echo sfConfig::get("app_admin_url"); ?>items/itemExport"> Export</a>
                       </li>
+                    
+                    <?php 
+                    }
+                     if(in_array("12_index",$permissions) || in_array("12_new",$permissions) || in_array("12_edit",$permissions)){
+                    ?>
+                        <li class="<?php echo (($modulName=="promotion"&&$actionName=="index") || ($modulName=="promotion"&&$actionName=="new") || ($modulName=="promotion"&&$actionName=="edit"))?'active active_users':'user-mng'?>">
+                           <a href="<?php echo sfConfig::get("app_admin_url"); ?>promotion/index">Promotions</a>
+                        </li>
                     <?php
                     }
+                   
                     ?>
                     <li class="<?php echo ($modulName=="voucher")?'active active_imports':'imports'?>">
                          <a href="<?php echo sfConfig::get("app_admin_url"); ?>voucher/index"> Gift Vouchers</a>

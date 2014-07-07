@@ -8,7 +8,7 @@ require_once('connection.php');
  * Copyright: 2010 - Allan Jardine
  * License:   GPL v2 or BSD (3-point)
  */
- 
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Easy set variables
  */
@@ -16,7 +16,7 @@ require_once('connection.php');
 /* Array of database columns which should be read and sent back to DataTables. Use a space where
  * you want to insert a non-database field (for example a counter or static image)
  */
-$aColumns = array("transactions.id", "transactions.quantity",   "transactions.sold_price" ,   "transactions.selling_price");
+$aColumns = array("transactions.id", "transactions.quantity", "transactions.sold_price", "transactions.selling_price");
 
 /* Indexed column (used for fast and accurate table cardinality) */
 $sIndexColumn = "transactions.id";
@@ -24,14 +24,14 @@ $sIndexColumn = "transactions.id";
 /* DB table to use */
 $sTable = "transactions";
 
-$sJoin ="";
+$sJoin = "";
 
 //$sJoin = 'LEFT JOIN order_payments   ON order_payments.payment_type_id =payment_types.id';
 //$sJoin .= ' LEFT JOIN user   ON user.id = transactions.user_id ';
 //$sJoin .= ' RIGHT JOIN order_payments   ON order_payments.id = transactions.order_id ';
 //$sJoin .= ' LEFT JOIN payment_types   ON payment_types.id = order_payments.payment_type_id ';
 
- 
+
 /*
  * Paging
  */
@@ -82,10 +82,10 @@ if ($_GET['sSearch'] != "") {
                     $sWhere .= $aColumns[$i] . " = '" . mysql_real_escape_string($numpricve) . "' OR ";
                 }
             } else {
-               // $sWhere .= $aColumns[$i] . " LIKE '" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
+                // $sWhere .= $aColumns[$i] . " LIKE '" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
             }
         } else {
-            
+
             $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
         }
     }
@@ -97,38 +97,36 @@ if ($_GET['sSearch'] != "") {
 /* Individual column filtering */
 for ($i = 0; $i < count($aColumns); $i++) {
     if ($_GET['bSearchable_' . $i] == "true" && $_GET['sSearch_' . $i] != '') {
-        if($_GET['sSearch_' . $i]!="~"){
-        if ($sWhere == "") {
-            $sWhere = "WHERE ";
-        } else {
-            $sWhere .= " AND ";
+        if ($_GET['sSearch_' . $i] != "~") {
+            if ($sWhere == "") {
+                $sWhere = "WHERE ";
+            } else {
+                $sWhere .= " AND ";
+            }
         }
-        }
-         
- 
-         $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";    
-         
-         
+
+
+        $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
     }
 }
 //
-  if ($sWhere == "") {
-     $startDate=$_REQUEST['startDate']." 00:00:00";
-      $endDate=$_REQUEST['endDate']." 23:59:59";
-            $sWhere = "WHERE   transactions.status_id=3 AND (transactions.transaction_type_id=3 OR transactions.transaction_type_id=2) AND transactions.created_at>='".mysql_real_escape_string($startDate)."'";
-                    $sWhere .= " AND transactions.created_at<='".$endDate."'" ;
-        } else {
-            $sWhere .= "  AND (transactions.transaction_type_id=3 OR transactions.transaction_type_id=2) AND transactions.status_id=3 AND transactions.created_at>='".$startDate."'" ;
-             $sWhere .= " AND transactions.created_at<='".$endDate."'" ;
-        }
-     
-       
-        
+if ($sWhere == "") {
+    $startDate = $_REQUEST['startDate'] . " 00:00:00";
+    $endDate = $_REQUEST['endDate'] . " 23:59:59";
+    $sWhere = "WHERE   transactions.status_id=3 AND (transactions.transaction_type_id=3 OR transactions.transaction_type_id=2) AND transactions.created_at>='" . mysql_real_escape_string($startDate) . "'";
+    $sWhere .= " AND transactions.created_at<='" . $endDate . "'";
+} else {
+    $sWhere .= "  AND (transactions.transaction_type_id=3 OR transactions.transaction_type_id=2) AND transactions.status_id=3 AND transactions.created_at>='" . $startDate . "'";
+    $sWhere .= " AND transactions.created_at<='" . $endDate . "'";
+}
+
+
+
 /*
  * SQL queries
  * Get data to display
  */
-        $sGroup="";
+$sGroup = "";
 $sQuery = "
 		SELECT SQL_CALC_FOUND_ROWS " . str_replace(" , ", " ", implode(", ", $aColumns)) . "
 		FROM   $sTable
@@ -138,9 +136,9 @@ $sQuery = "
 		$sOrder
 		$sLimit
 	";
- 
-  $sQuery;
- 
+
+$sQuery;
+
 
 $rResult = mysql_query($sQuery, $gaSql['link']) or die(mysql_error());
 
@@ -166,8 +164,8 @@ $sQuery = "
 $rResultTotal = mysql_query($sQuery, $gaSql['link']) or die(mysql_error());
 $aResultTotal = mysql_fetch_array($rResultTotal);
 $iTotal = $aResultTotal[0];
-$iTotal =1;
-$iFilteredTotal=1;
+$iTotal = 1;
+$iFilteredTotal = 1;
 $output = array(
     "sEcho" => intval($_GET['sEcho']),
     "iTotalRecords" => $iTotal,
@@ -175,57 +173,58 @@ $output = array(
     "aaData" => array()
 );
 
-$amounttotal=0;
-$transactiontnumber=0;
+$selquery = "select * from system_config where id=6";
+$resulttset = mysql_query($selquery, $gaSql['link']) or die(mysql_error());
+$rowsetResult = mysql_fetch_array($resulttset);
+$vatValue = $rowsetResult['values'];
+$amounttotal = 0;
+$transactiontnumber = 0;
 while ($aRow = mysql_fetch_array($rResult)) {
     $row = array();
-  //var_dump($aRow);
+    //var_dump($aRow);
     for ($i = 0; $i < count($aColumns); $i++) {
-        $col = explode('.',$aColumns[$i]);
-      
-        
-         if ($aColumns[$i] == "transactions.id") {
-    
-    $row[] ="Tax";
-                    
-         }elseif($aColumns[$i] == "transactions.quantity"){
-            $row[] ="Vat 19%";
-          }elseif($aColumns[$i] == "transactions.sold_price"){
-                    $idtypemethod= $aRow['id'];
- 
-		 $sQueryTotal =' 
+        $col = explode('.', $aColumns[$i]);
+
+
+        if ($aColumns[$i] == "transactions.id") {
+
+            $row[] = "Tax";
+        } elseif ($aColumns[$i] == "transactions.quantity") {
+            $row[] = "Vat " . $vatValue . " %";
+        } elseif ($aColumns[$i] == "transactions.sold_price") {
+            $idtypemethod = $aRow['id'];
+
+            $sQueryTotal = ' 
  select round(sum(sold_price),2) as soldprice  FROM transactions     WHERE     transactions.status_id=3 AND (transactions.transaction_type_id=3 OR transactions.transaction_type_id=2)   AND transactions.created_at>="' . $startDate . '"   AND transactions.created_at<="' . $endDate . '"';
 
-   $sQueryTotal;
+            $sQueryTotal;
 //die; 
 //         echo "kkkkkkkk".$aRow['item_id']; 
 // die;
-$rsTotal = mysql_query($sQueryTotal, $gaSql['link']) or die(mysql_error());
- $rowTotal = mysql_fetch_array($rsTotal); 
-         
-            $row[] =$rowTotal['soldprice']*19/100; 
-            $amounttotalvat=$rowTotal['soldprice']*19/100; 
-         }elseif($aColumns[$i] == "transactions.selling_price"){
-             
-            $row[] =$rowTotal['soldprice'];        
-            $amounttotal=$rowTotal['soldprice']; 
-         } 
-       
+            $rsTotal = mysql_query($sQueryTotal, $gaSql['link']) or die(mysql_error());
+            $rowTotal = mysql_fetch_array($rsTotal);
+
+            $row[] = $rowTotal['soldprice'] * $vatValue / 100;
+            $amounttotalvat = $rowTotal['soldprice'] * $vatValue / 100;
+        } elseif ($aColumns[$i] == "transactions.selling_price") {
+
+            $row[] = $rowTotal['soldprice'];
+            $amounttotal = $rowTotal['soldprice'];
+        }
     }
     $output['aaData'][] = $row;
     break;
- 
 }
 
-  $row = array();
- $row[] = "<b> Total </b>";
- 
-      
-         $row[] ="";
-  $row[] ="<b> ". $amounttotalvat." </b>";
-  $row[] ="<b> ". $amounttotal." </b>";
-   
-  
- $output['aaData'][] = $row; 
+$row = array();
+$row[] = "<b> Total </b>";
+
+
+$row[] = "";
+$row[] = "<b> " . $amounttotalvat . " </b>";
+$row[] = "<b> " . $amounttotal . " </b>";
+
+
+$output['aaData'][] = $row;
 echo json_encode($output);
 ?>
