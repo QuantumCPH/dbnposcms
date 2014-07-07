@@ -61,6 +61,10 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'receipt_auto_print'             => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'bookout_format_id'              => new sfWidgetFormFilterInput(),
       'start_value_bookout'            => new sfWidgetFormFilterInput(),
+      'promotion_sync_requested_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
+      'promotion_sync_synced_at'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
+      'vat_value'                      => new sfWidgetFormFilterInput(),
+      'currency_id'                    => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -111,6 +115,10 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'receipt_auto_print'             => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'bookout_format_id'              => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'start_value_bookout'            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'promotion_sync_requested_at'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'promotion_sync_synced_at'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'vat_value'                      => new sfValidatorPass(array('required' => false)),
+      'currency_id'                    => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('shops_filters[%s]');
@@ -176,6 +184,10 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'receipt_auto_print'             => 'Boolean',
       'bookout_format_id'              => 'Number',
       'start_value_bookout'            => 'Number',
+      'promotion_sync_requested_at'    => 'Date',
+      'promotion_sync_synced_at'       => 'Date',
+      'vat_value'                      => 'Text',
+      'currency_id'                    => 'Text',
     );
   }
 }

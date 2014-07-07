@@ -1,18 +1,19 @@
 <?php
 
 /**
- * Promotion form base class.
+ * PromotionLog form base class.
  *
  * @package    zapnacrm
  * @subpackage form
  * @author     Your name here
  */
-class BasePromotionForm extends BaseFormPropel
+class BasePromotionLogForm extends BaseFormPropel
 {
   public function setup()
   {
     $this->setWidgets(array(
       'id'                   => new sfWidgetFormInputHidden(),
+      'promotion_id'         => new sfWidgetFormInput(),
       'promotion_title'      => new sfWidgetFormInput(),
       'start_date'           => new sfWidgetFormDate(),
       'end_date'             => new sfWidgetFormDate(),
@@ -48,7 +49,8 @@ class BasePromotionForm extends BaseFormPropel
     ));
 
     $this->setValidators(array(
-      'id'                   => new sfValidatorPropelChoice(array('model' => 'Promotion', 'column' => 'id', 'required' => false)),
+      'id'                   => new sfValidatorPropelChoice(array('model' => 'PromotionLog', 'column' => 'id', 'required' => false)),
+      'promotion_id'         => new sfValidatorInteger(array('required' => false)),
       'promotion_title'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'start_date'           => new sfValidatorDate(array('required' => false)),
       'end_date'             => new sfValidatorDate(array('required' => false)),
@@ -83,7 +85,7 @@ class BasePromotionForm extends BaseFormPropel
       'branch_id'            => new sfValidatorString(array('required' => false)),
     ));
 
-    $this->widgetSchema->setNameFormat('promotion[%s]');
+    $this->widgetSchema->setNameFormat('promotion_log[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -92,7 +94,7 @@ class BasePromotionForm extends BaseFormPropel
 
   public function getModelName()
   {
-    return 'Promotion';
+    return 'PromotionLog';
   }
 
 
