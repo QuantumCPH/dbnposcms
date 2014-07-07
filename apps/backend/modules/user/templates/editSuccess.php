@@ -59,6 +59,18 @@
                 }
 
             });
+            
+            
+               $('#user_is_super_user').click(function(){
+    if (this.checked) {
+        $('.emailNotificationContainer').show();
+    }else{
+      $('.emailNotificationContainer').hide();
+     
+    }
+       });  
+            
+            
         });
     </script>
     <form action="<?php echo url_for('user/edit?id=' . $form->getObject()->getId()) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?> id="frmUser">
@@ -268,15 +280,6 @@
             ?>  
 
             <?php if ($curr_user->getIsSuperUser()): ?>
-
-                <div class="lblleft addedit"><?php echo $form['is_super_user']->renderLabel("Administrator") ?>:&nbsp;</div>
-                <div class="lblright">
-                    <div class="col-lg-6">
-                        <?php echo $form['is_super_user']->renderError() ?>
-                        <?php echo $form['is_super_user']->render(array('class' => "")) ?>
-                    </div>
-                </div> 
-                <br clear="all" />
                 <div class="lblleft addedit"><?php echo $form['pos_super_user']->renderLabel("POS Administrator") ?>:&nbsp;</div>
                 <div class="lblright">
                     <div class="col-lg-6">
@@ -286,10 +289,100 @@
                             <input type="checkbox"    name="pos_super_user" />
                         <?php } ?>
                     </div>
+                </div>
+                <br clear="all" />
+                <div class="lblleft addedit"><?php echo $form['is_super_user']->renderLabel("Administrator") ?>:&nbsp;</div>
+                <div class="lblright">
+                    <div class="col-lg-6">
+                        <?php echo $form['is_super_user']->renderError() ?>
+                        <?php echo $form['is_super_user']->render(array('class' => "")) ?>
+                    </div>
                 </div> 
+                
+ 
             <?php endif; ?>
             <br clear="all" />
-
+            
+            <div class="emailNotificationContainer" <?php if($user->getIsSuperUser()){ ?>style="display: block;"<?php }else{ ?> style="display: none;"  <?php } ?>     >
+  <br clear="all" />  <br clear="all" />
+            <h2>Email Notification</h2>
+               <div class="lblleft addedit"><?php echo $form['deliverynote_ok_email']->renderLabel("DeliveryNote Ok") ?>:&nbsp;</div>
+                <div class="lblright">
+                    <div class="col-lg-6">
+                        <?php echo $form['deliverynote_ok_email']->renderError() ?>
+                        <?php echo $form['deliverynote_ok_email']->render(array('class' => "")) ?>
+                           
+                    </div>
+                </div>
+                <div class="lblleft addedit"><?php echo $form['bookout_ok_email']->renderLabel("BookOut Ok") ?>:&nbsp;</div>
+                <div class="lblright">
+                    <div class="col-lg-6">
+                        <?php echo $form['bookout_ok_email']->renderError() ?>
+                        <?php echo $form['bookout_ok_email']->render(array('class' => "")) ?>
+                           
+                    </div>
+                </div>
+                
+             <br clear="all" />
+              <div class="lblleft addedit"><?php echo $form['deliverynote_change_email']->renderLabel("DeliveryNote Change") ?>:</div>
+                <div class="lblright">
+                    <div class="col-lg-6">
+                        <?php echo $form['deliverynote_change_email']->renderError() ?>
+                        <?php echo $form['deliverynote_change_email']->render(array('class' => "")) ?>
+                    </div>
+                </div> 
+               
+                <div class="lblleft addedit"><?php echo $form['bookout_change_email']->renderLabel("BookOut Change") ?>:&nbsp;</div>
+                <div class="lblright">
+                    <div class="col-lg-6">
+                        <?php echo $form['bookout_change_email']->renderError() ?>
+                        <?php echo $form['bookout_change_email']->render(array('class' => "")) ?>
+                    </div>
+                </div> 
+              <br clear="all" />
+               <div class="lblleft addedit"><?php echo $form['sale_email']->renderLabel("Sale") ?>:&nbsp;</div>
+                <div class="lblright">
+                    <div class="col-lg-6">
+                        <?php echo $form['sale_email']->renderError() ?>
+                        <?php echo $form['sale_email']->render(array('class' => "")) ?>
+                           
+                    </div>
+                </div>
+                 <div class="lblleft addedit"><?php echo $form['bookout_sync_email']->renderLabel("BookOut Sync") ?>:&nbsp;</div>
+                <div class="lblright">
+                    <div class="col-lg-6">
+                        <?php echo $form['bookout_sync_email']->renderError() ?>
+                        <?php echo $form['bookout_sync_email']->render(array('class' => "")) ?>
+                    </div>
+                </div> 
+               
+              <br clear="all" />
+                <div class="lblleft addedit"><?php echo $form['daystart_email']->renderLabel("DayStart") ?>:&nbsp;</div>
+                <div class="lblright">
+                    <div class="col-lg-6">
+                        <?php echo $form['daystart_email']->renderError() ?>
+                        <?php echo $form['daystart_email']->render(array('class' => "")) ?>
+                    </div>
+                </div> 
+               <div class="lblleft addedit"><?php echo $form['setting_email']->renderLabel("Setting Change ") ?>:&nbsp;</div>
+                <div class="lblright">
+                    <div class="col-lg-6">
+                        <?php echo $form['setting_email']->renderError() ?>
+                        <?php echo $form['setting_email']->render(array('class' => "")) ?>
+                    </div>
+                </div> 
+             
+                <br clear="all" />
+               <div class="lblleft addedit"><?php echo $form['dayend_email']->renderLabel("DayEnd") ?>:&nbsp;</div>
+                <div class="lblright">
+                    <div class="col-lg-6">
+                        <?php echo $form['dayend_email']->renderError() ?>
+                        <?php echo $form['dayend_email']->render(array('class' => "")) ?>
+                           
+                    </div>
+                </div>
+                 </div>
+               
             <?php echo $form->renderHiddenFields() ?>          
             <ul class="sf_admin_actions"><li></li></ul>
 

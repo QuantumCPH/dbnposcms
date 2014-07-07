@@ -50,6 +50,23 @@
          ?>      
              </select>  
          <?php
+          }elseif(strtolower($setting->getKeys())=="currency"){
+              $currenies = CurrenciesPeer::doSelect(new Criteria);
+          ?>                   
+             <select name="values" class="form-control" required="required">
+         <?php    
+              foreach($currenies as $curreny){
+         ?>  
+                <option value="<?php echo $curreny->getId(); ?>" <?php echo $curreny->getId()==$setting->getValues()?"selected='selected'":''?>><?php echo $curreny->getCurrencyTitle();?></option>
+          <?php
+              }
+         ?>      
+             </select>  
+         <?php
+          }elseif(strtolower($setting->getKeys())=="vat percentage"){ 
+              ?>
+            <input type="text" value="<?php echo $setting->getValues();?>" name="values" class="form-control required number"   />  
+            <?php
           }else{
         ?>
              <select name="values" class="form-control" required="required">

@@ -60,6 +60,27 @@ class system_configActions extends sfActions
         $setting->setKeys($key);
         $setting->setValues($value);
         $setting->save();
+        if($setting->getId()==6){
+             $shops = ShopsPeer::doSelect(new Criteria);
+             foreach ($shops as $shop){
+              $shop->setVatValue($setting->getValues());
+                $shop->save(); 
+                 
+             }
+            
+            
+        }
+        if($setting->getId()==7){
+             $shops = ShopsPeer::doSelect(new Criteria);
+             foreach ($shops as $shop){
+              $shop->setCurrencyId($setting->getValues());
+                $shop->save(); 
+                 
+             }
+            
+            
+        }
+        
         $this->getUser()->setFlash('message', 'Settings updated');         
       }
       $this->redirect('system_config/edit?id='.$setting->getId());

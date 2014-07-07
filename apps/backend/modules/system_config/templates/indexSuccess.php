@@ -36,6 +36,11 @@
           if($language){
               echo $language->getTitle();
           }           
+      }elseif(strtolower($system_config->getKeys())=="currency"){
+          $currency = CurrenciesPeer::retrieveByPK($system_config->getValues());
+          if($currency){
+              echo $currency->getCurrencyTitle();
+          }           
       }else{
            echo $system_config->getValues();
       }

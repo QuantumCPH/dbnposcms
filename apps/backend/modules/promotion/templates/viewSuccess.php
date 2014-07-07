@@ -22,9 +22,12 @@
         $('#myTable').dataTable({
             "bProcessing": true,
             "bServerSide": true,
-            "sAjaxSource": "<?php echo sfConfig::get('app_web_url') ?>server_processing_promotion.php",
+            "sAjaxSource": "<?php echo sfConfig::get('app_web_url') ?>server_processing_promotionLog.php",
              "sPaginationType": "full_numbers",
             "sDom": 'T<"clear">lfrtip',
+            "fnServerParams": function(aoData) {
+                aoData.push({"name": "promotion_id", "value": <?php echo $promotion->getId(); ?>});
+            },
             "oTableTools": {
                 "sSwfPath": "<?php echo sfConfig::get("app_web_url") ?>media/swf/copy_csv_xls.swf",
                 "aButtons": [
@@ -45,10 +48,10 @@
 
 <div class="itemslist">
 
-    <h1 class="items-head list-page"><img src="<?php echo sfConfig::get('app_web_url') . 'images/delivery_notes_title.png' ?>" align="left" />&nbsp;<span>Promotions</span></h1>
+    <h1 class="items-head list-page"><img src="<?php echo sfConfig::get('app_web_url') . 'images/delivery_notes_title.png' ?>" align="left" />&nbsp;<span>Promotion Log</span></h1>
 </div>
 <div  class="backimgDiv">
-      <input type="button" onclick="document.location.href='<?php echo sfConfig::get("app_admin_url");?>promotion/new';" value="Add Promotion" class="btn btn-primary"/>
+      <input type="button" onclick="document.location.href='<?php echo sfConfig::get("app_admin_url");?>promotion/index';" value="View Promotion" class="btn btn-primary"/>
   </div>
 <div class="itemslist listviewpadding">
     <?php if ($sf_user->hasFlash('access_error')): ?>
@@ -70,14 +73,15 @@
         <thead>
             <tr>
                 
-                <th>Promotion title</th>
+                <th>Promotion Title</th>
                 <th>Start date 	</th>
                 <th>End date</th>                
-                <th>Promotion tye</th>
+                <th>Promotion  Type</th>
                 <th>Promotion value</th>
-                <th>Updated At</th>
+              
+                <th>Created At</th>
                 <th>Updated By</th>
-                <th>Action</th>
+                  <th>Action</th>
             </tr>
 
         </thead>
