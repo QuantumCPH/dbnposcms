@@ -78,7 +78,7 @@
                 <th>End date</th>                
                 <th>Promotion  Type</th>
                 <th>Promotion value</th>
-               <th>Promotion type</th>
+               <th>Promotion Status</th>
                 <th>Created At</th>
                 <th>Updated By</th>
                   <th>Action</th>
