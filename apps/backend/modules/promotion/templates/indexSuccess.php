@@ -73,8 +73,9 @@
                 <th>Promotion title</th>
                 <th>Start date 	</th>
                 <th>End date</th>                
-                <th>Promotion tye</th>
+                <th>Promotion type</th>
                 <th>Promotion value</th>
+               <th>Promotion Status</th>
                 <th>Updated At</th>
                 <th>Updated By</th>
                 <th>Action</th>

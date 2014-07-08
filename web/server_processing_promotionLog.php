@@ -12,17 +12,17 @@ require_once('connection.php');
 /* Array of database columns which should be read and sent back to DataTables. Use a space where
  * you want to insert a non-database field (for example a counter or static image)
  */
-$aColumns = array('promotion.promotion_title', 'promotion.start_date', 'promotion.end_date', 'promotion_type.promotion_type_title','promotion.promotion_value','promotion_statuses.promotion_status_title','promotion.updated_at','promotion.updated_by', 'promotion.id');
+$aColumns = array('promotion_log.promotion_title', 'promotion_log.start_date', 'promotion_log.end_date', 'promotion_type.promotion_type_title','promotion_log.promotion_value','promotion_statuses.promotion_status_title','promotion_log.updated_at','promotion_log.updated_by','promotion_log.id');
 
 /* Indexed column (used for fast and accurate table cardinality) */
-$sIndexColumn = "promotion.id";
+$sIndexColumn = "promotion_log.id";
 
 /* DB table to use */
-$sTable = "promotion";
+$sTable = "promotion_log";
 
 
- $sJoin = ' LEFT JOIN promotion_type   ON promotion_type.id = promotion.promotion_type ';
- $sJoin .= ' LEFT JOIN promotion_statuses   ON promotion_statuses.id = promotion.promotion_status ';
+ $sJoin = ' LEFT JOIN promotion_type   ON promotion_type.id = promotion_log.promotion_type ';
+ $sJoin .= ' LEFT JOIN promotion_statuses   ON promotion_statuses.id = promotion_log.promotion_status ';
 /* Database connection information */
 
 //$gaSql['user'] = "root";
@@ -93,11 +93,11 @@ if ($_GET['sSearch'] != "") {
         }
     }
    
-        $sWhere .=  "  promotion.description1 LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
-         $sWhere .=  "  promotion.description2 LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
-          $sWhere .=  "  promotion.description3 LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
+        $sWhere .=  "  promotion_log.description1 LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
+         $sWhere .=  "  promotion_log.description2 LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
+          $sWhere .=  "  promotion_log.description3 LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
           
-             $sWhere .=  "  promotion.color LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
+             $sWhere .=  "  promotion_log.color LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
     $sWhere = substr_replace($sWhere, "", -3);
     $sWhere .= ')';
 }
@@ -114,6 +114,12 @@ for ($i = 0; $i < count($aColumns); $i++) {
     }
 }
 
+
+ if ($sWhere == "") {
+            $sWhere = "WHERE  promotion_log.promotion_id='".$_GET['promotion_id']."'" ;
+        } else {
+            $sWhere .= " AND   promotion_log.promotion_id='".$_GET['promotion_id']."'" ;
+        }
 
 //$sWhere .=" Group by delivery_notes.note_id";
 /*
@@ -169,8 +175,7 @@ while ($aRow = mysql_fetch_array($rResult)) {
             
             
                                 
-                    $actions = "<a href=".$siteUrl."backend.php/promotion/edit?id=" . $aRow['id'] . " ><img src='".$siteUrl."sf/sf_admin/images/edit_icon.png' /></a>";
-                    $actions .= "<a href=".$siteUrl."backend.php/promotion/view?id=" . $aRow['id'] . " ><img src='".$siteUrl."sf/sf_admin/images/view_icon.png' /></a>";
+                    $actions = "<a href=".$siteUrl."backend.php/promotion/viewLog?id=" . $aRow['id'] . " ><img src='".$siteUrl."sf/sf_admin/images/view_icon.png' /></a>";
                    
                 
                     $row[] = $actions;
