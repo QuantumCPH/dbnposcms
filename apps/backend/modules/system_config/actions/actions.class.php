@@ -64,7 +64,9 @@ class system_configActions extends sfActions
              $shops = ShopsPeer::doSelect(new Criteria);
              foreach ($shops as $shop){
               $shop->setVatValue($setting->getValues());
-                $shop->save(); 
+                 if ($shop->save()) {
+            new GcmLib("shop_updated", array($shop->getGcmKey()));
+        } 
                  
              }
             
