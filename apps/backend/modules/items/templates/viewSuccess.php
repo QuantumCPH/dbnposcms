@@ -31,7 +31,7 @@
                 aoData.push({"name": "item_id", "value": $("#itemId").val()});
             }
 
-        }).columnFilter({aoColumns: [{type: "text"}, null, null, {type: "text"}, null, {type: "text"}, {type: "text"},
+       }).columnFilter({aoColumns: [{type: "text"}, null, null, {type: "text"}, null,null,{type: "text"}, {type: "text"},
                 {type: "date-range"},
                 null
 
@@ -305,7 +305,7 @@
     <h1 class="items-head" id="sales-head"><img src="<?php echo sfConfig::get('app_web_url') . 'images/sale_over.png' ?>" />&nbsp;Sale
         <span id="headingarrow2" class="headingarrow"><img src="<?php echo sfConfig::get("app_web_url") ?>images/arrow-right.png" /></span>
     </h1>  
-    <div class="regForm" id="sales-block">
+      <div class="regForm" id="sales-block">
         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="myTablesale" >
             <thead>
                 <tr>
@@ -314,6 +314,7 @@
                     <th>Quantity</th>
                     <th>User</th>
                     <th>Item</th>
+                     <th>Description</th>
                     <th>Status</th>
                     <th>Type</th>
                     <th>Date</th>
@@ -333,6 +334,7 @@
                 <th>Quantity</th>
                 <th>User</th>
                 <th>Item</th>
+                   <th>Description</th>
                 <th>Status</th>
                 <th>Type</th>
                 <th>Date</th>
