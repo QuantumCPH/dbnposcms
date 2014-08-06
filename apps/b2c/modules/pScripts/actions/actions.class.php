@@ -3469,4 +3469,57 @@ Have a great day!';
         return sfView::NONE;
     }
 
+    public function executeSyncStockUpdate(sfWebRequest $request) {
+        $urlval = "SyncStockUpdate-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id") . "id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $shop_id = $request->getParameter("shop_id");
+        $stock_id = $request->getParameter("stock_id");
+        $stocks_taking_json = json_decode($request->getParameter("server_json_stock_taking"));
+
+        $i = 0;
+        $a = "";
+        $dayEndIds = "";
+        $dayEndVar = 0;
+        $stockTakingIds = "";
+
+        
+          $s = new Criteria();
+        $s->add(StocksPeer::STOCK_ID, (int) $stock_id);
+        if (StocksPeer::doCount($s) == 1) {
+         echo "stock Id already Exist";
+        }else{
+        $db_stocks = new Stocks();
+        $db_stocks->setStockId($stock_id);
+        $db_stocks->setShopId($shop_id);
+        $db_stocks->setUpdatedBy($request->getParameter("updated_by"));
+        if ($db_stocks->save()) {
+
+            foreach ($stocks_taking_json as $stock_taking_json) {
+
+                $db_stockItem = new StockItems();
+                $db_stockItem->setCmsItemId($stock_taking_json->cms_item_id);
+                $db_stockItem->setItemId($stock_taking_json->item_id);
+                $db_stockItem->setTotalQty($stock_taking_json->total_qty);
+                $db_stockItem->setSoldQty($stock_taking_json->sold_qty);
+                $db_stockItem->setReturnQty($stock_taking_json->return_qty);
+                $db_stockItem->setRemainingQty($stock_taking_json->remaining_qty);
+                $db_stockItem->setBookoutQty($stock_taking_json->bookout_qty);
+                $db_stockItem->setStockQty($stock_taking_json->stock_qty);
+                $db_stockItem->setStockId($db_stocks->getId());
+                $db_stockItem->save();
+                
+            }
+
+            echo "OK";
+        }
+
+        }
+              
+        return sfView::NONE;
+    }
+
 }

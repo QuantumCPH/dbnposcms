@@ -107,4 +107,10 @@ class transactionsActions extends sfActions
   {
       
   } 
+    public function executeStockReport(sfWebRequest $request)
+  {
+        $this->stock_table_id=$request->getParameter('id');
+        
+        $this->stock=StocksPeer::retrieveByPK($request->getParameter('id'));
+  } 
 }

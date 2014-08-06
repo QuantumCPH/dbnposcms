@@ -13,14 +13,14 @@
                 aoData.push({"name": "shop_id", "value": <?php echo $shops->getId(); ?>});
             }
 
-        }).columnFilter({aoColumns: [null, null, null, {type: "text"}, {type: "text"}, {type: "text"}, {type: "text"},
+        }).columnFilter({aoColumns: [null, null, null, {type: "text"},{type: "text"}, {type: "text"}, {type: "text"}, {type: "text"},
                 {type: "date-range"},
                 null
 
             ]
 
         });
-        oTable.fnSort([[7, 'desc']]);
+        oTable.fnSort([[8, 'desc']]);
         $.extend($.fn.dataTableExt.oStdClasses, {
             "sWrapper": "dataTables_wrapper form-inline"
         });
@@ -49,6 +49,20 @@
                 }
             });
         });
+ $("#stock-head").click(function() {
+            var toggle_switch = $("#headingarrow2 img");
+            $("#stock-block").toggle(function() {
+                if ($(this).css('display') == 'none') {
+                    toggle_switch.attr("src", toggle_switch.attr("src").replace("<?php echo sfConfig::get("app_web_url") ?>images/arrow-down.png", "<?php echo sfConfig::get("app_web_url") ?>images/arrow-right.png"));
+                } else {
+                    toggle_switch.attr("src", toggle_switch.attr("src").replace("<?php echo sfConfig::get("app_web_url") ?>images/arrow-right.png", "<?php echo sfConfig::get("app_web_url") ?>images/arrow-down.png"));
+                }
+            });
+        });
+
+
+
+
 
     });
 
@@ -99,16 +113,11 @@
         <div class="lblright">
             <div class="inputValue col-lg-6"><?php echo $shops->getCompanyNumber() ?></div>
         </div> 
-        <div class="lblleft">Is configured:&nbsp;</div>
+                <div class="lblleft">Password:&nbsp;</div>
         <div class="lblright">
-            <div class="inputValue col-lg-6"><?php
-                if ($shops->getIsConfigured() == 1) {
-                    echo "yes";
-                } else {
-                    echo "No";
-                }
-                ?></div>
-        </div>
+            <div class="inputValue col-lg-6"><?php echo $shops->getPassword() ?></div>
+        </div> 
+        
         <br clear="all" />         
         <div class="lblleft">Created by:&nbsp;</div>
         <div class="lblright">
@@ -129,10 +138,16 @@
             <div class="inputValue col-lg-6"><?php echo $shops->getConfiguredAt(); ?></div>
         </div> 
         <br clear="all" />
-        <div class="lblleft">Password:&nbsp;</div>
+<div class="lblleft">Is configured:&nbsp;</div>
         <div class="lblright">
-            <div class="inputValue col-lg-6"><?php echo $shops->getPassword() ?></div>
-        </div> 
+            <div class="inputValue col-lg-6"><?php
+                if ($shops->getIsConfigured() == 1) {
+                    echo "yes";
+                } else {
+                    echo "No";
+                }
+                ?></div>
+        </div>
 
         <div class="lblleft">Status:&nbsp;</div>
         <div class="lblright">
@@ -192,29 +207,22 @@
         <div class="lblright">
             <div class="inputValue col-lg-6"><?php echo $shops->getStartValueSaleReceipt() ?></div>
         </div> 
-        <div class="lblleft">Start Value Return Receipt:&nbsp;</div>
+        <div class="lblleft">Start Value Bookout:&nbsp;</div>
         <div class="lblright">
-            <div class="inputValue col-lg-6"><?php echo $shops->getStartValueReturnReceipt() ?></div>
-        </div>
+            <div class="inputValue col-lg-6"><?php echo $shops->getStartValueBookout() ?></div>
+        </div> 
         <br clear="all" />
 
         <div class="lblleft">Sale Receipt Format:&nbsp;</div>
         <div class="lblright">
             <div class="inputValue col-lg-6"><?php if ($shops->getSaleReceiptFormatId()) echo ReceiptFormatsPeer::retrieveByPK($shops->getSaleReceiptFormatId())->getTitle(); ?></div>
         </div>  
-        <div class="lblleft">Return Receipt Format:&nbsp;</div>
-        <div class="lblright">
-            <div class="inputValue col-lg-6"><?php if ($shops->getReturnReceiptFormatId()) echo ReceiptFormatsPeer::retrieveByPK($shops->getReturnReceiptFormatId())->getTitle() ?></div>
-        </div>
-        <br clear="all" />
-  <div class="lblleft">Start Value Bookout:&nbsp;</div>
-        <div class="lblright">
-            <div class="inputValue col-lg-6"><?php echo $shops->getStartValueBookout() ?></div>
-        </div> 
-        <div class="lblleft">Bookout number Format:&nbsp;</div>
+  <div class="lblleft">Bookout number Format:&nbsp;</div>
         <div class="lblright">
             <div class="inputValue col-lg-6"><?php if ($shops->getBookoutFormatId()) echo ReceiptFormatsPeer::retrieveByPK($shops->getBookoutFormatId())->getTitle() ?></div>
         </div>
+        
+        
         <br clear="all" />
         <div class="lblleft">Status:&nbsp;</div>
         <div class="lblright">
@@ -336,6 +344,7 @@
                 <th>Quantity</th>
                 <th>User</th>
                 <th>Item</th>
+                 <th>Description</th>
                 <th>Status</th>
                 <th>Type</th>
                 <th>Date</th>
@@ -355,6 +364,7 @@
                 <th>Quantity</th>
                 <th>User</th>
                 <th>Item</th>
+                 <th>Description</th>
                 <th>Status</th>
                 <th>Type</th>
                 <th>Date</th>
@@ -405,7 +415,38 @@
 <br clear="all" />
 <div id="daily-cash-list"></div>
 
+<br clear="all" />
+<br clear="all" />
+ 
+<h1 class="items-head" id="stock-head"><img src="<?php echo sfConfig::get('app_web_url') . 'images/sale_over.png' ?>" />&nbsp;Stock Detail
+    <span id="headingarrow2" class="headingarrow"><img src="<?php echo sfConfig::get("app_web_url") ?>images/arrow-right.png" /></span>
+</h1>
+<div class="regForm" id="stock-block" style="display: block;">
+ <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="myTablesale" >
+        <thead>
+            <tr>
+                <th>Stock Id</th>
+                <th>Created At</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach ($shopStocks as $shopStock) {
+                ?>
+                <tr>    
+                    <td><a target="_blank" href="<?php echo url_for('transactions/stockReport') ?>?id=<?php echo $shopStock->getId(); ?>"><?php echo $shopStock->getStockId(); ?></a></td>
+                      <td><?php echo $shopStock->getCreatedAt('Y-m-d'); ?></td>
+                      
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 
+</div>
+
+<br clear="all" />
+<br clear="all" />
 
 <script>
     jQuery(function() {

@@ -129,7 +129,12 @@ class shopsActions extends sfActions {
         $cs->add(PosShopRolePeer::SHOP_ID, $this->shops->getId());
         $cs->addAnd(PosShopRolePeer::STATUS_ID, 3, Criteria::EQUAL);
         $cs->addJoin(PosRolePeer::ID, PosShopRolePeer::POS_ROLE_ID, Criteria::LEFT_JOIN);
-        $this->posRoles = PosRolePeer::doSelect($cs);
+        $this->posRoles = PosRolePeer::doSelect($cs); 
+        
+        $stock = new Criteria();
+        $stock->add(StocksPeer::SHOP_ID, $this->shops->getId());
+        $this->shopStocks = StocksPeer::doSelect($stock);
+        
     }
 
     public function executeAdd(sfWebRequest $request) {
