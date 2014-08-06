@@ -16,7 +16,7 @@ require_once('../lib/itemsLib.class.php');
 /* Array of database columns which should be read and sent back to DataTables. Use a space where
  * you want to insert a non-database field (for example a counter or static image)
  */
-$aColumns = array("shops.branch_number", "transactions.sold_price", "transactions.quantity", "user.name", "transactions.item_id", "statuses.title as status", "transaction_types.title", "transactions.created_at", "transactions.order_id");
+$aColumns = array("shops.branch_number", "transactions.sold_price", "transactions.quantity", "user.name", "transactions.item_id","transactions.description1", "statuses.title as status", "transaction_types.title", "transactions.created_at", "transactions.order_id");
 
 /* Indexed column (used for fast and accurate table cardinality) */
 $sIndexColumn = "transactions.id";
@@ -53,11 +53,14 @@ if (isset($_GET['iSortCol_0'])) {
     $sOrder = "ORDER BY  ";
     for ($i = 0; $i < intval($_GET['iSortingCols']); $i++) {
         if ($_GET['bSortable_' . intval($_GET['iSortCol_' . $i])] == "true") {
+            if(intval($_GET['iSortCol_' . $i])==6){
+               $sOrder .= " status   " . mysql_real_escape_string($_GET['sSortDir_' . $i]) . ", ";  
+            }else{
             $sOrder .= $aColumns[intval($_GET['iSortCol_' . $i])] . "
 				 	" . mysql_real_escape_string($_GET['sSortDir_' . $i]) . ", ";
-        }
+        } }
     }
-
+ 
     $sOrder = substr_replace($sOrder, "", -2);
     if ($sOrder == "ORDER BY") {
         $sOrder = "";
@@ -128,6 +131,8 @@ for ($i = 0; $i < count($aColumns); $i++) {
 
             $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
         } elseif ($aColumns[$i] == "transactions.item_id") {
+            $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
+        }elseif ($aColumns[$i] == "transactions.description1") {
             $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
         } elseif ($aColumns[$i] == "statuses.title as status") {
             $sWhere .= "statuses.title" . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
@@ -266,6 +271,7 @@ $row = array();
 $row[] = "<b> Total </b>";
 $row[] = "<b> " . number_format($rowTotal['totalPrice'], 2) . " </b>";
 $row[] = "<b> " . $rowTotal['totalQuantity'] . " </b>";
+$row[] = "";
 $row[] = "";
 $row[] = "";
 $row[] = "";
