@@ -38,14 +38,14 @@
             },
             "aLengthMenu": [[10, 25, 50,100,250 ,-1], [10, 25, 50,100,250,"All"]]
 
-        }).columnFilter({aoColumns: [{type: "text"}, null, null, {type: "text"}, {type: "text"}, {type: "text"}, {type: "text"},
+        }).columnFilter({aoColumns: [{type: "text"}, null, null, {type: "text"}, {type: "text"}, {type: "text"},{type: "text"}, {type: "text"},
                 {type: "date-range"},
                 null
 
             ]
 
         });
-        oTable.fnSort( [ [7,'desc'] ] );
+        oTable.fnSort( [ [8,'desc'] ] );
         $.extend($.fn.dataTableExt.oStdClasses, {
             "sWrapper": "dataTables_wrapper form-inline"
         });
@@ -75,6 +75,7 @@
                 <th>Quantity</th>
                 <th>User</th>
                 <th>Item</th>
+                 <th>Description</th>
                 <th>Status</th>
                 <th>Type</th>
                 <th>Date</th>
@@ -94,6 +95,7 @@
                 <th>Quantity</th>
                 <th>User</th>
                 <th>Item</th>
+                 <th>Description</th>
                 <th>Status</th>
                 <th>Type</th>
                 <th>Date</th>
