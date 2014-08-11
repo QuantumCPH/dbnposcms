@@ -20,7 +20,7 @@ $color_white = new BCGColor(255, 255, 255);
 $drawException = null;
 try {
 	$code = new BCGcode39();
-	$code->setScale(1); // Resolution
+	$code->setScale(2); // Resolution
 	$code->setThickness(20); // Thickness
 	$code->setForegroundColor($color_black); // Color of bars
 	$code->setBackgroundColor($color_white); // Color of spaces
