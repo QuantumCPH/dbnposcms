@@ -133,6 +133,7 @@ class shopsActions extends sfActions {
         
         $stock = new Criteria();
         $stock->add(StocksPeer::SHOP_ID, $this->shops->getId());
+        $stock->addDescendingOrderByColumn(StocksPeer::ID);
         $this->shopStocks = StocksPeer::doSelect($stock);
         
     }
