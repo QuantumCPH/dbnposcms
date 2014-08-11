@@ -38,7 +38,7 @@ class itemsLib {
 
         if ($combine['description1']) {
             if ($combine['description1'] != $item->getDescription1()) {
-                $item->setDescription1($combine['description1']);
+                $item->setDescription1(htmlentities($combine['description1']));
                 $item_log->setDescription1("<div class='highlightblock'>" . $combine['description1'] . "</div>");
                 $varableupdate = true;
             } else {
