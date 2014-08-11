@@ -257,7 +257,7 @@
             <br clear="all" />
                         <div class="left">Ean:&nbsp;</div>
             <div class="right">
-                <div class="inputValue ean"><?php
+                <div class=" ean"><?php
                     // echo $item->getEan();
                     //  echo $barcode;
 //          $bc = new barCode('png');
