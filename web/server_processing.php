@@ -200,7 +200,7 @@ while ($aRow = mysql_fetch_array($rResult)) {
             $row[] = $aRow["group"];
         } else if ($aColumns[$i] != ' ') {
             /* General output */
-          echo   $aRow[$aColumns[$i]];
+        
             $row[] = $aRow[$aColumns[$i]];
         }
     }
