@@ -558,7 +558,7 @@ class itemsActions extends sfActions {
                     if ($i < $startingRow) {
                         continue;
                     }
-
+                      $data= utf8_encode($data);
                     $combine = array_combine($fieldsArray, $data);
                     foreach ($combine as $key => $values) {
                         $combine[trim($key)] = trim($values);
@@ -618,7 +618,7 @@ class itemsActions extends sfActions {
                     if ($i < $startingRow) {
                         continue;
                     }
-
+                      $data= utf8_encode($data);
                     $combine = array_combine($fieldsArray, $data);
 
 
