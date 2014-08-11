@@ -70,8 +70,8 @@ class itemsLib {
 
         if ($combine['supplier_number']) {
             if ($combine['supplier_number'] != $item->getSupplierNumber()) {
-                $item->setSupplierNumber($combine['supplier_number']);
-                $item_log->setSupplierNumber("<div class='highlightblock'>" . $combine['supplier_number'] . "</div>");
+                $item->setSupplierNumber(htmlentities($combine['supplier_number']));
+                $item_log->setSupplierNumber("<div class='highlightblock'>" .htmlentities($combine['supplier_number']). "</div>");
                 $varableupdate = true;
             } else {
                 $item->setSupplierNumber($item->getSupplierNumber());
@@ -81,8 +81,8 @@ class itemsLib {
 
         if ($combine['supplier_item_number']) {
             if ($combine['supplier_item_number'] != $item->getSupplierItemNumber()) {
-                $item->setSupplierItemNumber($combine['supplier_item_number']);
-                $item_log->setSupplierItemNumber("<div class='highlightblock'>" . $combine['supplier_item_number'] . "</div>");
+                $item->setSupplierItemNumber(htmlentities($combine['supplier_item_number']));
+                $item_log->setSupplierItemNumber("<div class='highlightblock'>" .htmlentities($combine['supplier_item_number']). "</div>");
                 $varableupdate = true;
             } else {
                 $item->setSupplierItemNumber($item->getSupplierItemNumber());
@@ -91,8 +91,8 @@ class itemsLib {
         }
         if ($combine['ean']) {
             if ($combine['ean'] != $item->getEan()) {
-                $item->setEan($combine['ean']);
-                $item_log->setEan("<div class='highlightblock'>" . $combine['ean'] . "</div>");
+                $item->setEan(htmlentities($combine['ean']));
+                $item_log->setEan("<div class='highlightblock'>" .htmlentities($combine['ean']) . "</div>");
                 $varableupdate = true;
             } else {
                 $item->setEan($item->getEan());
@@ -153,8 +153,8 @@ class itemsLib {
         }
         if ($combine['taxation_code']) {
             if ($combine['taxation_code'] != $item->getTaxationCode()) {
-                $item->setTaxationCode($combine['taxation_code']);
-                $item_log->setTaxationCode("<div class='highlightblock'>" . $combine['taxation_code'] . "</div>");
+                $item->setTaxationCode(htmlentities($combine['taxation_code']));
+                $item_log->setTaxationCode("<div class='highlightblock'>" . htmlentities($combine['taxation_code'] ). "</div>");
                 $varableupdate = true;
             } else {
                 $item->setTaxationCode($item->getTaxationCode());
