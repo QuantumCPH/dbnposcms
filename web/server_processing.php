@@ -206,7 +206,7 @@ while ($aRow = mysql_fetch_array($rResult)) {
     }
     $output['aaData'][] = $row;
 
-    var_dump($output);
+//    var_dump($output);
 }
 echo json_encode(array_map('utf8_encode', $output));
  
