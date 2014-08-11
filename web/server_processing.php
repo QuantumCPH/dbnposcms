@@ -208,6 +208,6 @@ while ($aRow = mysql_fetch_array($rResult)) {
 
     var_dump($output);
 }
-
-echo utf8_encode($output);
+echo json_encode(array_map('utf8_encode', $output));
+ 
 ?>
