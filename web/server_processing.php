@@ -211,6 +211,6 @@ while ($aRow = mysql_fetch_array($rResult)) {
   $data = array_map('htmlentities',$output);
       $json = html_entity_decode(json_encode($data));
      echo $json;
-//echo json_encode($output);
+ echo json_encode($output);
  
 ?>
