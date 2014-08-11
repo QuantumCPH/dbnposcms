@@ -250,7 +250,12 @@
             <div class="right">
                 <div class="inputValue"><?php echo $item->getItemUpdatedAt("Y-m-d"); ?></div>
             </div>   
-            <div class="left">Ean:&nbsp;</div>
+  <div class="left">Status:&nbsp;</div>
+            <div class="right">
+                <div class="inputValue"><?php echo $item->getStatusId() == 3 ? "Active" : "Inactive"; ?></div>
+            </div>   
+            <br clear="all" />
+                        <div class="left">Ean:&nbsp;</div>
             <div class="right">
                 <div class="inputValue ean"><?php
                     // echo $item->getEan();
@@ -262,12 +267,8 @@
                     <img alt="<?php echo $item->getEan() ?>" src="<?php echo sfConfig::get("app_web_url") ?>barcode-show.php?text=<?php echo $item->getEan() ?>" />
 
                 </div>
-            </div>   
-            <br clear="all" />
-            <div class="left">Status:&nbsp;</div>
-            <div class="right">
-                <div class="inputValue"><?php echo $item->getStatusId() == 3 ? "Active" : "Inactive"; ?></div>
-            </div>   
+            </div>  
+          
         </div>
         <div class="itemslargePic">
             <img src="<?php echo gf::checkLargeImage($item->getItemId()); ?>" />
