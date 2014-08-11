@@ -209,9 +209,9 @@ while ($aRow = mysql_fetch_array($rResult)) {
 //    var_dump($output);
 }
  
-   $encoded_rows = array_map('utf8_encode', $output);
-    echo json_encode($encoded_rows);
+ //  $encoded_rows = array_map('utf8_encode', $output);
+ //   echo json_encode($encoded_rows);
     
-// echo json_encode($output);
+  echo json_encode($output);
  
 ?>
