@@ -209,5 +209,5 @@ while ($aRow = mysql_fetch_array($rResult)) {
     var_dump($output);
 }
 
-echo json_encode($output);
+echo utf8_encode($output);
 ?>
