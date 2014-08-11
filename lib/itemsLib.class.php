@@ -39,7 +39,7 @@ class itemsLib {
         if ($combine['description1']) {
             if ($combine['description1'] != $item->getDescription1()) {
                 $item->setDescription1(htmlentities($combine['description1']));
-                $item_log->setDescription1("<div class='highlightblock'>" . $combine['description1'] . "</div>");
+                $item_log->setDescription1("<div class='highlightblock'>" . htmlentities($combine['description1']) . "</div>");
                 $varableupdate = true;
             } else {
                 $item->setDescription1($item->getDescription1());
@@ -48,8 +48,8 @@ class itemsLib {
         }
         if ($combine['description2']) {
             if ($combine['description2'] != $item->getDescription2()) {
-                $item->setDescription2($combine['description2']);
-                $item_log->setDescription2("<div class='highlightblock'>" . $combine['description2'] . "</div>");
+                $item->setDescription2(htmlentities($combine['description2']));
+                $item_log->setDescription2("<div class='highlightblock'>" . htmlentities($combine['description2']) . "</div>");
                 $varableupdate = true;
             } else {
                 $item->setDescription2($item->getDescription2());
@@ -59,8 +59,8 @@ class itemsLib {
 
         if ($combine['description3']) {
             if ($combine['description3'] != $item->getDescription3()) {
-                $item->setDescription3($combine['description3']);
-                $item_log->setDescription3("<div class='highlightblock'>" . $combine['description3'] . "</div>");
+                $item->setDescription3(htmlentities($combine['description3']));
+                $item_log->setDescription3("<div class='highlightblock'>" . htmlentities($combine['description3']) . "</div>");
                 $varableupdate = true;
             } else {
                 $item->setDescription3($item->getDescription3());
@@ -101,8 +101,8 @@ class itemsLib {
         }
         if ($combine['color']) {
             if ($combine['color'] != $item->getColor()) {
-                $item->setColor($combine['color']);
-                $item_log->setColor("<div class='highlightblock'>" . $combine['color'] . "</div>");
+                $item->setColor(htmlentities($combine['color']));
+                $item_log->setColor("<div class='highlightblock'>" .htmlentities($combine['color']) . "</div>");
                 $varableupdate = true;
             } else {
                 $item->setColor($item->getColor());
@@ -113,7 +113,7 @@ class itemsLib {
         }
         if ($combine['group']) {
             if ($combine['group'] != $item->getGroup()) {
-                $item->setGroup($combine['group']);
+                $item->setGroup(htmlentities($combine['group']));
                 $item_log->setGroup("<div class='highlightblock'>" . $combine['group'] . "</div>");
                 $varableupdate = true;
             } else {
@@ -123,8 +123,8 @@ class itemsLib {
         }
         if ($combine['size']) {
             if ($combine['size'] != $item->getSize()) {
-                $item->setSize($combine['size']);
-                $item_log->setSize("<div class='highlightblock'>" . $combine['size'] . "</div>");
+                $item->setSize(htmlentities($combine['size']));
+                $item_log->setSize("<div class='highlightblock'>" . htmlentities($combine['size']) . "</div>");
                 $varableupdate = true;
             } else {
                 $item->setSize($item->getSize());
