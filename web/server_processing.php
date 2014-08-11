@@ -204,13 +204,14 @@ while ($aRow = mysql_fetch_array($rResult)) {
             $row[] = $aRow[$aColumns[$i]];
         }
     }
-    $output['aaData'][] = $row;
+    $output['aaData'][] = array_map('utf8_encode',$row);
 
 //    var_dump($output);
 }
-  $data = array_map('htmlentities',$output);
-      $json = html_entity_decode(json_encode($data));
-     echo $json;
+ 
+//  $encoded_rows = array_map('utf8_encode', $rows);
+//    echo json_encode($encoded_rows);
+    
  echo json_encode($output);
  
 ?>
