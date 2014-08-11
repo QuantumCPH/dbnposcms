@@ -62,7 +62,8 @@ class sfCsvReader
     $this->length    = $length;
     $this->delimiter = $delimiter;
     $this->enclosure = $enclosure;
-    
+     $to = 'UTF-8';
+       $from = 'ISO-8859-1';
     $this->header = array(
       'map'      => null,
       'selected' => array()
