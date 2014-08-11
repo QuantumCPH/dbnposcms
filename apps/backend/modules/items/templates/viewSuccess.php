@@ -255,6 +255,7 @@
                 <div class="inputValue"><?php echo $item->getStatusId() == 3 ? "Active" : "Inactive"; ?></div>
             </div>   
             <br clear="all" />
+              <br />
                         <div class="left">Ean:&nbsp;</div>
             <div class="right">
                 <div class=" ean"><?php
