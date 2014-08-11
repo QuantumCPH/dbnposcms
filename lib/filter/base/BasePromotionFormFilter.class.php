@@ -53,7 +53,7 @@ class BasePromotionFormFilter extends BaseFormFilterPropel
       'start_date'           => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'end_date'             => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'on_all_item'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'promotion_value'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'promotion_value'      => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'promotion_type'       => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'on_all_branch'        => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'created_at'           => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),

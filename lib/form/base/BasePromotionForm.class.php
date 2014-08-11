@@ -53,7 +53,7 @@ class BasePromotionForm extends BaseFormPropel
       'start_date'           => new sfValidatorDate(array('required' => false)),
       'end_date'             => new sfValidatorDate(array('required' => false)),
       'on_all_item'          => new sfValidatorInteger(array('required' => false)),
-      'promotion_value'      => new sfValidatorInteger(array('required' => false)),
+      'promotion_value'      => new sfValidatorNumber(array('required' => false)),
       'promotion_type'       => new sfValidatorInteger(array('required' => false)),
       'on_all_branch'        => new sfValidatorInteger(array('required' => false)),
       'created_at'           => new sfValidatorDate(array('required' => false)),
