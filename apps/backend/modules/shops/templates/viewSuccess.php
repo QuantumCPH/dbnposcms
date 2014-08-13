@@ -340,7 +340,7 @@
         <thead>
             <tr>
                 <th>Branch</th>
-                <th>Amount</th>
+                <th>Sold Price</th>
                 <th>Quantity</th>
                 <th>Selling Price</th>
                 <th>User</th>
@@ -361,7 +361,7 @@
         <tfoot>
             <tr>
                 <th>Branch</th>
-                <th>Amount</th>
+               <th>Sold Price</th>
                 <th>Quantity</th>
                 <th>Selling Price</th>
                 <th>User</th>

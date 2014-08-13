@@ -31,7 +31,7 @@
                 aoData.push({"name": "item_id", "value": $("#itemId").val()});
             }
 
-       }).columnFilter({aoColumns: [{type: "text"}, null, null, null, {type: "text"}, null,null,{type: "text"}, {type: "text"},
+       }).columnFilter({aoColumns: [null, null, null,  null,{type: "text"},{type: "text"}, {type: "text"}, {type: "text"}, {type: "text"},
                 {type: "date-range"},
                 null
 
@@ -311,39 +311,39 @@
         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="myTablesale" >
             <thead>
                 <tr>
-                    <th>Branch</th>
-                    <th>Amount</th>
-                    <th>Quantity</th>
-                      <th>Selling Price</th>
-                    <th>User</th>
-                    <th>Item</th>
-                     <th>Description</th>
-                    <th>Status</th>
-                    <th>Type</th>
-                    <th>Date</th>
-                    <th>Payment</th>
+                <th>Branch</th>
+                <th>Sold Price</th>
+                <th>Quantity</th>
+                <th>Selling Price</th>
+                <th>User</th>
+                <th>Item</th>
+                 <th>Description</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Payment</th>
 
 
-                </tr>
+            </tr>
             </thead>
             <tbody>
 
 
             </tbody>
             <tfoot>
-            <tr>
+              <tr>
                 <th>Branch</th>
-                <th>Amount</th>
+                <th>Sold Price</th>
                 <th>Quantity</th>
-                  <th>Selling Price</th>
+                <th>Selling Price</th>
                 <th>User</th>
                 <th>Item</th>
-                   <th>Description</th>
+                 <th>Description</th>
                 <th>Status</th>
                 <th>Type</th>
                 <th>Date</th>
                 <th>Payment</th>
-                 
+
 
             </tr>
         </tfoot>
