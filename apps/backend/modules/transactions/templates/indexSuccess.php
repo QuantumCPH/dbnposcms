@@ -93,7 +93,7 @@
         <tfoot>
             <tr>
                 <th>Branch</th>
-                <th>Amount/Sold Price</th>
+                <th>Amount</th>
                 <th>Quantity</th>
            <th>Selling Price</th>
                 <th>User</th>
