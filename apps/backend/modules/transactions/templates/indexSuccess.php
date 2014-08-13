@@ -38,7 +38,7 @@
             },
             "aLengthMenu": [[10, 25, 50,100,250 ,-1], [10, 25, 50,100,250,"All"]]
 
-        }).columnFilter({aoColumns: [{type: "text"}, null, null, {type: "text"}, {type: "text"}, {type: "text"},{type: "text"}, {type: "text"},
+        }).columnFilter({aoColumns: [{type: "text"}, null, null,null, {type: "text"}, {type: "text"}, {type: "text"},{type: "text"}, {type: "text"},
                 {type: "date-range"},
                 null
 
@@ -73,6 +73,8 @@
                 <th>Branch</th>
                 <th>Amount</th>
                 <th>Quantity</th>
+                  <th>Selling Price</th>
+                
                 <th>User</th>
                 <th>Item</th>
                  <th>Description</th>
@@ -93,6 +95,7 @@
                 <th>Branch</th>
                 <th>Amount</th>
                 <th>Quantity</th>
+           <th>Selling Price</th>
                 <th>User</th>
                 <th>Item</th>
                  <th>Description</th>

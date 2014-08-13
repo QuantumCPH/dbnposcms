@@ -16,7 +16,7 @@ require_once('../lib/itemsLib.class.php');
 /* Array of database columns which should be read and sent back to DataTables. Use a space where
  * you want to insert a non-database field (for example a counter or static image)
  */
-$aColumns = array("shops.branch_number", "transactions.sold_price", "transactions.quantity", "user.name", "transactions.item_id","transactions.description1", "statuses.title as status", "transaction_types.title", "transactions.created_at", "transactions.order_id");
+$aColumns = array("shops.branch_number", "transactions.sold_price", "transactions.quantity","transactions.selling_price", "user.name", "transactions.item_id","transactions.description1", "statuses.title as status", "transaction_types.title", "transactions.created_at", "transactions.order_id");
 
 /* Indexed column (used for fast and accurate table cardinality) */
 $sIndexColumn = "transactions.id";
