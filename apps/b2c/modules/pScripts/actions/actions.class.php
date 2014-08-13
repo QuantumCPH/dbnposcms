@@ -3402,7 +3402,7 @@ Have a great day!';
             $i = new Criteria();
             //  $i->add(PromotionPeer:: PROMOTION_STATUS, 3);
             if ($shop->getPromotionSyncRequestedAt() != "") {
-                $i->addAnd(PromotionPeer::UPDATED_AT, $shop->getPromotionSyncSyncedAt(), Criteria::GREATER_EQUAL);
+                $i->add(PromotionPeer::UPDATED_AT, $shop->getPromotionSyncSyncedAt(), Criteria::GREATER_EQUAL);
             }
             $i->addAnd(PromotionPeer::END_DATE, date("Y-m-d"), Criteria::GREATER_EQUAL);
             $syncPromotions = PromotionPeer::doSelect($i);
