@@ -257,7 +257,29 @@ class promotionActions extends sfActions {
         $session_role_id = $this->getUser()->getAttribute('role_id', '', 'backendsession');
 
         $promo = $promotion;
+ if ($promo->getOnAllBranch() == 1) {
+            $cit = new Criteria();
 
+        //    $cit->add(ShopsPeer::STATUS_ID, 3);
+            $cit->addAscendingOrderByColumn(ShopsPeer::BRANCH_NUMBER);
+            $shops = ShopsPeer::doSelect($cit);
+
+            foreach ($shops as $shop) {
+                if (isset($idss) && $idss != "") {
+                    $idss = $idss . "," . $shop->getId();
+                } else {
+                    $idss = $shop->getId();
+                }
+            }
+        } else {
+
+            
+                
+                    $idss = $promo->getBranchId();
+                 
+            
+        }
+        
         $promo->setPromotionTitle($request->getParameter("promotion_title"));
         $promo->setStartDate(date("Y-m-d H:i:s", strtotime($request->getParameter("start_date"))));
         $promo->setEndDate(date("Y-m-d H:i:s", strtotime($request->getParameter("end_date"))));
@@ -327,7 +349,7 @@ class promotionActions extends sfActions {
         $promo->setSupplierNumber($request->getParameter("supplier_number"));
         $promo->setSupplierItemNumber($request->getParameter("supplier_item_number"));
 
-
+ $promo->setBranchId($idss);
         $promo->setUpdatedBy($user_id);
         $promo->setPromotionStatus($request->getParameter("promotion_status"));
         if ($promo->save()) {
