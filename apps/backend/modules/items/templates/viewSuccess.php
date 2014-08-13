@@ -31,7 +31,7 @@
                 aoData.push({"name": "item_id", "value": $("#itemId").val()});
             }
 
-       }).columnFilter({aoColumns: [{type: "text"}, null, null, {type: "text"}, null,null,{type: "text"}, {type: "text"},
+       }).columnFilter({aoColumns: [{type: "text"}, null, null, null, {type: "text"}, null,null,{type: "text"}, {type: "text"},
                 {type: "date-range"},
                 null
 
@@ -314,6 +314,7 @@
                     <th>Branch</th>
                     <th>Amount</th>
                     <th>Quantity</th>
+                      <th>Selling Price</th>
                     <th>User</th>
                     <th>Item</th>
                      <th>Description</th>
@@ -334,6 +335,7 @@
                 <th>Branch</th>
                 <th>Amount</th>
                 <th>Quantity</th>
+                  <th>Selling Price</th>
                 <th>User</th>
                 <th>Item</th>
                    <th>Description</th>
