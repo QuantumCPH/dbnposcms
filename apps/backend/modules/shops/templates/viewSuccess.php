@@ -13,7 +13,7 @@
                 aoData.push({"name": "shop_id", "value": <?php echo $shops->getId(); ?>});
             }
 
-        }).columnFilter({aoColumns: [null, null, null, {type: "text"},{type: "text"}, {type: "text"}, {type: "text"}, {type: "text"},
+        }).columnFilter({aoColumns: [null, null, null,  null,{type: "text"},{type: "text"}, {type: "text"}, {type: "text"}, {type: "text"},
                 {type: "date-range"},
                 null
 
@@ -342,6 +342,7 @@
                 <th>Branch</th>
                 <th>Amount</th>
                 <th>Quantity</th>
+                <th>Selling Price</th>
                 <th>User</th>
                 <th>Item</th>
                  <th>Description</th>
@@ -362,6 +363,7 @@
                 <th>Branch</th>
                 <th>Amount</th>
                 <th>Quantity</th>
+                <th>Selling Price</th>
                 <th>User</th>
                 <th>Item</th>
                  <th>Description</th>
