@@ -278,6 +278,7 @@ $row[] = "";
 $row[] = "";
 $row[] = "";
 $row[] = "";
+$row[] = "";
 $output['aaData'][] = $row;
 
 
