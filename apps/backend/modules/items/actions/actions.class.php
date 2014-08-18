@@ -522,11 +522,19 @@ class itemsActions extends sfActions {
                     $csc->addOr(SystemConfigPeer::ID,4);
                     $dnItem = SystemConfigPeer::doSelectOne($csc);
                     if($dnItem->getValues()=="Yes"){
-                        $itc = new Criteria();
+                        $itc = new Criteria(); 
                         $itc->add(ItemsPeer::EAN, $combine['ean']);
+                        
                         if (ItemsPeer::doCount($itc) > 0) {
+                            
+                            $itc->addAnd(ItemsPeer::ITEM_ID, $combine['id']); 
+                             if (ItemsPeer::doCount($itc) > 0) {
+                                 
+                             }else{
+                            
                             $this->getUser()->setFlash('file_error', $this->getContext()->getI18N()->__('Validation failed as previous ean found while parsing CSV at row number: ' . $i));
                             $this->redirect('items/addItems');
+                             }
                         }   
                     }
                 }
