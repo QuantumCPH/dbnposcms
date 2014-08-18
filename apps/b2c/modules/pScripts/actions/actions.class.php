@@ -3530,42 +3530,6 @@ Have a great day!';
     }
 
     
-       public function executeSyncDeliveryNotesAll(sfWebRequest $request) {
-        $urlval = "SyncDeliveryNotesAll-" . $request->getURI();
-        $dibsCall = new DibsCall();
-
-        $dibsCall->setCallurl($urlval);
-        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
-        $dibsCall->save();
-
-        $s = new Criteria();
-        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
-        if (ShopsPeer::doCount($s) == 1) {
-            $i = new Criteria();
-            $i->add(DeliveryNotesPeer:: SHOP_ID, (int) $request->getParameter("shop_id"));
-            $i->add(DeliveryNotesPeer::IS_SYNCED, 0);
-            $i->add(DeliveryNotesPeer::DELIVERY_DATE, date("Y-m-d 23:59:59"), Criteria::LESS_EQUAL);
-            $syncNotes = DeliveryNotesPeer::doSelect($i);
-            $notes = "";
-            $i = 0;
-            foreach ($syncNotes as $syncNote) {
-                $notes[$i]['id'] = $syncNote->getId();
-                $notes[$i]['item_id'] = $syncNote->getItemId();
-                $notes[$i]['branch_number'] = $syncNote->getBranchNumber();
-                $notes[$i]['company_number'] = $syncNote->getCompanyNumber();
-                $notes[$i]['quantity'] = $syncNote->getQuantity();
-                $notes[$i]['delivery_date'] = $syncNote->getDeliveryDate();
-                $notes[$i]['note_id'] = $syncNote->getNoteId();
-                $notes[$i]['is_synced'] = $syncNote->getIsSynced();
-           
-                $i++;
-            }
-            echo json_encode($notes);
-        }
-        return sfView::NONE;
-    }
-
-    
     
     
 }

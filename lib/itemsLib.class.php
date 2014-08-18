@@ -71,7 +71,7 @@ class itemsLib {
         if ($combine['supplier_number']) {
             if ($combine['supplier_number'] != $item->getSupplierNumber()) {
                 $item->setSupplierNumber(htmlentities($combine['supplier_number']));
-                $item_log->setSupplierNumber("<div class='highlightblock'>" .htmlentities($combine['supplier_number']). "</div>");
+                $item_log->setSupplierNumber("<div class='highlightblock'>" . htmlentities($combine['supplier_number']) . "</div>");
                 $varableupdate = true;
             } else {
                 $item->setSupplierNumber($item->getSupplierNumber());
@@ -82,7 +82,7 @@ class itemsLib {
         if ($combine['supplier_item_number']) {
             if ($combine['supplier_item_number'] != $item->getSupplierItemNumber()) {
                 $item->setSupplierItemNumber(htmlentities($combine['supplier_item_number']));
-                $item_log->setSupplierItemNumber("<div class='highlightblock'>" .htmlentities($combine['supplier_item_number']). "</div>");
+                $item_log->setSupplierItemNumber("<div class='highlightblock'>" . htmlentities($combine['supplier_item_number']) . "</div>");
                 $varableupdate = true;
             } else {
                 $item->setSupplierItemNumber($item->getSupplierItemNumber());
@@ -92,7 +92,7 @@ class itemsLib {
         if ($combine['ean']) {
             if ($combine['ean'] != $item->getEan()) {
                 $item->setEan(htmlentities($combine['ean']));
-                $item_log->setEan("<div class='highlightblock'>" .htmlentities($combine['ean']) . "</div>");
+                $item_log->setEan("<div class='highlightblock'>" . htmlentities($combine['ean']) . "</div>");
                 $varableupdate = true;
             } else {
                 $item->setEan($item->getEan());
@@ -102,7 +102,7 @@ class itemsLib {
         if ($combine['color']) {
             if ($combine['color'] != $item->getColor()) {
                 $item->setColor(htmlentities($combine['color']));
-                $item_log->setColor("<div class='highlightblock'>" .htmlentities($combine['color']) . "</div>");
+                $item_log->setColor("<div class='highlightblock'>" . htmlentities($combine['color']) . "</div>");
                 $varableupdate = true;
             } else {
                 $item->setColor($item->getColor());
@@ -154,7 +154,7 @@ class itemsLib {
         if ($combine['taxation_code']) {
             if ($combine['taxation_code'] != $item->getTaxationCode()) {
                 $item->setTaxationCode(htmlentities($combine['taxation_code']));
-                $item_log->setTaxationCode("<div class='highlightblock'>" . htmlentities($combine['taxation_code'] ). "</div>");
+                $item_log->setTaxationCode("<div class='highlightblock'>" . htmlentities($combine['taxation_code']) . "</div>");
                 $varableupdate = true;
             } else {
                 $item->setTaxationCode($item->getTaxationCode());
@@ -310,6 +310,7 @@ class itemsLib {
         $transaction->setBuyingPrice($object->buying_price);
         $transaction->setTaxationCode($object->taxation_code);
         $transaction->setUserId($object->user_id);
+        $transaction->setPromotionIds($object->promotion_ids);
         if ($orderId != 0)
             $transaction->setOrderId($orderId);
         if ($transaction->save()) {
@@ -321,8 +322,8 @@ class itemsLib {
         $order = new Orders();
         $order->setTotalAmount($object->total_amount);
         $order->setShopId($shop_id);
-       $order->setCreatedAt($object->created_at);
-      //  $order->setCreatedAt($object->updated_at);
+        $order->setCreatedAt($object->created_at);
+        //  $order->setCreatedAt($object->updated_at);
         $order->setStatusId($object->status_id);
         $order->setTotalSoldAmount($object->sold_total_amount);
         $order->setDiscountValue($object->order_discount_value);
@@ -349,7 +350,7 @@ class itemsLib {
 //        $order = new Orders();
         $order->setTotalAmount($object->total_amount);
         $order->setShopId($shop_id);
-  $order->setCreatedAt($object->created_at);
+        $order->setCreatedAt($object->created_at);
 //        $order->setCreatedAt(date("Y-m-d H:i:s"));
         $order->setStatusId($object->status_id);
         $order->setTotalSoldAmount($object->sold_total_amount);
@@ -380,6 +381,8 @@ class itemsLib {
         $orderpayment->setShopOrderUserId($object->order_user_id);
         $orderpayment->setShopCreatedAt($object->created_at);
         $orderpayment->setCcTypeId($object->cc_type_id);
+        $orderpayment->setChangeValue($object->change_value);
+        $orderpayment->setChangeType($object->change_type);
 
         if ($orderpayment->save()) {
             return $orderpayment->getShopOrderPaymentId();
