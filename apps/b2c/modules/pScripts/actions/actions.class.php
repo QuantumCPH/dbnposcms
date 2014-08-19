@@ -3531,4 +3531,590 @@ Have a great day!';
         return sfView::NONE;
     }
 
+////////////////////////////resync area ////////////////////////////////////////////////////////
+    public function executeResyncTransactions(sfWebRequest $request) {
+        $urlval = "executeResyncTransactions-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+
+            $c->add(TransactionsPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+
+            if (TransactionsPeer::doCount($c) > 0) {
+                $transactions = TransactionsPeer::doSelect($c);
+                $jsonTransaction = "";
+                $i = 0;
+                foreach ($transactions as $transaction) {
+                    $jsonTransaction[$i]['transaction_type_id'] = $transaction->getTransactionTypeId();
+                    $jsonTransaction[$i]['shop_id'] = $transaction->getShopId();
+                    $jsonTransaction[$i]['pos_id'] = $transaction->getShopTransactionId();
+                    $jsonTransaction[$i]['quantity'] = $transaction->getQuantity();
+                    $jsonTransaction[$i]['item_id'] = $transaction->getItemId();
+                    $jsonTransaction[$i]['order_number_id'] = $transaction->getShopOrderNumberId();
+                    $jsonTransaction[$i]['shop_receipt_id'] = $transaction->getShopReceiptNumberId();
+                    $jsonTransaction[$i]['status_id'] = $transaction->getStatusId();
+                    $jsonTransaction[$i]['created_at'] = $transaction->getCreatedAt();
+                    $jsonTransaction[$i]['updated_at'] = $transaction->getUpdatedAt();
+                    $jsonTransaction[$i]['discount_type_id'] = $transaction->getDiscountTypeId();
+                    $jsonTransaction[$i]['discount_value'] = $transaction->getDiscountValue();
+                    $jsonTransaction[$i]['parent_type'] = $transaction->getParentType();
+                    $jsonTransaction[$i]['item_cms_id'] = $transaction->getCmsItemId();
+                    $jsonTransaction[$i]['parent_type_id'] = $transaction->getParentTypeId();
+                    $jsonTransaction[$i]['sold_price'] = $transaction->getSoldPrice();
+                    $jsonTransaction[$i]['description1'] = $transaction->getDescription1();
+                    $jsonTransaction[$i]['description2'] = $transaction->getDescription2();
+                    $jsonTransaction[$i]['description3'] = $transaction->getDescription3();
+                    $jsonTransaction[$i]['supplier_item_number'] = $transaction->getSupplierItemNumber();
+                    $jsonTransaction[$i]['supplier_number'] = $transaction->getSupplierNumber();
+                    $jsonTransaction[$i]['ean'] = $transaction->getEan();
+                    $jsonTransaction[$i]['color'] = $transaction->getColor();
+                    $jsonTransaction[$i]['group'] = $transaction->getGroup();
+                    $jsonTransaction[$i]['size'] = $transaction->getSize();
+                    $jsonTransaction[$i]['selling_price'] = $transaction->getSellingPrice();
+                    $jsonTransaction[$i]['buying_price'] = $transaction->getBuyingPrice();
+                    $jsonTransaction[$i]['taxation_code'] = $transaction->getTaxationCode();
+                    $jsonTransaction[$i]['user_id'] = $transaction->getUserId();
+                    $jsonTransaction[$i]['promotion_ids'] = $transaction->getPromotionIds();
+                    $jsonTransaction[$i]['day_start_id'] = $transaction->getDayStartId();
+                    $i++;
+                }
+                echo json_encode($jsonTransaction);
+            } else {
+                echo "No Transactions Found";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+
+    public function executeResyncOrders(sfWebRequest $request) {
+        $urlval = "executeResyncOrders-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+
+            $c->add(OrdersPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+
+            if (OrdersPeer::doCount($c) > 0) {
+                $orders = OrdersPeer::doSelect($c);
+                $jsonOrder = "";
+                $i = 0;
+                foreach ($orders as $order) {
+                    $jsonOrder[$i]['shop_order_id'] = $order->getShopOrderId();
+                    $jsonOrder[$i]['shop_user_id'] = $order->getShopUserId();
+                    $jsonOrder[$i]['discount_type_id'] = $order->getDiscountTypeId();
+                    $jsonOrder[$i]['discount_value'] = $order->getDiscountValue();
+                    $jsonOrder[$i]['shop_receipt_number_id'] = $order->getShopReceiptNumberId();
+                    $jsonOrder[$i]['total_amount'] = $order->getTotalAmount();
+                    $jsonOrder[$i]['total_sold_amount'] = $order->getTotalSoldAmount();
+                    $jsonOrder[$i]['status_id'] = $order->getStatusId();
+                    $jsonOrder[$i]['created_at'] = $order->getCreatedAt();
+                    $jsonOrder[$i]['updated_at'] = $order->getUpdatedAt();
+                    $jsonOrder[$i]['day_start_id'] = $order->getDayStartId();
+                    $jsonOrder[$i]['employee_id'] = $order->getEmployeeId();
+
+                    $i++;
+                }
+                echo json_encode($jsonOrder);
+            } else {
+                echo "No Order Found";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+
+    public function executeResyncOrderPayments(sfWebRequest $request) {
+        $urlval = "executeResyncOrderPayments-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+
+            $c->add(OrderPaymentsPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+
+            if (OrderPaymentsPeer::doCount($c) > 0) {
+                $orderPayments = OrderPaymentsPeer::doSelect($c);
+                $jsonOrderPayments = "";
+                $i = 0;
+                foreach ($orderPayments as $orderPayment) {
+                    $jsonOrderPayments[$i]['order_id'] = $orderPayment->getOrderId();
+                    $jsonOrderPayments[$i]['payment_type_id'] = $orderPayment->getPaymentTypeId();
+                    $jsonOrderPayments[$i]['amount'] = $orderPayment->getAmount();
+                    $jsonOrderPayments[$i]['shop_order_payment_id'] = $orderPayment->getShopOrderPaymentId();
+                    $jsonOrderPayments[$i]['dyn_syn'] = $orderPayment->getDynSyn();
+                    $jsonOrderPayments[$i]['shop_order_user_id'] = $orderPayment->getShopOrderUserId();
+                    $jsonOrderPayments[$i]['cc_type_id'] = $orderPayment->getCcTypeId();
+                    $jsonOrderPayments[$i]['change_value'] = $orderPayment->getChangeValue();
+                    $jsonOrderPayments[$i]['change_type'] = $orderPayment->getChangeType();
+                    $jsonOrderPayments[$i]['created_at'] = $orderPayment->getCreatedAt();
+                    $jsonOrderPayments[$i]['updated_at'] = $orderPayment->getUpdatedAt();
+                    $jsonOrderPayments[$i]['day_start_id'] = $orderPayment->getDayStartId();
+
+                    $i++;
+                }
+                echo json_encode($jsonOrderPayments);
+            } else {
+                echo "No Order Payment Found";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+
+    public function executeSyncDeliveryNotesAll(sfWebRequest $request) {
+        $urlval = "SyncDeliveryNotesAll-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $i = new Criteria();
+            $i->add(DeliveryNotesPeer:: SHOP_ID, (int) $request->getParameter("shop_id"));
+
+
+            $syncNotes = DeliveryNotesPeer::doSelect($i);
+            $notes = "";
+            $i = 0;
+            foreach ($syncNotes as $syncNote) {
+                $notes[$i]['id'] = $syncNote->getId();
+                $notes[$i]['item_id'] = $syncNote->getItemId();
+                $notes[$i]['branch_number'] = $syncNote->getBranchNumber();
+                $notes[$i]['company_number'] = $syncNote->getCompanyNumber();
+                $notes[$i]['quantity'] = $syncNote->getQuantity();
+                $notes[$i]['delivery_date'] = $syncNote->getDeliveryDate();
+                $notes[$i]['note_id'] = $syncNote->getNoteId();
+                $notes[$i]['user_id'] = $syncNote->getUserId();
+                $notes[$i]['created_at'] = $syncNote->getCreatedAt();
+                $notes[$i]['received_at'] = $syncNote->getReceivedAt();
+                $notes[$i]['received_quantity'] = $syncNote->getReceivedQuantity();
+                $notes[$i]['comment'] = $syncNote->getComment();
+                $notes[$i]['status_id'] = $syncNote->getStatusId();
+                $notes[$i]['synced_day_start_id'] = $syncNote->getSyncedDayStartId();
+                $notes[$i]['received_day_start_id'] = $syncNote->getReceivedDayStartId();
+                $notes[$i]['delivery_note_type_id'] = $syncNote->getDeliveryNoteTypeId();
+                $notes[$i]['is_synced'] = $syncNote->getIsSynced();
+
+                $i++;
+            }
+            echo json_encode($notes);
+        }
+        return sfView::NONE;
+    }
+
+    public function executeResyncBookoutNotes(sfWebRequest $request) {
+        $urlval = "executeResyncBookoutNotes-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+
+            $c->add(BookoutNotesPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+
+            if (BookoutNotesPeer::doCount($c) > 0) {
+                $bookoutNotes = BookoutNotesPeer::doSelect($c);
+                $jsonBookoutNote = "";
+                $i = 0;
+                foreach ($bookoutNotes as $bookoutNote) {
+                    $jsonBookoutNote[$i]['id'] = $bookoutNote->getId();
+                    $jsonBookoutNote[$i]['item_id'] = $bookoutNote->getItemId();
+                    $jsonBookoutNote[$i]['branch_number'] = $bookoutNote->getBranchNumber();
+                    $jsonBookoutNote[$i]['company_number'] = $bookoutNote->getCompanyNumber();
+                    $jsonBookoutNote[$i]['quantity'] = $bookoutNote->getQuantity();
+                    $jsonBookoutNote[$i]['delivery_date'] = $bookoutNote->getDeliveryDate();
+                    $jsonBookoutNote[$i]['user_id'] = $bookoutNote->getUserId();
+                    $jsonBookoutNote[$i]['note_id'] = $bookoutNote->getNoteId();
+                    $jsonBookoutNote[$i]['comment'] = $bookoutNote->getComment();
+                    $jsonBookoutNote[$i]['reply_comment'] = $bookoutNote->getReplyComment();
+                    $jsonBookoutNote[$i]['created_at'] = $bookoutNote->getCreatedAt();
+                    $jsonBookoutNote[$i]['updated_at'] = $bookoutNote->getUpdatedAt();
+                    $jsonBookoutNote[$i]['received_at'] = $bookoutNote->getReceivedAt();
+                    $jsonBookoutNote[$i]['status_id'] = $bookoutNote->getStatusId();
+                    $jsonBookoutNote[$i]['synced_day_start_id'] = $bookoutNote->getSyncedDayStartId();
+                    $jsonBookoutNote[$i]['received_day_start_id'] = $bookoutNote->getReceivedDayStartId();
+                    $jsonBookoutNote[$i]['received_quantity'] = $bookoutNote->getReceivedQuantity();
+
+                    $i++;
+                }
+                echo json_encode($jsonBookoutNote);
+            } else {
+                echo "No bookout Found";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+
+    
+    
+    public function executeResyncDayStartAttempts(sfWebRequest $request) {
+        $urlval = "executeResyncDayStartAttempts-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+
+            $c->add(DayStartsAttemptsPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+
+            if (DayStartsAttemptsPeer::doCount($c) > 0) {
+                $dayStartsAttempts = DayStartsAttemptsPeer::doSelect($c);
+                $jsonStartsAttempt= "";
+                $i = 0;
+                foreach ($dayStartsAttempts as $dayStartsAttempt) {
+                    $jsonStartsAttempt[$i]['id'] = $dayStartsAttempt->getId();
+                
+                    $jsonStartsAttempt[$i]['day_start_id'] = $dayStartsAttempt->getDayStartId();
+                    $jsonStartsAttempt[$i]['shop_id'] = $dayStartsAttempt->getShopId();
+                    $jsonStartsAttempt[$i]['updated_by'] = $dayStartsAttempt->getUpdatedBy();
+                    $jsonStartsAttempt[$i]['created_at'] = $dayStartsAttempt->getCreatedAt();
+                    $jsonStartsAttempt[$i]['total_amount'] = $dayStartsAttempt->getTotalAmount();
+                    $jsonStartsAttempt[$i]['is_synce'] = $dayStartsAttempt->getIsSynce();
+                    $jsonStartsAttempt[$i]['expected_amount'] = $dayStartsAttempt->getExpectedAmount();
+
+                    $i++;
+                }
+                echo json_encode($jsonStartsAttempt);
+            } else {
+                echo "No  DayStartsAttempt Found";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+
+    
+    
+    public function executeResyncDayStart(sfWebRequest $request) {
+        $urlval = "executeResyncDayStart-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+
+            $c->add(DayStartsPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+
+            if (DayStartsPeer::doCount($c) > 0) {
+                $dayStarts = DayStartsPeer::doSelect($c);
+                $jsonDayStart = "";
+                $i = 0;
+                foreach ($dayStarts as $dayStart) {
+                    $jsonDayStart[$i]['id'] = $dayStart->getId();
+                    $jsonDayStart[$i]['day_started_at'] = $dayStart->getDayStartedAt();
+                    $jsonDayStart[$i]['day_started_by'] = $dayStart->getDayStartedBy();
+                    $jsonDayStart[$i]['shop_id'] = $dayStart->getShopId();
+                    $jsonDayStart[$i]['is_day_closed'] = $dayStart->getIsDayClosed();
+                    $jsonDayStart[$i]['created_at'] = $dayStart->getCreatedAt();
+                    $jsonDayStart[$i]['total_amount'] = $dayStart->getTotalAmount();
+                    $jsonDayStart[$i]['success'] = $dayStart->getSuccess();
+                    $jsonDayStart[$i]['expected_amount'] = $dayStart->getExpectedAmount();
+
+                    $i++;
+                }
+                echo json_encode($jsonDayStart);
+            } else {
+                echo "No daystart Found";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+
+    public function executeResyncDayEnd(sfWebRequest $request) {
+        $urlval = "executeResyncDayEnd-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+
+            $c->add(DayEndsPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+
+            if (DayEndsPeer::doCount($c) > 0) {
+                $dayEnds = DayEndsPeer::doSelect($c);
+                $jsonDayEnd = "";
+                $i = 0;
+                foreach ($dayEnds as $dayEnd) {
+                    $jsonDayEnd[$i]['id'] = $dayEnd->getId();
+                    $jsonDayEnd[$i]['day_ended_at'] = $dayEnd->getDayEndedAt();
+                    $jsonDayEnd[$i]['day_ended_by'] = $dayEnd->getDayEndedBy();
+                    $jsonDayEnd[$i]['shop_id'] = $dayEnd->getShopId();
+                    $jsonDayEnd[$i]['day_start_id'] = $dayEnd->getDayStartId();
+                    $jsonDayEnd[$i]['created_at'] = $dayEnd->getCreatedAt();
+                    $jsonDayEnd[$i]['total_amount'] = $dayEnd->getTotalAmount();
+                    $jsonDayEnd[$i]['success'] = $dayEnd->getSuccess();
+                    $jsonDayEnd[$i]['expected_amount'] = $dayEnd->getExpectedAmount();
+                    $jsonDayEnd[$i]['cash'] = $dayEnd->getCash();
+                    $jsonDayEnd[$i]['card'] = $dayEnd->getCard();
+                    $jsonDayEnd[$i]['voucher'] = $dayEnd->getVoucher();
+                    $jsonDayEnd[$i]['sale'] = $dayEnd->getSale();
+
+                    $i++;
+                }
+                echo json_encode($jsonDayEnd);
+            } else {
+                echo "No dayend Found";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+
+    public function executeResyncDayStartDenominations(sfWebRequest $request) {
+        $urlval = "executeResyncDayStartdenominations-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+            $c->addJoin(DayStartDenominationsPeer::DAY_START_ID, DayStartsPeer::ID, Criteria::LEFT_JOIN);
+            $c->add(DayStartsPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+
+            if (DayStartDenominationsPeer::doCount($c) > 0) {
+                $dayStartDenominations = DayStartDenominationsPeer::doSelect($c);
+                $jsonDayStartDenomination = "";
+                $i = 0;
+                foreach ($dayStartDenominations as $dayStartDenomination) {
+                    $jsonDayStartDenomination[$i]['id'] = $dayStartDenomination->getId();
+                    $jsonDayStartDenomination[$i]['denomination_id'] = $dayStartDenomination->getDenominationId();
+                    $jsonDayStartDenomination[$i]['day_start_id'] = $dayStartDenomination->getDayStartId();
+                    $jsonDayStartDenomination[$i]['count'] = $dayStartDenomination->getCount();
+                    $jsonDayStartDenomination[$i]['amount'] = $dayStartDenomination->getAmount();
+                    $jsonDayStartDenomination[$i]['created_at'] = $dayStartDenomination->getCreatedAt();
+                    $jsonDayStartDenomination[$i]['day_attempt_id'] = $dayStartDenomination->getDayAttemptId();
+
+
+                    $i++;
+                }
+                echo json_encode($jsonDayStartDenomination);
+            } else {
+                echo "No  DayStartDenomination Found";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+
+    public function executeResyncDayEndDenominations(sfWebRequest $request) {
+        $urlval = "executeResyncDayEnddenominations-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+            $c->addJoin(DayEndDenominationsPeer::DAY_END_ID, DayEndsPeer::ID, Criteria::LEFT_JOIN);
+            $c->add(DayEndsPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+
+            if (DayEndDenominationsPeer::doCount($c) > 0) {
+                $dayEndDenominations = DayEndDenominationsPeer::doSelect($c);
+                $jsonDayEndDenomination = "";
+                $i = 0;
+                foreach ($dayEndDenominations as $dayEndDenomination) {
+                    $jsonDayEndDenomination[$i]['id'] = $dayEndDenomination->getId();
+                    $jsonDayEndDenomination[$i]['denomination_id'] = $dayEndDenomination->getDenominationId();
+                    $jsonDayEndDenomination[$i]['day_end_id'] = $dayEndDenomination->getDayEndId();
+                    $jsonDayEndDenomination[$i]['count'] = $dayEndDenomination->getCount();
+                    $jsonDayEndDenomination[$i]['amount'] = $dayEndDenomination->getAmount();
+
+
+
+                    $i++;
+                }
+                echo json_encode($jsonDayEndDenomination);
+            } else {
+                echo "No  DayEndDenomination Found";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+
+    public function executeResyncCashInOut(sfWebRequest $request) {
+        $urlval = "executeResyncCashInOut-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+
+            $c->add(CashInOutPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+
+            if (CashInOutPeer::doCount($c) > 0) {
+                $cashInOuts = CashInOutPeer::doSelect($c);
+                $jsonCashInOut = "";
+                $i = 0;
+                foreach ($cashInOuts as $cashInOut) {
+                    $jsonCashInOut[$i]['id'] = $cashInOut->getId();
+                    $jsonCashInOut[$i]['day_start_id'] = $cashInOut->getDayStartedId();
+                    $jsonCashInOut[$i]['is_synced'] = $cashInOut->getIsSynced();
+                    $jsonCashInOut[$i]['description'] = $cashInOut->getDescription();
+                    $jsonCashInOut[$i]['amount'] = $cashInOut->getAmount();
+                    $jsonCashInOut[$i]['created_at'] = $cashInOut->getCreatedAt();
+                    $jsonCashInOut[$i]['updated_at'] = $cashInOut->getUpdatedAt();
+                    $jsonCashInOut[$i]['updated_by'] = $cashInOut->getUpdatedBy();
+                    $jsonCashInOut[$i]['shop_id'] = $cashInOut->getShopId();
+
+                    $i++;
+                }
+                echo json_encode($jsonCashInOut);
+            } else {
+                echo "No  CashInOut Found";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+
+    public function executeSyncCashInOut($request) {
+
+        $urlval = "SyncCashInOut-" . $request->getURI();
+        $dibsCall = new DibsCall();
+
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("server_json_cashinout=" . $request->getParameter("server_json_cashinout"));
+        $dibsCall->save();
+
+        $user_id = $this->getUser()->getAttribute('user_id', '', 'backendsession');
+        $bookoutIds = "";
+        $object = json_decode($request->getParameter("server_json_cashinout"));
+        $shop_id = $request->getParameter("shop_id");
+
+        $cd = new Criteria();
+        $cd->add(CashInOutPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+        $cd->addAnd(CashInOutPeer::ID, (int) $request->getParameter("id"));
+
+        if (CashInOutPeer::doCount($cd) > 0) {
+            $new_cin = CashInOutPeer::doSelectOne($cd);
+        } else {
+            $new_cin = new CashInOut();
+        }
+
+        $new_cin->setId($object->id);
+        $new_cin->setDayStartId($object->day_start_id);
+        $new_cin->setAmount($object->amount);
+        $new_cin->setDescription($object->description);
+        $new_cin->setIsSynced($object->is_synced);
+        $new_cin->setShopId($request->getParameter("shop_id"));
+
+        $new_cin->setCreatedAt($object->created_at);
+
+        $new_cin->setUpdatedBy($object->updated_by);
+
+
+
+        if ($new_cin->save()) {
+            $bookoutIds[] = $new_cin->getId();
+        }
+
+
+
+
+        //  $a = implode(', ', $bookoutIds);
+        $a = implode(',', $bookoutIds);
+        echo json_encode($a);
+
+        return sfView::NONE;
+    }
+
+    public function executeResyncInventory(sfWebRequest $request) {
+        $urlval = "executeResyncInventory-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+
+            $c->add(InventoryPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+
+            if (InventoryPeer::doCount($c) > 0) {
+                $inventories = InventoryPeer::doSelect($c);
+                $jsonInventory = "";
+                $i = 0;
+                foreach ($inventories as $inventory) {
+                    $jsonInventory[$i]['cms_item_id'] = $inventory->getCmsItemId();
+                    $jsonInventory[$i]['total'] = $inventory->getTotal();
+                    $jsonInventory[$i]['sold'] = $inventory->getSold();
+                    $jsonInventory[$i]['book_out'] = $inventory->getBookOut();
+                    $jsonInventory[$i]['returned'] = $inventory->getReturned();
+                    $jsonInventory[$i]['created_at'] = $inventory->getCreatedAt();
+                    $jsonInventory[$i]['available'] = $inventory->getAvailable();
+                    $jsonInventory[$i]['item_id'] = $inventory->getItemId();
+                    $jsonInventory[$i]['delivery_count'] = $inventory->getDeliveryCount();
+
+                    $i++;
+                }
+                echo json_encode($jsonInventory);
+            } else {
+                echo "No  Inventory Found";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+
 }
