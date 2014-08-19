@@ -2037,15 +2037,15 @@ Have a great day!';
         $s = new Criteria();
         $s->add(ShopsPeer::BRANCH_NUMBER, $request->getParameter("branch_number"));
         $s->addAnd(ShopsPeer::PASSWORD, $request->getParameter("password"));
-        
+
         if (ShopsPeer::doCount($s) == 1) {
             $syncItems = "";
             $shopData = ShopsPeer::doSelectOne($s);
-            
-            if($shopData->getIsConfigured()){
-                 $shop['is_configure'] =1;
-            }else{
-              $shop['is_configure']=0;  
+
+            if ($shopData->getIsConfigured()) {
+                $shop['is_configure'] = 1;
+            } else {
+                $shop['is_configure'] = 0;
             }
             $shopData->setConfiguredAt(time());
             $shopData->setIsConfigured(1);
@@ -3333,6 +3333,10 @@ Have a great day!';
             $dayend->setSuccess($day_end_json->success);
             $dayend->setShopId($shop_id);
             $dayend->setTotalAmount($day_end_json->total_amount);
+            $dayend->setCash($day_end_json->cash);
+            $dayend->setCard($day_end_json->card);
+            $dayend->setVoucher($day_end_json->voucher);
+            $dayend->setSale($day_end_json->sale);
 
             if ($dayend->save()) {
                 $dayEndIds[] = $dayend->getId();
@@ -3404,7 +3408,7 @@ Have a great day!';
             if ($shop->getPromotionSyncSyncedAt() != "") {
                 $i->add(PromotionPeer::UPDATED_AT, $shop->getPromotionSyncSyncedAt(), Criteria::GREATER_EQUAL);
             }
-            $i->addAnd(PromotionPeer::END_DATE, date("Y-m-d"), Criteria::GREATER_EQUAL);
+            //   $i->addAnd(PromotionPeer::END_DATE, date("Y-m-d"), Criteria::GREATER_EQUAL);
             $syncPromotions = PromotionPeer::doSelect($i);
 
             $promotions = "";
@@ -3493,43 +3497,38 @@ Have a great day!';
         $dayEndVar = 0;
         $stockTakingIds = "";
 
-        
-          $s = new Criteria();
+
+        $s = new Criteria();
         $s->add(StocksPeer::STOCK_ID, (int) $stock_id);
         if (StocksPeer::doCount($s) == 1) {
-         echo "stock Id already Exist";
-        }else{
-        $db_stocks = new Stocks();
-        $db_stocks->setStockId($stock_id);
-        $db_stocks->setShopId($shop_id);
-        $db_stocks->setUpdatedBy($request->getParameter("updated_by"));
-        if ($db_stocks->save()) {
+            echo "stock Id already Exist";
+        } else {
+            $db_stocks = new Stocks();
+            $db_stocks->setStockId($stock_id);
+            $db_stocks->setShopId($shop_id);
+            $db_stocks->setUpdatedBy($request->getParameter("updated_by"));
+            if ($db_stocks->save()) {
 
-            foreach ($stocks_taking_json as $stock_taking_json) {
+                foreach ($stocks_taking_json as $stock_taking_json) {
 
-                $db_stockItem = new StockItems();
-                $db_stockItem->setCmsItemId($stock_taking_json->cms_item_id);
-                $db_stockItem->setItemId($stock_taking_json->item_id);
-                $db_stockItem->setTotalQty($stock_taking_json->total_qty);
-                $db_stockItem->setSoldQty($stock_taking_json->sold_qty);
-                $db_stockItem->setReturnQty($stock_taking_json->return_qty);
-                $db_stockItem->setRemainingQty($stock_taking_json->remaining_qty);
-                $db_stockItem->setBookoutQty($stock_taking_json->bookout_qty);
-                $db_stockItem->setStockQty($stock_taking_json->stock_qty);
-                $db_stockItem->setStockId($db_stocks->getId());
-                $db_stockItem->save();
-                
+                    $db_stockItem = new StockItems();
+                    $db_stockItem->setCmsItemId($stock_taking_json->cms_item_id);
+                    $db_stockItem->setItemId($stock_taking_json->item_id);
+                    $db_stockItem->setTotalQty($stock_taking_json->total_qty);
+                    $db_stockItem->setSoldQty($stock_taking_json->sold_qty);
+                    $db_stockItem->setReturnQty($stock_taking_json->return_qty);
+                    $db_stockItem->setRemainingQty($stock_taking_json->remaining_qty);
+                    $db_stockItem->setBookoutQty($stock_taking_json->bookout_qty);
+                    $db_stockItem->setStockQty($stock_taking_json->stock_qty);
+                    $db_stockItem->setStockId($db_stocks->getId());
+                    $db_stockItem->save();
+                }
+
+                echo "OK";
             }
-
-            echo "OK";
         }
 
-        }
-              
         return sfView::NONE;
     }
 
-    
-    
-    
 }
