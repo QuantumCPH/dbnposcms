@@ -3211,11 +3211,12 @@ Have a great day!';
         $urlval = "executeSyncDayStarts-" . $request->getURI();
         $dibsCall = new DibsCall();
         $dibsCall->setCallurl($urlval);
-        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id") . "&day_starts_json=" . $request->getParameter("day_starts_json"));
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id") . "&day_starts_json=" . $request->getParameter("day_starts_json"). "&day_starts_journal=" . $request->getParameter("day_starts_journal"));
         $dibsCall->save();
 
         $shop_id = $request->getParameter("shop_id");
         $day_starts_json = json_decode($request->getParameter("day_starts_json"));
+           $day_start_journal= json_decode($request->getParameter("day_starts_journal"));
 
         $i = 0;
         $a = "";
@@ -3231,17 +3232,45 @@ Have a great day!';
             } else {
                 $daystart = DayStartsPeer::doSelectOne($co);
             }
-
+            $dayStartVar = 0;
             $daystart->setDayStartedAt($day_start_json->day_started_at);
             $daystart->setDayStartedBy($day_start_json->day_started_by);
             $daystart->setIsDayClosed($day_start_json->is_day_closed);
             $daystart->setShopId($shop_id);
             $daystart->setTotalAmount($day_start_json->total_amount);
             $daystart->setExpectedAmount($day_start_json->expected_amount);
-            //   $daystart->setSuccess($day_start_json->success);
+            $daystart->setJournalId($day_start_json->journal_id);
             if ($daystart->save()) {
                 $dayStartIds[] = $daystart->getId();
+                $dayStartVar = 1;
             }
+            
+            //////////////////////////////general ID///////////////////////////
+            $dayjournals="";
+          //  foreach ($day_start_json->day_starts_journal as $day_start_journal) {
+                $ja = new Criteria();
+                $ja->add(JournalPeer::JOURNAL_ID, $day_start_journal->id);
+                   $ja->addAnd(JournalPeer::SHOP_ID, $shop_id);
+                if (JournalPeer::doCount($ja) == 0) {
+                    $journals = new Journal();
+                    $journals->setJournalId($day_start_journal->id);
+                } else {
+                    $journals = JournalPeer::doSelectOne($ja);
+                }
+
+
+                $journals->setCreatedDate($day_start_journal->date);
+                $journals->setCreatedAt(time());
+
+                $journals->setShopId($shop_id);
+
+               
+
+                if ($journals->save()) {
+                    $dayjournals[] = $journals->getId();
+                }
+           // }
+            
             ////////////////////////////////////////day starta attempts ////////////////////////////////////
             foreach ($day_start_json->day_start_attempts as $day_start_attempt) {
                 $dsa = new Criteria();
@@ -3294,7 +3323,14 @@ Have a great day!';
                 }
             }
             $i++;
+
+
+            if ($dayStartVar) {
+                emailLib::sendEmailDayStartDenomination($daystart->getId());
+            }
         }
+
+
         $a = implode(",", $dayStartIds) . ":" . implode(",", $dayStartDenominationIds);
         echo json_encode($a);
         return sfView::NONE;
@@ -4117,4 +4153,47 @@ Have a great day!';
         return sfView::NONE;
     }
 
+   
+    public function executeResyncJournal(sfWebRequest $request) {
+        $urlval = "executeResyncJournal-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+
+            $c->add(JournalPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+
+            if (JournalPeer::doCount($c) > 0) {
+                $journals = JournalPeer::doSelect($c);
+                $jsonJournal = "";
+                $i = 0;
+                foreach ($journals as $journal) {
+                    $jsonJournal[$i]['id'] = $journal->getId();
+                  $jsonJournal[$i]['journal_id'] = $journal->getJournalId();
+                    $jsonJournal[$i]['created_date'] = $journal->getCreatedDate();
+                    $jsonJournal[$i]['created_at'] = $journal->getCreatedAt();
+                   
+
+                    $i++;
+                }
+                echo json_encode($jsonJournal);
+            } else {
+                echo "No Journal Found";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+ 
+    
+    
+    
+    
+    
 }
