@@ -4040,7 +4040,8 @@ Have a great day!';
                 $i = 0;
                 foreach ($cashInOuts as $cashInOut) {
                     $jsonCashInOut[$i]['id'] = $cashInOut->getId();
-                    $jsonCashInOut[$i]['day_start_id'] = $cashInOut->getDayStartedId();
+                        $jsonCashInOut[$i]['cash_inout_id'] = $cashInOut->getCashInoutId();
+                    $jsonCashInOut[$i]['day_start_id'] = $cashInOut->getDayStartId();
                     $jsonCashInOut[$i]['is_synced'] = $cashInOut->getIsSynced();
                     $jsonCashInOut[$i]['description'] = $cashInOut->getDescription();
                     $jsonCashInOut[$i]['amount'] = $cashInOut->getAmount();
@@ -4074,10 +4075,10 @@ Have a great day!';
         $bookoutIds = "";
         $object = json_decode($request->getParameter("server_json_cashinout"));
         $shop_id = $request->getParameter("shop_id");
-
+ 
         $cd = new Criteria();
         $cd->add(CashInOutPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
-        $cd->addAnd(CashInOutPeer::ID, (int) $request->getParameter("id"));
+        $cd->addAnd(CashInOutPeer::CASH_INOUT_ID, $object->id);
 
         if (CashInOutPeer::doCount($cd) > 0) {
             $new_cin = CashInOutPeer::doSelectOne($cd);
@@ -4085,21 +4086,23 @@ Have a great day!';
             $new_cin = new CashInOut();
         }
 
-        $new_cin->setId($object->id);
+      
+        $new_cin->setCashInoutId($object->id);
         $new_cin->setDayStartId($object->day_start_id);
         $new_cin->setAmount($object->amount);
         $new_cin->setDescription($object->description);
-        $new_cin->setIsSynced($object->is_synced);
+        $new_cin->setIsSynced($object->status_id);
         $new_cin->setShopId($request->getParameter("shop_id"));
 
+        
         $new_cin->setCreatedAt($object->created_at);
 
-        $new_cin->setUpdatedBy($object->updated_by);
+        $new_cin->setUpdatedBy($object->created_by);
 
 
 
         if ($new_cin->save()) {
-            $bookoutIds[] = $new_cin->getId();
+            $bookoutIds[] = $new_cin->getCashInoutId();
         }
 
 
