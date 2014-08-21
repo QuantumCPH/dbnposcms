@@ -4389,6 +4389,49 @@ Have a great day!';
  
        
     
+    public function executeSyncDayStartsUpdate(sfWebRequest $request) {
+
+
+        $urlval = "executeSyncDayStartsupdate-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id") . "&day_starts_json=" . $request->getParameter("day_starts_json"));
+        $dibsCall->save();
+
+        $shop_id = $request->getParameter("shop_id");
+        $day_start_json = json_decode($request->getParameter("day_starts_json"));
+        
+        $i = 0;
+        $a = "";
+        $dayStartIds = "";
+       
+            $co = new Criteria();
+            $co->add(DayStartsPeer::ID, $day_start_json->id);
+            if (DayStartsPeer::doCount($co) == 0) {
+              //  $daystart = new DayStarts();
+             //   $daystart->setId($day_start_json->id);
+            } else {
+                $daystart = DayStartsPeer::doSelectOne($co);
+                $daystart->setIsDayClosed($day_start_json->is_day_closed);
+          
+            if ($daystart->save()) {
+                $dayStartIds[] = $daystart->getId();
+                 
+            }
+            }
+           
+           
+            
+            
+       
+
+
+        $a = implode(",", $dayStartIds);
+        echo json_encode($a);
+        return sfView::NONE;
+    }
+
+    
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
    
