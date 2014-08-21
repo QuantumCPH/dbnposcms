@@ -3883,6 +3883,7 @@ Have a great day!';
                     $jsonDayStart[$i]['total_amount'] = $dayStart->getTotalAmount();
                     $jsonDayStart[$i]['success'] = $dayStart->getSuccess();
                     $jsonDayStart[$i]['expected_amount'] = $dayStart->getExpectedAmount();
+                     $jsonDayStart[$i]['journal_id'] = $dayStart->getJournalId();
 
                     $i++;
                 }
@@ -4156,6 +4157,7 @@ Have a great day!';
         return sfView::NONE;
     }
 
+    
    
     public function executeResyncJournal(sfWebRequest $request) {
         $urlval = "executeResyncJournal-" . $request->getURI();
@@ -4198,5 +4200,195 @@ Have a great day!';
     
     
     
+    
+    public function executeSyncReceipts($request) {
+
+        $urlval = "SyncReceipts-" . $request->getURI();
+        $dibsCall = new DibsCall();
+
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("server_json_receipt=" . $request->getParameter("server_json_receipt"));
+        $dibsCall->save();
+
+        $user_id = $this->getUser()->getAttribute('user_id', '', 'backendsession');
+        $bookoutIds = "";
+        $object = json_decode($request->getParameter("server_json_receipt"));
+        $shop_id = $request->getParameter("shop_id");
+ 
+        $cd = new Criteria();
+        $cd->add(ReceiptsPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+        $cd->addAnd(ReceiptsPeer::RECEIPT_ID, $object->id);
+
+        if (ReceiptsPeer::doCount($cd) > 0) {
+            $new_cin = ReceiptsPeer::doSelectOne($cd);
+        } else {
+            $new_cin = new Receipts();
+        }
+
+      
+        $new_cin->setReceiptId($object->id);
+       
+       
+        $new_cin->setShopId($request->getParameter("shop_id"));
+
+        
+        $new_cin->setCreatedAt($object->created_at);
+
+     //   $new_cin->setUpdatedBy($object->created_by);
+
+
+
+        if ($new_cin->save()) {
+            $bookoutIds[] = $new_cin->getReceiptId();
+        }
+
+
+
+
+        //  $a = implode(', ', $bookoutIds);
+        $a = implode(',', $bookoutIds);
+        echo json_encode($a);
+
+        return sfView::NONE;
+    }
+
+    
+ 
+    public function executeResyncReceipts(sfWebRequest $request) {
+        $urlval = "executeResyncReceipts-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+
+            $c->add(ReceiptsPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+
+            if (ReceiptsPeer::doCount($c) > 0) {
+                $receipts = ReceiptsPeer::doSelect($c);
+                $jsonReceipts = "";
+                $i = 0;
+                foreach ($receipts as $receipt) {
+                    $jsonReceipts[$i]['id'] = $receipt->getId();
+                  $jsonReceipts[$i]['receipt_id'] = $receipt->getReceiptId();
+                    $jsonReceipts[$i]['updated_at'] = $receipt->getUpdatedAt();
+                    $jsonReceipts[$i]['created_at'] = $receipt->getCreatedAt();
+                   
+
+                    $i++;
+                }
+                echo json_encode($jsonReceipts);
+            } else {
+                echo "No receipts Found";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+ 
+       
+    
+    
+    
+    
+    public function executeSyncReturnReceipts($request) {
+
+        $urlval = "SyncReturnReceipts-" . $request->getURI();
+        $dibsCall = new DibsCall();
+
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("server_json_return_receipts=" . $request->getParameter("server_json_return_receipts"));
+        $dibsCall->save();
+
+        $user_id = $this->getUser()->getAttribute('user_id', '', 'backendsession');
+        $bookoutIds = "";
+        $object = json_decode($request->getParameter("server_json_return_receipts"));
+        $shop_id = $request->getParameter("shop_id");
+ 
+        $cd = new Criteria();
+        $cd->add(ReturnReceiptsPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+        $cd->addAnd(ReturnReceiptsPeer::RECEIPT_ID, $object->id);
+
+        if (ReturnReceiptsPeer::doCount($cd) > 0) {
+            $new_cin = ReturnReceiptsPeer::doSelectOne($cd);
+        } else {
+            $new_cin = new ReturnReceipts();
+        }
+
+      
+        $new_cin->setReceiptId($object->id);
+       
+       
+        $new_cin->setShopId($request->getParameter("shop_id"));
+
+        
+        $new_cin->setCreatedAt($object->created_at);
+
+     //   $new_cin->setUpdatedBy($object->created_by);
+
+
+
+        if ($new_cin->save()) {
+            $bookoutIds[] = $new_cin->getReceiptId();
+        }
+
+
+
+
+        //  $a = implode(', ', $bookoutIds);
+        $a = implode(',', $bookoutIds);
+        echo json_encode($a);
+
+        return sfView::NONE;
+    }
+
+    
+ 
+    public function executeResyncReturnReceipts(sfWebRequest $request) {
+        $urlval = "executeResyncReturnReceipts-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+
+            $c->add(ReturnReceiptsPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+
+            if (ReturnReceiptsPeer::doCount($c) > 0) {
+                $receipts = ReturnReceiptsPeer::doSelect($c);
+                $jsonReceipts = "";
+                $i = 0;
+                foreach ($receipts as $receipt) {
+                    $jsonReceipts[$i]['id'] = $receipt->getId();
+                  $jsonReceipts[$i]['receipt_id'] = $receipt->getReceiptId();
+                    $jsonReceipts[$i]['updated_at'] = $receipt->getUpdatedAt();
+                    $jsonReceipts[$i]['created_at'] = $receipt->getCreatedAt();
+                   
+
+                    $i++;
+                }
+                echo json_encode($jsonReceipts);
+            } else {
+                echo "No return receipts Found";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+ 
+       
+    
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
     
 }
