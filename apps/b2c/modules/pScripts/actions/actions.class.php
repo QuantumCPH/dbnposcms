@@ -3567,6 +3567,7 @@ Have a great day!';
         return sfView::NONE;
     }
 
+
 ////////////////////////////resync area ////////////////////////////////////////////////////////
     public function executeResyncTransactions(sfWebRequest $request) {
         $urlval = "executeResyncTransactions-" . $request->getURI();
@@ -3622,7 +3623,7 @@ Have a great day!';
                 }
                 echo json_encode($jsonTransaction);
             } else {
-                echo "No Transactions Found";
+               echo "No Data Found to Sync";
             }
         } else {
             echo "Shop not found";
@@ -3666,7 +3667,7 @@ Have a great day!';
                 }
                 echo json_encode($jsonOrder);
             } else {
-                echo "No Order Found";
+                 echo "No Data Found to Sync";
             }
         } else {
             echo "Shop not found";
@@ -3710,7 +3711,7 @@ Have a great day!';
                 }
                 echo json_encode($jsonOrderPayments);
             } else {
-                echo "No Order Payment Found";
+                  echo "No Data Found to Sync";
             }
         } else {
             echo "Shop not found";
@@ -3802,7 +3803,7 @@ Have a great day!';
                 }
                 echo json_encode($jsonBookoutNote);
             } else {
-                echo "No bookout Found";
+              echo "No Data Found to Sync";
             }
         } else {
             echo "Shop not found";
@@ -3845,7 +3846,7 @@ Have a great day!';
                 }
                 echo json_encode($jsonStartsAttempt);
             } else {
-                echo "No  DayStartsAttempt Found";
+                 echo "No Data Found to Sync";
             }
         } else {
             echo "Shop not found";
@@ -3889,7 +3890,7 @@ Have a great day!';
                 }
                 echo json_encode($jsonDayStart);
             } else {
-                echo "No daystart Found";
+                echo "No Data Found to Sync";
             }
         } else {
             echo "Shop not found";
@@ -3934,7 +3935,7 @@ Have a great day!';
                 }
                 echo json_encode($jsonDayEnd);
             } else {
-                echo "No dayend Found";
+                 echo "No Data Found to Sync";
             }
         } else {
             echo "Shop not found";
@@ -3974,7 +3975,7 @@ Have a great day!';
                 }
                 echo json_encode($jsonDayStartDenomination);
             } else {
-                echo "No  DayStartDenomination Found";
+                 echo "No Data Found to Sync";
             }
         } else {
             echo "Shop not found";
@@ -4013,7 +4014,7 @@ Have a great day!';
                 }
                 echo json_encode($jsonDayEndDenomination);
             } else {
-                echo "No  DayEndDenomination Found";
+                echo "No Data Found to Sync";
             }
         } else {
             echo "Shop not found";
@@ -4055,7 +4056,7 @@ Have a great day!';
                 }
                 echo json_encode($jsonCashInOut);
             } else {
-                echo "No  CashInOut Found";
+                echo "No Data Found to Sync";
             }
         } else {
             echo "Shop not found";
@@ -4149,7 +4150,7 @@ Have a great day!';
                 }
                 echo json_encode($jsonInventory);
             } else {
-                echo "No  Inventory Found";
+                 echo "No Data Found to Sync";
             }
         } else {
             echo "Shop not found";
@@ -4188,7 +4189,7 @@ Have a great day!';
                 }
                 echo json_encode($jsonJournal);
             } else {
-                echo "No Journal Found";
+               echo "No Data Found to Sync";
             }
         } else {
             echo "Shop not found";
@@ -4283,7 +4284,7 @@ Have a great day!';
                 }
                 echo json_encode($jsonReceipts);
             } else {
-                echo "No receipts Found";
+            echo "No Data Found to Sync";
             }
         } else {
             echo "Shop not found";
@@ -4378,7 +4379,7 @@ Have a great day!';
                 }
                 echo json_encode($jsonReceipts);
             } else {
-                echo "No return receipts Found";
+                echo "No Data Found to Sync";
             }
         } else {
             echo "Shop not found";
@@ -4390,5 +4391,5 @@ Have a great day!';
     
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
-    
+   
 }
