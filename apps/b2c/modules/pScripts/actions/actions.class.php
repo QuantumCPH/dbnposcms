@@ -3240,6 +3240,7 @@ Have a great day!';
             $daystart->setTotalAmount($day_start_json->total_amount);
             $daystart->setExpectedAmount($day_start_json->expected_amount);
             $daystart->setJournalId($day_start_json->journal_id);
+              $daystart->setSucccess($day_start_json->success);
             if ($daystart->save()) {
                 $dayStartIds[] = $daystart->getId();
                 $dayStartVar = 1;
