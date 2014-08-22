@@ -3240,7 +3240,7 @@ Have a great day!';
             $daystart->setTotalAmount($day_start_json->total_amount);
             $daystart->setExpectedAmount($day_start_json->expected_amount);
             $daystart->setJournalId($day_start_json->journal_id);
-              $daystart->setSucccess($day_start_json->success);
+              $daystart->setSuccess($day_start_json->success);
             if ($daystart->save()) {
                 $dayStartIds[] = $daystart->getId();
                 $dayStartVar = 1;
@@ -3316,6 +3316,7 @@ Have a great day!';
                 $daystartDenomination->setDayAttemptId($day_start_denomination->day_start_attempt_id);
                 $daystartDenomination->setDayStartId($day_start_denomination->day_start_id);
                 $daystartDenomination->setAmount($day_start_denomination->amount);
+              
                 $daystartDenomination->setDenominationId($day_start_denomination->denomination_id);
                 //  var_dump($daystartDenomination->save());
                 if ($daystartDenomination->save()) {
