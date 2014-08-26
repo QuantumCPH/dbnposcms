@@ -73,5 +73,18 @@ class inventoryActions extends sfActions {
             $this->redirect('inventory/edit?id=' . $inventory->getId());
         }
     }
+ public function executeStockIn(sfWebRequest $request) {
 
+        $this->item_id = $request->getParameter('id');
+        $this->branch_number = $request->getParameter('branch_number');
+        $this->close_url = $request->getReferer();
+        
+    }
+
+    public function executeStockOut(sfWebRequest $request) {
+
+        $this->item_id = $request->getParameter('id');
+        $this->branch_number = $request->getParameter('branch_number');
+        $this->close_url = $request->getReferer();
+    }
 }

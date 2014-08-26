@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require_once('../lib/customFunction.class.php');
 require_once('../lib/itemsLib.class.php');
 require_once('connection.php');
@@ -9,8 +9,6 @@ require_once('connection.php');
  * License:   GPL v2 or BSD (3-point)
  */
  
-
-//$siteUrl   = "http://localhost:4430/poscms/web/";
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Easy set variables
  */
@@ -18,20 +16,22 @@ require_once('connection.php');
 /* Array of database columns which should be read and sent back to DataTables. Use a space where
  * you want to insert a non-database field (for example a counter or static image)
  */
-$aColumns = array("inventory.item_id","shops.branch_number", "inventory.total", "inventory.sold", "inventory.book_out", "inventory.returned", "inventory.available","inventory.delivery_count","inventory.stock_in","inventory.stock_out");
+$aColumns = array(  "transactions.quantity", "transactions.created_at", "user.name");
 
 /* Indexed column (used for fast and accurate table cardinality) */
-$sIndexColumn = "inventory.id";
+$sIndexColumn = "transactions.id";
 
 /* DB table to use */
-$sTable = "inventory";
+$sTable = "transactions";
 
 
 
-$sJoin = 'LEFT JOIN shops   ON shops.id = inventory.shop_id';
+$sJoin = 'LEFT JOIN shops   ON shops.id = transactions.shop_id ';
+$sJoin .= ' LEFT JOIN user   ON user.id = transactions.user_id ';
+//$sJoin .= ' RIGHT JOIN order_payments   ON order_payments.id = transactions.order_id ';
+//$sJoin .= ' LEFT JOIN payment_types   ON payment_types.id = order_payments.payment_type_id ';
 
  
-
 /*
  * Paging
  */
@@ -85,7 +85,7 @@ if ($_GET['sSearch'] != "") {
                // $sWhere .= $aColumns[$i] . " LIKE '" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
             }
         } else {
-
+            
             $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
         }
     }
@@ -97,16 +97,52 @@ if ($_GET['sSearch'] != "") {
 /* Individual column filtering */
 for ($i = 0; $i < count($aColumns); $i++) {
     if ($_GET['bSearchable_' . $i] == "true" && $_GET['sSearch_' . $i] != '') {
+        if($_GET['sSearch_' . $i]!="~"){
         if ($sWhere == "") {
             $sWhere = "WHERE ";
         } else {
             $sWhere .= " AND ";
         }
-        $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
+        }
+         
+        if($aColumns[$i]=="transactions.created_at"){
+        
+              $col = explode('~',$_GET['sSearch_' . $i]);
+            if($col[0]!=""){
+       $sWhere .= $aColumns[$i] . ">='" . mysql_real_escape_string($col[0])."'";
+            }
+             if($col[1]!=""){
+                  if($col[0]!=""){
+        $sWhere .= " AND ";
+                  }
+      $sWhere .= $aColumns[$i] . "<='" . mysql_real_escape_string($col[1])."'";
+             }
+   
+        }elseif($aColumns[$i]=="shops.branch_number"){
+        
+          $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
+        
+        }elseif($aColumns[$i]=="user.name"){
+        
+          $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
+        
+        }elseif($aColumns[$i]=="transactions.item_id"){
+         $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";    
+        }else{
+            
+        }
+         
     }
 }
-
-
+//
+ if ($sWhere == "") {
+            $sWhere = "WHERE  transactions.transaction_type_id=10 AND transactions.status_id=3 AND shops.branch_number=".$_GET['branch_number']."  AND transactions.item_id='".$_GET['item_id']."'" ;
+        } else {
+            $sWhere .= " AND  transactions.transaction_type_id=10 AND transactions.status_id=3  AND shops.branch_number=".$_GET['branch_number']."  AND transactions.item_id='".$_GET['item_id']."'" ;
+        }
+     
+       
+        
 /*
  * SQL queries
  * Get data to display
@@ -114,14 +150,18 @@ for ($i = 0; $i < count($aColumns); $i++) {
 $sQuery = "
 		SELECT SQL_CALC_FOUND_ROWS " . str_replace(" , ", " ", implode(", ", $aColumns)) . "
 		FROM   $sTable
-                    $sJoin
+                $sJoin
 		$sWhere
 		$sOrder
 		$sLimit
 	";
+ 
+//echo $sQuery;
+//die;
+
 $rResult = mysql_query($sQuery, $gaSql['link']) or die(mysql_error());
 
- //echo $sQuery;
+
 /* Data set length after filtering */
 $sQuery = "
 		SELECT FOUND_ROWS()
@@ -134,12 +174,24 @@ $iFilteredTotal = $aResultFilterTotal[0];
 $sQuery = "
 		SELECT COUNT(" . $sIndexColumn . ")
 		FROM   $sTable
+                     $sJoin
+                    $sWhere
 	";
+ 
 $rResultTotal = mysql_query($sQuery, $gaSql['link']) or die(mysql_error());
 $aResultTotal = mysql_fetch_array($rResultTotal);
 $iTotal = $aResultTotal[0];
 
-  $_SESSION['sQuery']=$sQuery;
+
+//$sQuery = "
+//		SELECT *
+//		FROM   $sTable
+//                     $sJoin
+//                    $sWhere
+//	";
+//
+//echo $sQuery;
+//die;
 /*
  * Output
  */
@@ -154,87 +206,21 @@ while ($aRow = mysql_fetch_array($rResult)) {
     $row = array();
  
     for ($i = 0; $i < count($aColumns); $i++) {
-        $col = explode('.',$aColumns[$i]);
-      
+         $col = explode('.',$aColumns[$i]);
+         
+                $col = explode('.',$aColumns[$i]);
+        $row[] = $aRow[$col[1]];
+           
         
-         if ($aColumns[$i] == "inventory.sold") {
         
-        if($aRow[$col[1]]>0){
-                 $action = "<a href=".$siteUrl."backend.php/inventory/inventorySoldDetail?id=" . $aRow["item_id"] . "&branch_number=".$aRow["branch_number"]." class='inevtory-link'>".$aRow[$col[1]]."</a>";
-                 
-              $row[] = $action;
-        }else{
-            $row[] = $aRow[$col[1]];     
-        }
-              
-         }elseif($aColumns[$i] == "inventory.delivery_count"){
-              if($aRow[$col[1]]>0){
-              $action = "<a href=".$siteUrl."backend.php/inventory/deliveries/id/" . $aRow["item_id"] . "?branch_number=".$aRow["branch_number"]." class='inevtory-link'>".$aRow[$col[1]]."</a>";
-                 
-             
-               $row[] = $action;
-        }else{
-            $row[] = $aRow[$col[1]];     
-        }
-              }elseif($aColumns[$i] == "inventory.stock_in"){
-              if($aRow[$col[1]]>0){
-              $action = "<a href=".$siteUrl."backend.php/inventory/stockIn/id/" . $aRow["item_id"] . "?branch_number=".$aRow["branch_number"]." class='inevtory-link'>".$aRow[$col[1]]."</a>";
-                 
-             
-               $row[] = $action;
-        }else{
-            $row[] = $aRow[$col[1]];     
-        }
-              }elseif($aColumns[$i] == "inventory.stock_out"){
-              if($aRow[$col[1]]>0){
-              $action = "<a href=".$siteUrl."backend.php/inventory/stockOut/id/" . $aRow["item_id"] . "?branch_number=".$aRow["branch_number"]." class='inevtory-link'>".$aRow[$col[1]]."</a>";
-                 
-              $row[] = $action; 
-              }else{
-            $row[] = $aRow[$col[1]];     
-        }
-         }else{
-           $row[] = $aRow[$col[1]];    
-         }
         
+        
+       
     }
     $output['aaData'][] = $row;
 
  
 }
-
- 
-$sQueryTotal = "
-		SELECT sum(inventory.total) as inTotal,
-                sum(inventory.sold) as soldTotal,
-                sum(inventory.book_out) as bookTotal,
-                sum(inventory.returned) as sreturnTotal,
-                sum(inventory.available) as availableTotal,
-                sum(inventory.delivery_count) as deliveryTotal, 
-                sum(inventory.stock_in) as stockInTotal,
-                sum(inventory.stock_out) as stockOutTotal 
-		FROM   $sTable
-                     $sJoin
-                    $sWhere
-	";
-
- 
-$rsTotal = mysql_query($sQueryTotal, $gaSql['link']) or die(mysql_error());
- $rowTotal = mysql_fetch_array($rsTotal); 
-  $row = array();
- $row[] = "<b> Total </b>";
- $row[] = "";
-  $row[] ="<b> ". $rowTotal['inTotal']." </b>";  
-   $row[] ="<b> ". $rowTotal['soldTotal']." </b>";
-    $row[] = "<b> ". $rowTotal['bookTotal']." </b>";
-     $row[] ="<b> ". $rowTotal['sreturnTotal']." </b>";
-      $row[] = "<b> ". $rowTotal['availableTotal']." </b>";
-       $row[] = "<b> ". $rowTotal['deliveryTotal']." </b>";
-         $row[] = "<b> ". $rowTotal['stockInTotal']." </b>";
-           $row[] = "<b> ". $rowTotal['stockOutTotal']." </b>";
-       
- $output['aaData'][] = $row;
-
 
 echo json_encode($output);
 ?>
