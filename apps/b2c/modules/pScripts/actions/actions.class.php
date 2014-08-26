@@ -4147,6 +4147,8 @@ Have a great day!';
                     $jsonInventory[$i]['available'] = $inventory->getAvailable();
                     $jsonInventory[$i]['item_id'] = $inventory->getItemId();
                     $jsonInventory[$i]['delivery_count'] = $inventory->getDeliveryCount();
+                      $jsonInventory[$i]['stock_in'] = $inventory->getStockIn();
+                        $jsonInventory[$i]['stock_out'] = $inventory->getStockOut();
 
                     $i++;
                 }
@@ -4436,4 +4438,32 @@ Have a great day!';
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
    
+    public function executeSyncTransaction(sfWebRequest $request) {
+        $urlval = "SyncTransaction-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("server_json_trans=" . $request->getParameter("server_json_trans") . "&shop_id=" . $request->getParameter("shop_id") );
+        $dibsCall->save();
+        $shop_id = $request->getParameter("shop_id");
+  
+
+        $saved_transactions = "";
+        $json_of_transactions = json_decode($request->getParameter("server_json_trans"));
+        foreach ($json_of_transactions as $object) {
+            $c = new Criteria();
+            $c->add(TransactionsPeer::SHOP_TRANSACTION_ID, $object->pos_id);
+            $c->add(TransactionsPeer::SHOP_ID, $shop_id);
+            if (TransactionsPeer::doCount($c) == 0) {
+                $saved_transactions[] = itemsLib::createTransactionUsingObject($object, $shop_id);
+            } else {
+                $saved_transactions[] = $object->pos_id;
+            }
+        }
+
+      
+        echo implode(",", $saved_transactions);
+        return sfView::NONE;
+    }
+
+    
 }

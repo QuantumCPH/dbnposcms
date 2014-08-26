@@ -19,11 +19,14 @@ table.table thead .sorting_desc_disabled { background:#752271 url('<?php echo sf
 <script type="text/javascript">
  
     $(document).ready(function() {
-      var oTable =$('#myTable').dataTable( {
+         $.datepicker.regional[""].dateFormat = 'yy-mm-dd 00:00:00';
+            	$.datepicker.setDefaults($.datepicker.regional['']);
+  
+    $('#myTable').dataTable( {
       
         "bProcessing": true,
 	"bServerSide": true,
-	"sAjaxSource": "<?php echo sfConfig::get('app_web_url')?>server_inventory.php",
+	"sAjaxSource": "<?php echo sfConfig::get('app_web_url')?>server_inventoryStockIn.php",
         "sPaginationType": "full_numbers",
          "sDom": 'T<"clear">lfrtip',
             "oTableTools": {
@@ -34,20 +37,32 @@ table.table thead .sorting_desc_disabled { background:#752271 url('<?php echo sf
 
                 ]
             },
-            "aLengthMenu": [[10, 25, 50,100,250 ,-1], [10, 25, 50,100,250,"All"]]
+            "aLengthMenu": [[10, 25, 50,100,250 ,-1], [10, 25, 50,100,250,"All"]],
+         "fnServerParams": function ( aoData ) {
+    aoData.push({ "name": "branch_number", "value": <?php echo $branch_number;  ?> },{ "name": "item_id", "value": <?php echo $item_id;  ?> });
+}
          
-    } ).columnFilter();
-     oTable.fnSort([[1, 'desc']]);
+    } ).columnFilter({ aoColumns: [ 	null, 
+				    	 		{ type: "date-range" },
+                                    			{ type: "text" }
+						]
+
+		});
+    
     $.extend( $.fn.dataTableExt.oStdClasses, {
     "sWrapper": "dataTables_wrapper form-inline"
 } );
 } );
     </script>
-  
-
+   <input type="hidden" name="branch_number" id="branch_number" value="<?php echo $branch_number;  ?>">
+    <input type="hidden" name="item_id" id="itemId" value="<?php echo $item_id;  ?>">
 <div class="itemslist">
  
-<h1 class="items-head list-page"><img src="<?php echo sfConfig::get('app_web_url').'images/inventory_over.png'?>" />&nbsp;Inventory</h1>
+<h1 class="items-head list-page">Item StockIn &nbsp; for <img src="<?php echo sfConfig::get('app_web_url').'images/inventory_over.png'?>" />&nbsp;Branch # <?php echo $branch_number;  ?> &nbsp; and &nbsp;<img src="<?php echo sfConfig::get('app_web_url').'images/items_over.png'?>" />&nbsp;&nbsp;Item #<?php echo $item_id;  ?></h1>
+<div  class="backimgDiv"> 
+  <input type="button" onclick="document.location.href='<?php echo $close_url;?>';" value="Back" class="btn btn-cancel"/>
+  
+</div>
 </div>
  
 <div class="itemslist listviewpadding "><br />
@@ -58,16 +73,11 @@ table.table thead .sorting_desc_disabled { background:#752271 url('<?php echo sf
     <?php endif;?>
 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="myTable" >
 <thead>
-  <tr><th>Item</th>
-      <th>Branch</th>
-    <th>Total</th>
-     <th>Sold</th>
-   <th>Bookout</th>
-    <th>Returned</th>
-     <th>Available</th>
-      <th>Delivery</th>
-      <th>Stock In</th>
-       <th>Stock Out</th>
+  <tr>
+      <th>Quantity</th>
+    <th>Created At</th>
+     <th>User</th>
+   
     
   </tr>
  </thead>
@@ -76,17 +86,10 @@ table.table thead .sorting_desc_disabled { background:#752271 url('<?php echo sf
   
 </tbody>
  <tfoot>
-		 <tr><th>Item</th>
-      <th>Branch</th>
-    <th>Total</th>
-     <th>Sold</th>
-   <th>Bookout</th>
-    <th>Returned</th>
-     <th>Available</th>
-       <th>Delivery</th>
-      <th>Stock In</th>
-       <th>Stock Out</th>
-    
+		 <tr>
+       <th>Quantity</th>
+    <th>Created At</th>
+     <th>User</th>
   </tr>
 	</tfoot>
 </table>
