@@ -182,14 +182,15 @@ class shopsActions extends sfActions {
         $shop->setUpdatedBy($user_id);
         $shop->setCreatedBy($user_id);
         $shop->setMaxDayEndAttempts($request->getParameter("max_day_end_attempts"));
-        $shop->save();
-        ///////////////////Vat Setting ////////////////////
+                ///////////////////Vat Setting ////////////////////
         $setting = SystemConfigPeer::retrieveByPK(6);
         $shop->setVatValue($setting->getValues());
         ///////////////////Currency Setting ////////////////////
         $settingCurrency = SystemConfigPeer::retrieveByPK(7);
         $shop->setCurrencyId($settingCurrency->getValues());
         ////////////////////////////////////////////////////////////////
+        $shop->save();
+
         $this->getUser()->setFlash('message', 'Branch is added.');
         $this->redirect('shops/index');
     }
