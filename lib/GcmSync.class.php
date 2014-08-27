@@ -11,9 +11,38 @@ class GcmLib {
      * @@$reg_ids is an array and will be used to send multiple POS gcms key to update.  
      */
 
-    public function GcmLib($command, $reg_ids) {
+    public function GcmLib($command, $reg_ids, $shop = null) {
         $this->command = $command;
         $this->reg_ids = $reg_ids;
+        
+        if($shop){
+ $shop_id= $shop->getId();   
+ 
+ 
+            $co = new Criteria();
+            $co->add(GcmRequestPeer::SHOP_ID, $shop_id);
+             $co->addAnd(GcmRequestPeer::ACTION_NAME, $command);
+            if (GcmRequestPeer::doCount($co) == 0) {
+                $gcm = new GcmRequest();
+                $gcm->setShopId($shop_id);
+            $gcm->setActionName($command);
+              $gcm->setSentCount(1);
+            } else {
+                $gcm = GcmRequestPeer::doSelectOne($co);
+                $rccount=(int) $gcm->getReceiveCount();
+                $rccount=$rccount+1;
+                  $gcm->setSentCount($rccount);
+            }
+            
+            $gcm->setCreated(time());
+             $gcm->setRequestStatus(1);
+           
+           
+          $gcm->save();
+        }
+        
+        
+        
         $this->sendRequest();
     }
 

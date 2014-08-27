@@ -65,7 +65,7 @@ class system_configActions extends sfActions
              foreach ($shops as $shop){
               $shop->setVatValue($setting->getValues());
                  if ($shop->save()) {
-            new GcmLib("shop_updated", array($shop->getGcmKey()));
+            new GcmLib("shop_updated", array($shop->getGcmKey()),$shop);
         } 
                  
              }

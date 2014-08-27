@@ -501,7 +501,7 @@ class userActions extends sfActions {
                 if (ShopsPeer::doCount($sc)) {
                     $shopObj = ShopsPeer::doSelectOne($sc);
                     if ($shopObj->getGcmKey() != "") {
-                        new GcmLib("user_updated", array($shopObj->getGcmKey()));
+                        new GcmLib("user_updated", array($shopObj->getGcmKey()),$shopObj);
                     }
                 }
             }
@@ -779,7 +779,7 @@ Have a great day!';
         if (ShopsPeer::doCount($sc)) {
             $shopObj = ShopsPeer::doSelectOne($sc);
             if ($shopObj->getGcmKey() != "") {
-                new GcmLib("user_updated", array($shopObj->getGcmKey()));
+                new GcmLib("user_updated", array($shopObj->getGcmKey()),$shopObj);
             }
         }
         $this->getUser()->setFlash('message', 'Branch assigned successfuly.');

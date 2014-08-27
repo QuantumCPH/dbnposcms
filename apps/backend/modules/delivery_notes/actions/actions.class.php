@@ -189,7 +189,7 @@ class delivery_notesActions extends sfActions {
 
 
                 if ($shop->getGcmKey() != "") {
-                    new GcmLib("delivery_note", array($shop->getGcmKey()));
+                    new GcmLib("delivery_note", array($shop->getGcmKey()),$shop);
                 }
 
                 $this->getUser()->setFlash('message', $this->getContext()->getI18N()->__('Delivery note updated successfully.'));

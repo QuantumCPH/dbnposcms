@@ -90,7 +90,7 @@ class pos_roleActions extends sfActions {
                     if (ShopsPeer::doCount($sc)) {
                         $shopObj = ShopsPeer::doSelectOne($sc);
                         if ($shopObj->getGcmKey() != "") {
-                            new GcmLib("role_updated", array($shopObj->getGcmKey()));
+                            new GcmLib("role_updated", array($shopObj->getGcmKey()),$shopObj);
                         }
                     }
                 }
@@ -173,7 +173,7 @@ class pos_roleActions extends sfActions {
                             if (ShopsPeer::doCount($sc)) {
                                 $shopObj = ShopsPeer::doSelectOne($sc);
                                 if ($shopObj->getGcmKey() != "") {
-                                    new GcmLib("role_updated", array($shopObj->getGcmKey()));
+                                    new GcmLib("role_updated", array($shopObj->getGcmKey()),$shopObj);
                                 }
                             }
                         }

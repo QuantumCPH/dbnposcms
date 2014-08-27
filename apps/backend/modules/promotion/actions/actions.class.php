@@ -144,7 +144,7 @@ class promotionActions extends sfActions {
             foreach ($branchIds as $branchId) {
                 $shop = ShopsPeer::retrieveByPK($branchId);
                 if ($shop->getGcmKey() != "") {
-                    new GcmLib("promotion", array($shop->getGcmKey()));
+                    new GcmLib("promotion", array($shop->getGcmKey()),$shop);
                 }
             }
         }
@@ -358,7 +358,7 @@ class promotionActions extends sfActions {
             foreach ($branchIds as $branchId) {
                 $shop = ShopsPeer::retrieveByPK($branchId);
                 if ($shop->getGcmKey() != "") {
-                    new GcmLib("promotion", array($shop->getGcmKey()));
+                    new GcmLib("promotion", array($shop->getGcmKey()),$shop);
                 }
             }
         }

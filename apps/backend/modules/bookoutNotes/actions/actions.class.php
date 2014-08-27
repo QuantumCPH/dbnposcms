@@ -170,7 +170,7 @@ class bookoutNotesActions extends sfActions
 /////////////////////////////////////////////////////////////////////////////////   
                 if ($valusesave) {
   if ($shop->getGcmKey() != "") {
-                new GcmLib("bookout_updated", array($shop->getGcmKey()));
+                new GcmLib("bookout_updated", array($shop->getGcmKey()),$shop);
             }
                 }
 ////////////////////////////////////////////////////////////////////////////////              
