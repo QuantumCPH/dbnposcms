@@ -4464,5 +4464,55 @@ Have a great day!';
         return sfView::NONE;
     }
 
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+     public function executeSynGcm(sfWebRequest $request) {
+
+
+        $urlval = "executeSynGcm-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $shop_id = $request->getParameter("shop_id");
+     
+
+        $i = 0;
+        $gcms = "";
+       
+       
+            $co = new Criteria();
+            $co->add(GcmRequestPeer::SHOP_ID, $shop_id);
+             $co->addAnd(GcmRequestPeer::ACTION_NAME, $request->getParameter("message"));
+            if (GcmRequestPeer::doCount($co) == 0) {
+                $gcm = new GcmRequest();
+                $gcm->setShopId($shop_id);
+            $gcm->setActionName($request->getParameter("message"));
+              $gcm->setReceiveCount(1);
+            } else {
+                $gcm = GcmRequestPeer::doSelectOne($co);
+                $rccount=(int) $gcm->getReceiveCount();
+                $rccount=$rccount+1;
+                  $gcm->setReceiveCount($rccount);
+            }
+            
+            $gcm->setUpdatedAt(time());
+             $gcm->setRequestStatus(3);
+            $gcm->setUserId($request->getParameter("user_id"));
+            $gcm->setReceivedAt($request->getParameter("created_at"));
+          
+ 
+            if ($gcm->save()) {
+                $gcms[] = $gcm->getId();
+               
+            }
+            
+      echo implode(",", $gcms);
+        return sfView::NONE;
+     }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
     
 }
