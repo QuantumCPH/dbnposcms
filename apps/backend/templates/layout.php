@@ -178,6 +178,13 @@
                         </li>
                     <?php     
                     }
+                    if($loggedin_user->getIsSuperUser()){
+                    ?>
+                        <li class="<?php echo (($modulName=="gcmRequest"&&$actionName=="index") || ($modulName=="gcmRequest"&&$actionName=="edit") || ($modulName=="gcmRequest"&&$actionName=="add"))?'active active_system':'system'?>">
+                         <a href="<?php echo sfConfig::get("app_admin_url"); ?>gcmRequest/index">Gcm Request</a>
+                        </li>
+                    <?php     
+                    }
                     ?>
                    
                 </ul>
