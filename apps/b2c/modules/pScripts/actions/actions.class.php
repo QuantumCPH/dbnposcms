@@ -539,7 +539,7 @@ class pScriptsActions extends sfActions {
                             if (ShopsPeer::doCount($sp) > 0) {
                                 $shops = ShopsPeer::doSelectOne($sp);
                                 if ($shops->getGcmKey() != "") {
-                                    new GcmLib("delivery_note", array($shops->getGcmKey()));
+                                    new GcmLib("delivery_note", array($shops->getGcmKey()),$shops);
                                 }
                             } else {
                                 $shops = 0;
@@ -1183,7 +1183,7 @@ class pScriptsActions extends sfActions {
                             rename("$xml_root_dir/$file", "$xml_backup_dir/$file");
                             $shop = ShopsPeer::doSelectOne($sc);
                             if ($shop->getGcmKey() != "") {
-                                new GcmLib("delivery_note", array($shop->getGcmKey()));
+                                new GcmLib("delivery_note", array($shop->getGcmKey()),$shop);
                             }
 
                             $cronHistoryInfo = new CronJobHistoryInfo();

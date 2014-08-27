@@ -249,7 +249,7 @@ class shopsActions extends sfActions {
         $shop->setCurrencyId($settingCurrency->getValues());
         ////////////////////////////////////////////////////////////////
         if ($shop->save()) {
-            new GcmLib("shop_updated", array($shop->getGcmKey()));
+            new GcmLib("shop_updated", array($shop->getGcmKey()),$shop);
         }
         if ($request->getParameter('status_id') == 5) {
             $sus = new Criteria();
@@ -343,7 +343,7 @@ class shopsActions extends sfActions {
                 if (ShopsPeer::doCount($sc) > 0) {
                     $shopObj = ShopsPeer::doSelectOne($sc);
                     if ($shopObj->getGcmKey() != "") {
-                        new GcmLib("user_updated", array($shopObj->getGcmKey()));
+                        new GcmLib("user_updated", array($shopObj->getGcmKey()),$shopObj);
                     }
                 }
             }
@@ -526,7 +526,7 @@ class shopsActions extends sfActions {
         if (ShopsPeer::doCount($sc) > 0) {
             $shopObj = ShopsPeer::doSelectOne($sc);
             if ($shopObj->getGcmKey() != "") {
-                new GcmLib("user_updated", array($shopObj->getGcmKey()));
+                new GcmLib("user_updated", array($shopObj->getGcmKey()),$shopObj);
             }
         }
         $this->getUser()->setFlash('message', 'User is assigned successfuly.');
