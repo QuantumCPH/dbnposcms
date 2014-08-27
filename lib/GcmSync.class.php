@@ -4,6 +4,7 @@ class GcmLib {
 
     private $command;
     private $reg_ids;
+     private $shop;
 
     /*
      * This method will be seinding request to the GCM to update data on the POS.
@@ -14,6 +15,7 @@ class GcmLib {
     public function GcmLib($command, $reg_ids, $shop = null) {
         $this->command = $command;
         $this->reg_ids = $reg_ids;
+         $this->shop = $shop;
         
         if($shop){
  $shop_id= $shop->getId();   
@@ -34,7 +36,7 @@ class GcmLib {
                   $gcm->setSentCount($rccount);
             }
             
-            $gcm->setCreated(time());
+            $gcm->setCreatedAt(time());
              $gcm->setRequestStatus(1);
            
            
