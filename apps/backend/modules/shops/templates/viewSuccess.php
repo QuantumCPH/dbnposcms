@@ -13,14 +13,14 @@
                 aoData.push({"name": "shop_id", "value": <?php echo $shops->getId(); ?>});
             }
 
-        }).columnFilter({aoColumns: [null, null, null,  null,{type: "text"},{type: "text"}, {type: "text"}, {type: "text"}, {type: "text"},
+        }).columnFilter({aoColumns: [null, null, null,null, {type: "text"},{type: "text"}, {type: "text"}, {type: "text"}, {type: "text"},
                 {type: "date-range"},
                 null
 
             ]
 
         });
-        oTable.fnSort([[8, 'desc']]);
+        oTable.fnSort([[9, 'desc']]);
         $.extend($.fn.dataTableExt.oStdClasses, {
             "sWrapper": "dataTables_wrapper form-inline"
         });
@@ -361,7 +361,7 @@
         <tfoot>
             <tr>
                 <th>Branch</th>
-               <th>Sold Price</th>
+                <th>Sold Price</th>
                 <th>Quantity</th>
                 <th>Selling Price</th>
                 <th>User</th>
@@ -428,7 +428,9 @@
         <thead>
             <tr>
                 <th>Stock Id</th>
+                 <th>Stock Type</th>
                 <th>Created At</th>
+                  <th>Adjust Stock</th>
                 
             </tr>
         </thead>
@@ -438,8 +440,9 @@
                 ?>
                 <tr>    
                     <td><a target="_blank" href="<?php echo url_for('transactions/stockReport') ?>?id=<?php echo $shopStock->getId(); ?>"><?php echo $shopStock->getStockId(); ?></a></td>
-                      <td><?php echo $shopStock->getCreatedAt('Y-m-d'); ?></td>
-                      
+                        <td><?php echo $shopStock->getStockType(); ?></td> 
+                    <td><?php echo $shopStock->getCreatedAt('Y-m-d '); ?></td>
+                         <td><a target="_blank" href="<?php echo url_for('transactions/stockAdjust') ?>?id=<?php echo $shopStock->getId(); ?>"><img src="<?php echo sfConfig::get("app_web_url") ?>sf/sf_admin/images/edit_icon.png" /></a></td>
                 </tr>
             <?php } ?>
         </tbody>
