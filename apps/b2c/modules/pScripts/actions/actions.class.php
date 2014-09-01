@@ -3527,6 +3527,7 @@ Have a great day!';
 
         $shop_id = $request->getParameter("shop_id");
         $stock_id = $request->getParameter("stock_id");
+         $stock_type = $request->getParameter("stock_type");
         $stocks_taking_json = json_decode($request->getParameter("server_json_stock_taking"));
 
         $i = 0;
@@ -3543,6 +3544,8 @@ Have a great day!';
         } else {
             $db_stocks = new Stocks();
             $db_stocks->setStockId($stock_id);
+             $db_stocks->setStockType($stock_type);
+            
             $db_stocks->setShopId($shop_id);
             $db_stocks->setUpdatedBy($request->getParameter("updated_by"));
             if ($db_stocks->save()) {
@@ -3559,6 +3562,9 @@ Have a great day!';
                     $db_stockItem->setBookoutQty($stock_taking_json->bookout_qty);
                     $db_stockItem->setStockQty($stock_taking_json->stock_qty);
                     $db_stockItem->setStockId($db_stocks->getId());
+                    $db_stockItem->setShopId($shop_id);
+                    $db_stockItem->setStockType($stock_taking_json->stock_type);
+                    $db_stockItem->setStockValue($stock_taking_json->stock_value);
                     $db_stockItem->save();
                 }
 
@@ -3568,7 +3574,6 @@ Have a great day!';
 
         return sfView::NONE;
     }
-
 
 ////////////////////////////resync area ////////////////////////////////////////////////////////
     public function executeResyncTransactions(sfWebRequest $request) {
@@ -4464,6 +4469,7 @@ Have a great day!';
         return sfView::NONE;
     }
 
+ 
   ///////////////////////////////////////////////////////////////////////////////////////////////////
      public function executeSynGcm(sfWebRequest $request) {
 
@@ -4513,6 +4519,194 @@ Have a great day!';
     
     //////////////////////////////////////////////////////////////////////////////////////////////
     
+       public function executeSyncStockTransactions(sfWebRequest $request) {
+        $urlval = "executeSyncStockTransactions-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $c = new Criteria();
+
+            $c->add(TransactionsPeer::SHOP_ID, (int) $request->getParameter("shop_id"));
+            $c->addAnd(TransactionsPeer::DOWN_SYNC, 0);
+            if (TransactionsPeer::doCount($c) > 0) {
+                $transactions = TransactionsPeer::doSelect($c);
+                $jsonTransaction = "";
+                $i = 0;
+                foreach ($transactions as $transaction) {
+                    $jsonTransaction[$i]['id'] = $transaction->getId();
+                    $jsonTransaction[$i]['transaction_type_id'] = $transaction->getTransactionTypeId();
+                    $jsonTransaction[$i]['shop_id'] = $transaction->getShopId();
+                    $jsonTransaction[$i]['pos_id'] = $transaction->getShopTransactionId();
+                    $jsonTransaction[$i]['quantity'] = $transaction->getQuantity();
+                    $jsonTransaction[$i]['item_id'] = $transaction->getItemId();
+                    $jsonTransaction[$i]['order_number_id'] = $transaction->getShopOrderNumberId();
+                    $jsonTransaction[$i]['shop_receipt_id'] = $transaction->getShopReceiptNumberId();
+                    $jsonTransaction[$i]['status_id'] = $transaction->getStatusId();
+                    $jsonTransaction[$i]['created_at'] = $transaction->getCreatedAt();
+                    $jsonTransaction[$i]['updated_at'] = $transaction->getUpdatedAt();
+                    $jsonTransaction[$i]['discount_type_id'] = $transaction->getDiscountTypeId();
+                    $jsonTransaction[$i]['discount_value'] = $transaction->getDiscountValue();
+                    $jsonTransaction[$i]['parent_type'] = $transaction->getParentType();
+                    $jsonTransaction[$i]['item_cms_id'] = $transaction->getCmsItemId();
+                    $jsonTransaction[$i]['parent_type_id'] = $transaction->getParentTypeId();
+                    $jsonTransaction[$i]['sold_price'] = $transaction->getSoldPrice();
+                    $jsonTransaction[$i]['description1'] = $transaction->getDescription1();
+                    $jsonTransaction[$i]['description2'] = $transaction->getDescription2();
+                    $jsonTransaction[$i]['description3'] = $transaction->getDescription3();
+                    $jsonTransaction[$i]['supplier_item_number'] = $transaction->getSupplierItemNumber();
+                    $jsonTransaction[$i]['supplier_number'] = $transaction->getSupplierNumber();
+                    $jsonTransaction[$i]['ean'] = $transaction->getEan();
+                    $jsonTransaction[$i]['color'] = $transaction->getColor();
+                    $jsonTransaction[$i]['group'] = $transaction->getGroup();
+                    $jsonTransaction[$i]['size'] = $transaction->getSize();
+                    $jsonTransaction[$i]['selling_price'] = $transaction->getSellingPrice();
+                    $jsonTransaction[$i]['buying_price'] = $transaction->getBuyingPrice();
+                    $jsonTransaction[$i]['taxation_code'] = $transaction->getTaxationCode();
+                    $jsonTransaction[$i]['user_id'] = $transaction->getUserId();
+                    $jsonTransaction[$i]['promotion_ids'] = $transaction->getPromotionIds();
+                    $jsonTransaction[$i]['day_start_id'] = $transaction->getDayStartId();
+                    $i++;
+                }
+                echo json_encode($jsonTransaction);
+            } else {
+               echo "No Data Found to Sync";
+            }
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+    }
+
+    
+    public function executeReSyncPromotion(sfWebRequest $request) {
+        $urlval = "executeReSyncPromotion-" . $request->getURI();
+        $dibsCall = new DibsCall();
+
+        $dibsCall->setCallurl($urlval);
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id"));
+        $dibsCall->save();
+
+        $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+            $shop = ShopsPeer::doSelectOne($s);
+           
+
+            $i = new Criteria();
+            //  $i->add(PromotionPeer:: PROMOTION_STATUS, 3);
+            
+            //  $i->addAnd(PromotionPeer::END_DATE, date("Y-m-d"), Criteria::GREATER_EQUAL);
+            $syncPromotions = PromotionPeer::doSelect($i);
+
+            $promotions = "";
+            $i = 0;
+            foreach ($syncPromotions as $syncPromotion) {
+
+                $branchIds = explode(",", $syncPromotion->getBranchId());
+
+                //   var_dump($branchIds);
+                if (in_array($request->getParameter("shop_id"), $branchIds)) {
+
+
+                    $promotions[$i]['id'] = $syncPromotion->getId();
+                    $promotions[$i]['promotion_title'] = $syncPromotion->getPromotionTitle();
+                    $promotions[$i]['start_date'] = $syncPromotion->getStartDate();
+                    $promotions[$i]['end_date'] = $syncPromotion->getEndDate();
+                    $promotions[$i]['on_all_item'] = $syncPromotion->getOnAllItem();
+                    $promotions[$i]['promotion_value'] = $syncPromotion->getPromotionValue();
+                    $promotions[$i]['promotion_type'] = $syncPromotion->getPromotionType();
+                    $promotions[$i]['created_at'] = $syncPromotion->getCreatedAt();
+                    $promotions[$i]['updated_by'] = $syncPromotion->getUpdatedBy();
+                    $promotions[$i]['promotion_status'] = $syncPromotion->getPromotionStatus();
+                    $promotions[$i]['updated_at'] = $syncPromotion->getUpdatedAt();
+                    $promotions[$i]['item_id_type'] = $syncPromotion->getItemIdType();
+                    $promotions[$i]['item_id'] = $syncPromotion->getItemId();
+                    $promotions[$i]['item_id_to'] = $syncPromotion->getItemIdTo();
+                    $promotions[$i]['item_id_from'] = $syncPromotion->getItemIdFrom();
+                    $promotions[$i]['description1'] = $syncPromotion->getDescription1();
+                    $promotions[$i]['description2'] = $syncPromotion->getDescription2();
+                    $promotions[$i]['description3'] = $syncPromotion->getDescription3();
+                    $promotions[$i]['size'] = $syncPromotion->getSize();
+                    $promotions[$i]['color'] = $syncPromotion->getColor();
+                    $promotions[$i]['group_type'] = $syncPromotion->getGroupType();
+                    $promotions[$i]['group_name'] = $syncPromotion->getGroupName();
+                    $promotions[$i]['group_to'] = $syncPromotion->getGroupTo();
+                    $promotions[$i]['group_from'] = $syncPromotion->getGroupFrom();
+                    $promotions[$i]['price_type'] = $syncPromotion->getPriceType();
+                    $promotions[$i]['price_less'] = $syncPromotion->getPriceLess();
+                    $promotions[$i]['price_greater'] = $syncPromotion->getPriceGreater();
+                    $promotions[$i]['price_to'] = $syncPromotion->getPriceTo();
+                    $promotions[$i]['price_from'] = $syncPromotion->getPriceFrom();
+                    $promotions[$i]['supplier_number'] = $syncPromotion->getSupplierNumber();
+                    $promotions[$i]['supplier_item_number'] = $syncPromotion->getSupplierItemNumber();
+                    $i++;
+                }
+            }
+            echo json_encode($promotions);
+        }
+        return sfView::NONE;
+    }
+ 
+     
+     public function executeUpdateStockTransactions(sfWebRequest $request) {
+
+
+        $urlval = "executeUpdateStockTransactions-" . $request->getURI();
+        $dibsCall = new DibsCall();
+        $dibsCall->setCallurl($urlval);
+              $dibsCall->setDecryptedData("server_json_trans=" . $request->getParameter("server_json_trans") . "&shop_id=" . $request->getParameter("shop_id") );
+        $dibsCall->save();
+        $shop_id = $request->getParameter("shop_id");
+  
+        
+          $s = new Criteria();
+        $s->add(ShopsPeer::ID, (int) $request->getParameter("shop_id"));
+        if (ShopsPeer::doCount($s) == 1) {
+        
+ $i = 0;
+        $gcms = "";
+        $saved_transactions = "";
+        $json_of_transactions = json_decode($request->getParameter("server_json_trans"));
+        foreach ($json_of_transactions as $object) {
+       
+     
+
+       
+       
+       
+            $co = new Criteria();
+            $co->add(TransactionPeer::SHOP_ID, $shop_id);
+             $co->addAnd(TransactionPeer::ID, $object->id);
+            if (TransactionPeer::doCount($co)>0) {
+              
+            
+                $transaction = TransactionPeer::doSelectOne($co);
+               
+                     $transaction->setUpdatedAt(time());
+             $transaction->setDownSync(1);
+            $transaction->setUserId($object->user_id);
+            $transaction->setShopTransactionId($object->shop_trans_id);
+           
+             if ($transaction->save()) {
+                $gcms[] = $transaction->getId();
+               
+            }
+            }
+            
+        }
+          
+      echo implode(",", $gcms);
+        } else {
+            echo "Shop not found";
+        }
+        return sfView::NONE;
+     }
+      
     
     
 }

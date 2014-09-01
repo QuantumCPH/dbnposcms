@@ -113,4 +113,102 @@ class transactionsActions extends sfActions
         
         $this->stock=StocksPeer::retrieveByPK($request->getParameter('id'));
   } 
+  
+    public function executeStockAdjust(sfWebRequest $request) {
+        $this->stock_table_id = $request->getParameter('id');
+
+        $this->stock = StocksPeer::retrieveByPK($request->getParameter('id'));
+
+        $st = new Criteria();
+
+        $st->add(StockItemsPeer::STOCK_ID, $request->getParameter('id'));
+        $stockItems = StockItemsPeer::doSelect($st);
+        $this->stockItems = $stockItems;
+    }
+
+    public function executeStockAdjustSubmit(sfWebRequest $request) {
+
+        // loop over checked checkboxes
+        if (isset($_POST['stockItemId']) && $_POST['stockItemId'] != "") {
+
+            
+            $stocktran=0;
+            foreach ($_POST['stockItemId'] as $checkbox) {
+                // do something
+                //////////////////////////////////////////////////////////////////////////////////////////
+
+                $stock = StocksPeer::retrieveByPK($request->getParameter('stock_id'));
+                $stockItem = StockItemsPeer::retrieveByPK($checkbox);
+                $items = ItemsPeer::retrieveByPK($stockItem->getCmsItemId());
+                  $shop=ShopsPeer::retrieveByPK($stock->getShopId());
+                if ($stockItem->getStockValue > 0) {
+                    if ($stockItem->getStockType() == "positive") {
+                        $parent_type_id = $stock->getStockId();
+                        $transaction_type_id = 10;
+                        $parent_type = "Stock In";
+                    } else {
+                        $parent_type_id = $stock->getStockId();
+                        $transaction_type_id = 11;
+                        $parent_type = "Stock Out";
+                    }
+                    $transaction = new Transactions();
+                    $transaction->setTransactionTypeId($transaction_type_id);
+                    $transaction->setShopId($stock->getShopId());
+                    //  $transaction->setShopTransactionId($object->pos_id);
+                    $transaction->setQuantity($stockItem->getStockValue());
+                    $transaction->setItemId($items->getItemId());
+                    $transaction->setShopOrderNumberId(0);
+                    $transaction->setShopReceiptNumberId(0);
+                    $transaction->setStatusId(3);
+                    $transaction->setCreatedAt(time());
+                    $transaction->setUpdatedAt(time());
+                    $transaction->setDownSync(0);
+                    $transaction->setParentType($parent_type);
+                    $transaction->setCmsItemId($items->getId());
+                    $transaction->setParentTypeId($parent_type_id);
+                    $transaction->setSoldPrice(0);
+                    $transaction->setDescription1($items->getDescription1());
+                    $transaction->setDescription2($items->getDescription2());
+                    $transaction->setDescription3($items->getDescription3());
+                    $transaction->setSupplierItemNumber($items->getSupplierItemNumber());
+                    $transaction->setSupplierNumber($items->getSupplierNumber());
+                    $transaction->setEan($items->getEan());
+
+                    $transaction->setColor($items->getColor());
+                    $transaction->setGroup($items->getGroup());
+                    $transaction->setSize($items->getSize());
+                    $transaction->setSellingPrice($items->getSellingPrice());
+                    $transaction->setBuyingPrice($items->getBuyingPrice());
+                    $transaction->setTaxationCode($items->getTaxationCode());
+                    $transaction->setUserId(1);
+                    if($transaction->save()){
+                        $stocktran=1;
+                    }
+                }
+               
+                ///////////////////////////////////////////////////////////
+//    echo $checkbox;
+            }
+            
+            if($stocktran){
+             if ($shop->getGcmKey() != "") {
+                                    new GcmLib("stock_adjust", array($shop->getGcmKey(),$shop));
+                                }
+                                 $this->getUser()->setFlash('message', 'Stock is adjusted'); 
+            
+            }
+            
+        } else {
+            $this->getUser()->setFlash('message', 'No Stock Item is slected for adjust');
+        }
+
+
+
+        $this->redirect('transactions/stockAdjust?id=' . $request->getParameter('stock_id'));
+
+        return sfView::NONE;
+    }
+
+  
+  
 }
