@@ -78,7 +78,7 @@ $(document).on('click change','input[name="check_all"]',function() {
                 <?php   foreach($stockItems as $stockItem){ ?>
                 
  <tr>
-                     <th> <?php if($stockItem->getProcessStatus()==1){  ?>  <input class="idRow" type="checkbox" name="stockItemId[]" value="<?php echo $stockItem->getId();   ?>"  />  <?php  } ?></th>
+                     <th> <?php if($stockItem->getProcessStatus()==1){  ?>  <input class="idRow" type="checkbox" name="stockItemId[]" value="<?php echo $stockItem->getId();   ?>"  />  <?php  }else{ echo "adjusted";   } ?></th>
                     <th><?php echo $stockItem->getItemId();   ?></th>
                     <th><?php $items=ItemsPeer::retrieveByPK($stockItem->getCmsItemId()); echo $items->getDescription1();   ?></th>
                     <th><?php echo $stockItem->getTotalQty();   ?></th>
