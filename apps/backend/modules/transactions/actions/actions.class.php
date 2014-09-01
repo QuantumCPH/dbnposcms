@@ -125,35 +125,44 @@ class transactionsActions extends sfActions
         $stockItems = StockItemsPeer::doSelect($st);
         $this->stockItems = $stockItems;
     }
-
-    public function executeStockAdjustSubmit(sfWebRequest $request) {
-
+ public function executeStockAdjustSubmit(sfWebRequest $request) {
+  
         // loop over checked checkboxes
+     //    $this->getUser()->setFlash('message', '--A---'); 
         if (isset($_POST['stockItemId']) && $_POST['stockItemId'] != "") {
-
-            
+ // $this->getUser()->setFlash('message', '--B---'); 
+               $stockD = StocksPeer::retrieveByPK($request->getParameter('stock_id'));   
             $stocktran=0;
             foreach ($_POST['stockItemId'] as $checkbox) {
-                // do something
+           //     $this->getUser()->setFlash('message', '--C---'); 
                 //////////////////////////////////////////////////////////////////////////////////////////
 
-                $stock = StocksPeer::retrieveByPK($request->getParameter('stock_id'));
+   
+  
+        
+        
+         //////////////////////////////////////////////////////////       
+               
                 $stockItem = StockItemsPeer::retrieveByPK($checkbox);
                 $items = ItemsPeer::retrieveByPK($stockItem->getCmsItemId());
-                  $shop=ShopsPeer::retrieveByPK($stock->getShopId());
-                if ($stockItem->getStockValue > 0) {
+                  $shop=ShopsPeer::retrieveByPK($stockD->getShopId());
+               //     $this->getUser()->setFlash('message', '--C---'); 
+                if ($stockItem->getStockValue() > 0) {
+                     ///   $this->getUser()->setFlash('message', '--D---'); 
                     if ($stockItem->getStockType() == "positive") {
-                        $parent_type_id = $stock->getStockId();
+                      ///    $this->getUser()->setFlash('message', '--E---'); 
+                        $parent_type_id = $stockD->getStockId();
                         $transaction_type_id = 10;
                         $parent_type = "Stock In";
                     } else {
-                        $parent_type_id = $stock->getStockId();
+                      //    $this->getUser()->setFlash('message', '--FS---'); 
+                        $parent_type_id = $stockD->getStockId();
                         $transaction_type_id = 11;
                         $parent_type = "Stock Out";
                     }
                     $transaction = new Transactions();
                     $transaction->setTransactionTypeId($transaction_type_id);
-                    $transaction->setShopId($stock->getShopId());
+                    $transaction->setShopId($stockD->getShopId());
                     //  $transaction->setShopTransactionId($object->pos_id);
                     $transaction->setQuantity($stockItem->getStockValue());
                     $transaction->setItemId($items->getItemId());
@@ -183,6 +192,10 @@ class transactionsActions extends sfActions
                     $transaction->setUserId(1);
                     if($transaction->save()){
                         $stocktran=1;
+                        
+                        $stockItem->setProcessStatus(3);
+                        $stockItem->save();
+                        
                     }
                 }
                
@@ -209,6 +222,4 @@ class transactionsActions extends sfActions
         return sfView::NONE;
     }
 
-  
-  
 }

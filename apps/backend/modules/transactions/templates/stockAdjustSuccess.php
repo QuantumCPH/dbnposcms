@@ -34,7 +34,7 @@ $(document).on('click change','input[name="check_all"]',function() {
 
 <form enctype="multipart/form-data"  action="<?php echo sfConfig::get("app_admin_url"); ?>transactions/stockAdjustSubmit" method="post">
 <div class="itemslist">
-    <input type="hidden" name="stock_id" id="stock_id" value="<?php echo $stock_table_id; ?>">
+    <input type="hidden" name="stock_id" id="stock_id" value="<?php echo $stock->getId(); ?>">
  
     <h1 class="items-head list-page"><img src="<?php echo sfConfig::get('app_web_url') . 'images/sale_over.png' ?>" />&nbsp;Stock Adjust Page (Stock# <?php echo $stock->getStockId();  ?>)</h1>
     <div class="backimgDiv">
