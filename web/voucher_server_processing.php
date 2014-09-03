@@ -117,6 +117,15 @@ for ($i = 0; $i < count($aColumns); $i++) {
 }
 
 
+
+ if ($sWhere == "") {
+            $sWhere = "WHERE  voucher.id Like voucher.parent_id" ;
+        } else {
+            $sWhere .= " AND  voucher.id Like voucher.parent_id" ;
+        }
+
+
+
 //$sWhere .=" Group by delivery_notes.note_id";
 /*
  * SQL queries
