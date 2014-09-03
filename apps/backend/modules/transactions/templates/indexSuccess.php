@@ -38,14 +38,14 @@
             },
             "aLengthMenu": [[10, 25, 50,100,250 ,-1], [10, 25, 50,100,250,"All"]]
 
-        }).columnFilter({aoColumns: [{type: "text"}, null, null,null, {type: "text"}, {type: "text"}, {type: "text"},{type: "text"}, {type: "text"},
+        }).columnFilter({aoColumns: [{type: "text"}, null,{type: "text"}, null, null, {type: "text"}, {type: "text"}, {type: "text"},{type: "text"}, {type: "text"},
                 {type: "date-range"},
                 null
 
             ]
 
         });
-        oTable.fnSort( [ [8,'desc'] ] );
+        oTable.fnSort( [ [10,'desc'] ] );
         $.extend($.fn.dataTableExt.oStdClasses, {
             "sWrapper": "dataTables_wrapper form-inline"
         });
@@ -69,20 +69,20 @@
     <?php endif; ?>
     <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="myTable" >
         <thead>
-            <tr>
+          <tr>
                 <th>Branch</th>
-              <th>Sold Price</th>
-                <th>Quantity</th>
-                  <th>Selling Price</th>
-                
+                <th>Sold Price</th>
+                <th>Invoice no</th>
+                <th>Qty</th>
+                <th>Sell. Price</th>
                 <th>User</th>
                 <th>Item</th>
-                 <th>Description</th>
+                 <th>Desc</th>
                 <th>Status</th>
                 <th>Type</th>
                 <th>Date</th>
                 <th>Payment</th>
-                
+
 
             </tr>
         </thead>
@@ -91,19 +91,20 @@
 
         </tbody>
         <tfoot>
-            <tr>
+             <tr>
                 <th>Branch</th>
                 <th>Sold Price</th>
-                <th>Quantity</th>
-           <th>Selling Price</th>
+                <th>Invoice no</th>
+                <th>Qty</th>
+                <th>Sell. Price</th>
                 <th>User</th>
                 <th>Item</th>
-                 <th>Description</th>
+                 <th>Desc</th>
                 <th>Status</th>
                 <th>Type</th>
                 <th>Date</th>
                 <th>Payment</th>
-                 
+
 
             </tr>
         </tfoot>
