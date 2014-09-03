@@ -60,6 +60,7 @@ class voucherActions extends sfActions {
         }
     }
 
+   
     public function executeView(sfWebRequest $request) {
        $id = $request->getParameter("id");
 
@@ -73,15 +74,32 @@ class voucherActions extends sfActions {
 
         $this->parent = VoucherPeer::doSelectOne($c);
 
+       $parentId= $this->parent->getParentId();
+        $parentIds = explode(",", $parentId);
         $vc = new Criteria();
-        $vc->add(VoucherPeer::PARENT_ID, "%" . $this->parent->getParentId(), Criteria::LIKE);
+//         $vc->add(VoucherPeer::PARENT_ID, "%" . $this->parent->getParentId(), Criteria::LIKE);
+//          $vc->addOr(VoucherPeer::ID,$parentIds , Criteria::IN);
+        $criterion = $c->getNewCriterion(VoucherPeer::PARENT_ID, "%" . $this->parent->getParentId(), Criteria::LIKE);
+$criterion->addOr($c->getNewCriterion(VoucherPeer::ID,$parentIds , Criteria::IN));
+$vc->add($criterion);
+        
+     //   $vc->add(VoucherPeer::PARENT_ID, "%" . $this->parent->getParentId(), Criteria::LIKE);
         $vc->addDescendingOrderByColumn (VoucherPeer::SHOP_CREATED_AT);
+        
+        
+        
+        
         
         if (VoucherPeer::doCount($vc) == 0) {
             $this->getUser()->setFlash('access_error', "Voucher doesn't have child");
             $this->redirect('voucher/index');
         }
 
+        
+        
+        
+        
+        
         $this->vouchers = VoucherPeer::doSelect($vc);
     }
 
