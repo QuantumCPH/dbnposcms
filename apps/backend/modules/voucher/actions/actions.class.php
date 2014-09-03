@@ -79,11 +79,11 @@ class voucherActions extends sfActions {
         $vc = new Criteria();
 //         $vc->add(VoucherPeer::PARENT_ID, "%" . $this->parent->getParentId(), Criteria::LIKE);
 //          $vc->addOr(VoucherPeer::ID,$parentIds , Criteria::IN);
-        $criterion = $c->getNewCriterion(VoucherPeer::PARENT_ID, "%" . $this->parent->getParentId(), Criteria::LIKE);
-$criterion->addOr($c->getNewCriterion(VoucherPeer::ID,$parentIds , Criteria::IN));
-$vc->add($criterion);
+    //    $criterion = $c->getNewCriterion(VoucherPeer::PARENT_ID, "%" . $this->parent->getParentId(), Criteria::LIKE);
+//$criterion->addOr($c->getNewCriterion(VoucherPeer::ID,$parentIds , Criteria::IN));
+//$vc->add($criterion);
         
-     //   $vc->add(VoucherPeer::PARENT_ID, "%" . $this->parent->getParentId(), Criteria::LIKE);
+        $vc->add(VoucherPeer::ID,$parentIds , Criteria::IN);
         $vc->addDescendingOrderByColumn (VoucherPeer::SHOP_CREATED_AT);
         
         
