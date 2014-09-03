@@ -13,14 +13,14 @@
                 aoData.push({"name": "shop_id", "value": <?php echo $shops->getId(); ?>});
             }
 
-        }).columnFilter({aoColumns: [null, null, null,null, {type: "text"},{type: "text"}, {type: "text"}, {type: "text"}, {type: "text"},
+        }).columnFilter({aoColumns: [null, null,{type: "text"}, null,null, {type: "text"},{type: "text"}, {type: "text"}, {type: "text"}, {type: "text"},
                 {type: "date-range"},
                 null
 
             ]
 
         });
-        oTable.fnSort([[9, 'desc']]);
+        oTable.fnSort([[10, 'desc']]);
         $.extend($.fn.dataTableExt.oStdClasses, {
             "sWrapper": "dataTables_wrapper form-inline"
         });
@@ -339,13 +339,14 @@
     <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="myTablesale" >
         <thead>
             <tr>
-                <th>Branch</th>
+               <th>Branch</th>
                 <th>Sold Price</th>
-                <th>Quantity</th>
-                <th>Selling Price</th>
+                <th>Invoice no</th>
+                <th>Qty</th>
+                <th>Sell. Price</th>
                 <th>User</th>
                 <th>Item</th>
-                 <th>Description</th>
+                 <th>Desc</th>
                 <th>Status</th>
                 <th>Type</th>
                 <th>Date</th>
@@ -360,13 +361,14 @@
         </tbody>
         <tfoot>
             <tr>
-                <th>Branch</th>
+                 <th>Branch</th>
                 <th>Sold Price</th>
-                <th>Quantity</th>
-                <th>Selling Price</th>
+                <th>Invoice no</th>
+                <th>Qty</th>
+                <th>Sell. Price</th>
                 <th>User</th>
                 <th>Item</th>
-                 <th>Description</th>
+                 <th>Desc</th>
                 <th>Status</th>
                 <th>Type</th>
                 <th>Date</th>
