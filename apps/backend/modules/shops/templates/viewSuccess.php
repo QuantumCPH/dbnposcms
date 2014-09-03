@@ -482,6 +482,6 @@
         $('.ui-datepicker-current-day').click();
 
 
-
+   
     });
 </script>
