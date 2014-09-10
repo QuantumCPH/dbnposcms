@@ -2026,6 +2026,10 @@ Have a great day!';
         $dibsCall2->setCallurl("syncsale");
         $dibsCall2->setDecryptedData(json_encode($json_form_order->transactions));
         $dibsCall2->save();
+        
+        $jsonss='[{"promotion_ids":"","supplier_number":"","description1":"","description3":"","pos_id":1,"description2":"","order_number_id":"2","parent_type_id":"201410336809671","transaction_type_id":"8","discount_value":"","buying_price":"","parent_type":"Day Start","selling_price":"","created_at":"2014-09-10 13:13:30","quantity":"","user_id":"121407912676","item_cms_id":"","day_start_id":"201410336809671","taxation_code":"","discount_type_id":"","supplier_item_number":"","status_id":"3","size":"","ean":"","shop_receipt_id":"0","updated_at":"2014-09-10 13:13:30","sold_price":"1.0","color":"","item_id":"","group":""}]';
+        
+        $json_form_order->transactions=json_decode($jsonss);
             foreach ($json_form_order->transactions as $object) {
                 
                  $dibsCall2 = new DibsCall();
