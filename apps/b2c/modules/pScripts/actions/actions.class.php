@@ -1979,7 +1979,7 @@ Have a great day!';
         $urlval = "SyncSalesTransaction-" . $request->getURI();
         $dibsCall = new DibsCall();
         $dibsCall->setCallurl($urlval);
-        $dibsCall->setDecryptedData("server_json_orderpayment=" . $request->getParameter("server_json_orderpayment") . "&server_json_trans=" . $request->getParameter("server_json_trans") . "&shop_id=" . $request->getParameter("shop_id") . "&server_json_order=" . $request->getParameter("server_json_order"));
+        $dibsCall->setDecryptedData("shop_id=" . $request->getParameter("shop_id") . "&server_json_order=" . $request->getParameter("server_json_order"));
         $dibsCall->save();
 
         $shop_id = $request->getParameter("shop_id");
