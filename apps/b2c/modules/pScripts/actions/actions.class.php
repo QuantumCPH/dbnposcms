@@ -2017,7 +2017,7 @@ Have a great day!';
                 }
             }
             emailLib::sendEmailSale($saved_transactions, $shop_id);
-  $dibsCall->setCallResponse($saved_transactions);
+
             $a[$i]["order_id"] = $orderIdArr[0];
             $a[$i]["order_payment_id"] = implode(",", $orderPaymentId);
             $a[$i]["order_transaction_id"] = implode(",", $saved_transactions);
@@ -2025,7 +2025,7 @@ Have a great day!';
         }
  
         
-        
+          $dibsCall->setCallResponse($saved_transactions);
         
             $dibsCall->save();
         echo json_encode($a);

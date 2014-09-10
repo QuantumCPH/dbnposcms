@@ -311,8 +311,9 @@ class itemsLib {
         $transaction->setTaxationCode($object->taxation_code);
         $transaction->setUserId($object->user_id);
         $transaction->setPromotionIds($object->promotion_ids);
-        if ($orderId != 0)
+        if ($orderId != 0){
             $transaction->setOrderId($orderId);
+        }
         if ($transaction->save()) {
             return $transaction->getShopTransactionId();
         }
