@@ -201,4 +201,5 @@ while ($aRow = mysql_fetch_array($rResult)) {
 }
 
 echo json_encode($output);
+
 ?>
