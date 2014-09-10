@@ -1987,6 +1987,8 @@ Have a great day!';
 
         $i = 0;
         $a = "";
+          $orderPaymentId = "";
+         $saved_transactions = "";
         foreach ($json_from_orders as $json_form_order) {
             $co = new Criteria();
             $co->add(OrdersPeer::SHOP_ORDER_ID, $json_form_order->shop_order_id);
@@ -1997,7 +1999,7 @@ Have a great day!';
                 $orderId = itemsLib::updateOrderUsingObject($json_form_order, $shop_id);
             }
             $orderIdArr = explode("~", $orderId);
-            $orderPaymentId = "";
+          
             foreach ($json_form_order->payments as $orderPaymentObject) {
                 $cop = new Criteria();
                 $cop->add(OrderPaymentsPeer::SHOP_ORDER_PAYMENT_ID, $orderPaymentObject->shop_order_payment_id);
@@ -2005,7 +2007,7 @@ Have a great day!';
                 if (OrderPaymentsPeer::doCount($cop) == 0)
                     $orderPaymentId[] = itemsLib::createOrderPaymentUsingObject($orderPaymentObject, $shop_id, $orderIdArr[1]);
             }
-            $saved_transactions = "";
+           
             foreach ($json_form_order->transactions as $object) {
                 $c = new Criteria();
                 $c->add(TransactionsPeer::SHOP_TRANSACTION_ID, $object->pos_id);
@@ -2015,7 +2017,7 @@ Have a great day!';
                 }
             }
             emailLib::sendEmailSale($saved_transactions, $shop_id);
-
+  $dibsCall->setCallResponse($saved_transactions);
             $a[$i]["order_id"] = $orderIdArr[0];
             $a[$i]["order_payment_id"] = implode(",", $orderPaymentId);
             $a[$i]["order_transaction_id"] = implode(",", $saved_transactions);
@@ -2024,7 +2026,7 @@ Have a great day!';
  
         
         
-          $dibsCall->setCallResponse($a);
+        
             $dibsCall->save();
         echo json_encode($a);
         return sfView::NONE;
