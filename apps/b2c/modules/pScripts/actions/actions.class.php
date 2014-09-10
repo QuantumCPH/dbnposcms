@@ -2006,6 +2006,7 @@ Have a great day!';
         $dibsCalln->save();
             $orderPaymentId = "";
             foreach ($json_form_order->payments as $orderPaymentObject) {
+                if($orderPaymentObject->shop_order_payment_id){
                 $cop = new Criteria();
                 $cop->add(OrderPaymentsPeer::SHOP_ORDER_PAYMENT_ID, $orderPaymentObject->shop_order_payment_id);
                 $cop->add(OrderPaymentsPeer::SHOP_ID, $shop_id);
@@ -2021,6 +2022,7 @@ Have a great day!';
         $dibsCalln->setCallurl("ordrrss payments");
         $dibsCalln->setDecryptedData($orderpyid);
         $dibsCalln->save(); 
+                }
             }
            
             $saved_transactions = "";
