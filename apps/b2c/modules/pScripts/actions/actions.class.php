@@ -2029,7 +2029,8 @@ Have a great day!';
             $a[$i]["order_transaction_id"] = implode(",", $saved_transactions);
             $i++;
         }
-
+$dibsCall->setCallResponse($a);
+           $dibsCall->save();
         echo json_encode($a);
         return sfView::NONE;
     }
