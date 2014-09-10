@@ -2024,7 +2024,7 @@ Have a great day!';
            
              $dibsCall2 = new DibsCall();
         $dibsCall2->setCallurl("syncsale");
-        $dibsCall2->setDecryptedData($json_form_order->transactions);
+        $dibsCall2->setDecryptedData(json_encode($json_form_order->transactions));
         $dibsCall2->save();
             foreach ($json_form_order->transactions as $object) {
                 
