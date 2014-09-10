@@ -2018,7 +2018,7 @@ Have a great day!';
                   $dibsCallo = new DibsCall();
         $dibsCallo->setCallurl("orderpay");
             
-                    $dibsCallo->setCallResponse($orderPaymentId);
+                    $dibsCallo->setCallResponse($orderpyid);
            $dibsCallo->save();
             }
            
@@ -2034,8 +2034,9 @@ Have a great day!';
                    $saved_transactions[] =$transactionss->getShopTransactionId();
                     
                 }
-                  $varata=$varata."--transaction--".$saved_transactions;
-                    $dibsCall->setCallResponse($varata);
+                $serialized_array = serialize($saved_transactions);
+                 
+                    $dibsCall->setCallResponse($serialized_array);
            $dibsCall->save();
             }
             emailLib::sendEmailSale($saved_transactions, $shop_id);
