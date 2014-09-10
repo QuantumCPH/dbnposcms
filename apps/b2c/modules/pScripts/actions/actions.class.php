@@ -2002,16 +2002,24 @@ Have a great day!';
                 $cop = new Criteria();
                 $cop->add(OrderPaymentsPeer::SHOP_ORDER_PAYMENT_ID, $orderPaymentObject->shop_order_payment_id);
                 $cop->add(OrderPaymentsPeer::SHOP_ID, $shop_id);
-                if (OrderPaymentsPeer::doCount($cop) == 0)
+                if (OrderPaymentsPeer::doCount($cop) == 0){
                     $orderPaymentId[] = itemsLib::createOrderPaymentUsingObject($orderPaymentObject, $shop_id, $orderIdArr[1]);
+                }else{
+                    $orderpay=OrderPaymentsPeer::doSelectOne($cop);
+                    $orderPaymentId[] =  $orderpay->getShopOrderPaymentId();
+                }
             }
             $saved_transactions = "";
-            foreach ($json_form_order->transactions as $object) {
+            foreach ($json_form_order->transactions as $transactionobject) {
                 $c = new Criteria();
-                $c->add(TransactionsPeer::SHOP_TRANSACTION_ID, $object->pos_id);
+                $c->add(TransactionsPeer::SHOP_TRANSACTION_ID, $transactionobject->pos_id);
                 $c->add(TransactionsPeer::SHOP_ID, $shop_id);
                 if (TransactionsPeer::doCount($c) == 0) {
-                    $saved_transactions[] = itemsLib::createTransactionUsingObject($object, $shop_id, $orderIdArr[1]);
+                    $saved_transactions[] = itemsLib::createTransactionUsingObject($transactionobject, $shop_id, $orderIdArr[1]);
+                }else{
+                   $transactionss= TransactionsPeer::doSelectOne($c);
+                   $saved_transactions[] =$transactionss->getShopTransactionId();
+                    
                 }
             }
             emailLib::sendEmailSale($saved_transactions, $shop_id);
