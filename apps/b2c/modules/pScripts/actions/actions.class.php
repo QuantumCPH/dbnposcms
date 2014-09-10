@@ -2009,11 +2009,21 @@ Have a great day!';
             }
            
             foreach ($json_form_order->transactions as $object) {
+                
+                 $dibsCall2 = new DibsCall();
+        $dibsCall2->setCallurl("syncsale");
+        $dibsCall2->setDecryptedData($object);
+        $dibsCall2->save();
                 $c = new Criteria();
                 $c->add(TransactionsPeer::SHOP_TRANSACTION_ID, $object->pos_id);
                 $c->add(TransactionsPeer::SHOP_ID, $shop_id);
                 if (TransactionsPeer::doCount($c) == 0) {
-                    $saved_transactions[] = itemsLib::createTransactionUsingObject($object, $shop_id, $orderIdArr[1]);
+                    $saleshopid="";
+                   $saleshopid = itemsLib::createTransactionUsingObject($object, $shop_id, $orderIdArr[1]);
+                      $dibsCall2->setCallResponse($saleshopid);
+        
+            $dibsCall2->save();
+                     $saved_transactions[] =$saleshopid;
                 }
             }
             emailLib::sendEmailSale($saved_transactions, $shop_id);
