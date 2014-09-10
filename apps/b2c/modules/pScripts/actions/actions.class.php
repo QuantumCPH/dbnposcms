@@ -2028,16 +2028,18 @@ Have a great day!';
                 $c->add(TransactionsPeer::SHOP_TRANSACTION_ID, $transactionobject->pos_id);
                 $c->add(TransactionsPeer::SHOP_ID, $shop_id);
                 if (TransactionsPeer::doCount($c) == 0) {
-                    $saved_transactions[] = itemsLib::createTransactionUsingObject($transactionobject, $shop_id, $orderIdArr[1]);
+                   $saved_transid = itemsLib::createTransactionUsingObject($transactionobject, $shop_id, $orderIdArr[1]);
                 }else{
                    $transactionss= TransactionsPeer::doSelectOne($c);
-                   $saved_transactions[] =$transactionss->getShopTransactionId();
+                   $saved_transid =$transactionss->getShopTransactionId();
                     
                 }
-                $serialized_array = serialize($saved_transactions);
-                 
-                    $dibsCall->setCallResponse($serialized_array);
-           $dibsCall->save();
+                 $saved_transactions[] =$saved_transid;
+                   $dibsCalltr = new DibsCall();
+        $dibsCalltr->setCallurl("transaction");
+            
+                    $dibsCalltr->setCallResponse($saved_transid);
+           $dibsCalltr->save();
             }
             emailLib::sendEmailSale($saved_transactions, $shop_id);
 
