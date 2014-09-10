@@ -1999,6 +1999,11 @@ Have a great day!';
             }
    
             $orderIdArr = explode("~", $orderId);
+            
+             $dibsCalln = new DibsCall();
+        $dibsCalln->setCallurl("ordrrss");
+        $dibsCalln->setDecryptedData($orderId);
+        $dibsCalln->save();
             $orderPaymentId = "";
             foreach ($json_form_order->payments as $orderPaymentObject) {
                 $cop = new Criteria();
@@ -2011,7 +2016,11 @@ Have a great day!';
                     $orderpyid=  $orderpay->getShopOrderPaymentId();
                 }
                  $orderPaymentId[]=$orderpyid;
-                
+                 
+             $dibsCalln = new DibsCall();
+        $dibsCalln->setCallurl("ordrrss payments");
+        $dibsCalln->setDecryptedData($orderpyid);
+        $dibsCalln->save(); 
             }
            
             $saved_transactions = "";
@@ -2027,12 +2036,15 @@ Have a great day!';
                     
                 }
                  $saved_transactions[] =$saved_transid;
- 
+ $dibsCalln = new DibsCall();
+        $dibsCalln->setCallurl("transaction");
+        $dibsCalln->setDecryptedData($saved_transid);
+        $dibsCalln->save(); 
             }
             
-        
+       
             emailLib::sendEmailSale($saved_transactions, $shop_id);
-            
+               
  
             $a[$i]["order_id"] = $orderIdArr[0];
             $a[$i]["order_payment_id"] = implode(",", $orderPaymentId);
