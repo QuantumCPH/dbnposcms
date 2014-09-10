@@ -2033,8 +2033,7 @@ Have a great day!';
         
             emailLib::sendEmailSale($saved_transactions, $shop_id);
             
-$dibsCall->setCallResponse($a);
-           $dibsCall->save();
+ 
             $a[$i]["order_id"] = $orderIdArr[0];
             $a[$i]["order_payment_id"] = implode(",", $orderPaymentId);
             $a[$i]["order_transaction_id"] = implode(",", $saved_transactions);
