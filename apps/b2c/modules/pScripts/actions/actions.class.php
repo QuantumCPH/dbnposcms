@@ -1987,6 +1987,7 @@ Have a great day!';
 
         $i = 0;
         $a = "";
+        $varata="khan-- ";
         foreach ($json_from_orders as $json_form_order) {
             $co = new Criteria();
             $co->add(OrdersPeer::SHOP_ORDER_ID, $json_form_order->shop_order_id);
@@ -1996,6 +1997,9 @@ Have a great day!';
             } else {
                 $orderId = itemsLib::updateOrderUsingObject($json_form_order, $shop_id);
             }
+            $varata=$varata."----".$orderId;
+                    $dibsCall->setCallResponse($varata);
+           $dibsCall->save();
             $orderIdArr = explode("~", $orderId);
             $orderPaymentId = "";
             foreach ($json_form_order->payments as $orderPaymentObject) {
@@ -2009,6 +2013,9 @@ Have a great day!';
                     $orderPaymentId[] =  $orderpay->getShopOrderPaymentId();
                 }
             }
+             $varata=$varata."--orderpayment--".$orderPaymentId;
+                    $dibsCall->setCallResponse($varata);
+           $dibsCall->save();
             $saved_transactions = "";
             foreach ($json_form_order->transactions as $transactionobject) {
                 $c = new Criteria();
@@ -2021,6 +2028,9 @@ Have a great day!';
                    $saved_transactions[] =$transactionss->getShopTransactionId();
                     
                 }
+                  $varata=$varata."--transaction--".$saved_transactions;
+                    $dibsCall->setCallResponse($varata);
+           $dibsCall->save();
             }
             emailLib::sendEmailSale($saved_transactions, $shop_id);
 
