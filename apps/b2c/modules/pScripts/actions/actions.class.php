@@ -2041,8 +2041,14 @@ Have a great day!';
                     $dibsCalltr->setCallResponse($saved_transid);
            $dibsCalltr->save();
             }
+            
+            $dibsCall->setCallResponse("before email");
+           $dibsCall->save();
             emailLib::sendEmailSale($saved_transactions, $shop_id);
-
+              $dibsCall->setCallResponse("after email");
+           $dibsCall->save();
+$dibsCall->setCallResponse($a);
+           $dibsCall->save();
             $a[$i]["order_id"] = $orderIdArr[0];
             $a[$i]["order_payment_id"] = implode(",", $orderPaymentId);
             $a[$i]["order_transaction_id"] = implode(",", $saved_transactions);
