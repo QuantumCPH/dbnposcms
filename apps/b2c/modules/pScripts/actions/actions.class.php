@@ -2029,7 +2029,7 @@ Have a great day!';
             foreach ($json_form_order->transactions as $object) {
                 
                  $dibsCall2 = new DibsCall();
-        $dibsCall2->setCallurl("syncsale");
+        $dibsCall2->setCallurl("system-system");
         $dibsCall2->setDecryptedData("server_json_orderpayment=".$object);
         $dibsCall2->save();
                 $c = new Criteria();
