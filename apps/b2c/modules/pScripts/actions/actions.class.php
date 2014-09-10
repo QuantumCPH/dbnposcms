@@ -1986,7 +1986,7 @@ public function executeSyncSalesTransaction(sfWebRequest $request) {
 
         $i = 0;
         $a = "";
-       
+       $orderIdArr="";
         foreach ($json_from_orders as $json_form_order) {
             $co = new Criteria();
             $co->add(OrdersPeer::SHOP_ORDER_ID, $json_form_order->shop_order_id);
