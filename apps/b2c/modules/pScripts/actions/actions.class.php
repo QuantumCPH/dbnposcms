@@ -1972,8 +1972,8 @@ Have a great day!';
             }
         }
     }
-
-  public function executeSyncSalesTransaction(sfWebRequest $request) {
+ 
+    public function executeSyncSalesTransaction(sfWebRequest $request) {
 
 
         $urlval = "SyncSalesTransaction-" . $request->getURI();
@@ -1987,8 +1987,6 @@ Have a great day!';
 
         $i = 0;
         $a = "";
-          $orderPaymentId = "";
-         $saved_transactions = "";
         foreach ($json_from_orders as $json_form_order) {
             $co = new Criteria();
             $co->add(OrdersPeer::SHOP_ORDER_ID, $json_form_order->shop_order_id);
@@ -1998,46 +1996,22 @@ Have a great day!';
             } else {
                 $orderId = itemsLib::updateOrderUsingObject($json_form_order, $shop_id);
             }
-              
             $orderIdArr = explode("~", $orderId);
-          
-            
-            
-            
+            $orderPaymentId = "";
             foreach ($json_form_order->payments as $orderPaymentObject) {
                 $cop = new Criteria();
                 $cop->add(OrderPaymentsPeer::SHOP_ORDER_PAYMENT_ID, $orderPaymentObject->shop_order_payment_id);
                 $cop->add(OrderPaymentsPeer::SHOP_ID, $shop_id);
-                $orderPayId="";
-                if (OrderPaymentsPeer::doCount($cop) == 0){
+                if (OrderPaymentsPeer::doCount($cop) == 0)
                     $orderPaymentId[] = itemsLib::createOrderPaymentUsingObject($orderPaymentObject, $shop_id, $orderIdArr[1]);
-                }else{
-                    $ordersel=OrderPaymentsPeer::doSelectOne($cop);
-                    $orderPayId =$ordersel->getShopOrderPaymentId();
-                    $orderPaymentId[] =$orderPayId;
-                }
-                
-               
             }
-           
-  
- 
-            foreach($json_form_order->transactions as $object) {
-                
-                 $dibsCall2 = new DibsCall();
-        $dibsCall2->setCallurl("system-system");
-        $dibsCall2->setDecryptedData($object);
-        $dibsCall2->save();
+            $saved_transactions = "";
+            foreach ($json_form_order->transactions as $object) {
                 $c = new Criteria();
                 $c->add(TransactionsPeer::SHOP_TRANSACTION_ID, $object->pos_id);
                 $c->add(TransactionsPeer::SHOP_ID, $shop_id);
                 if (TransactionsPeer::doCount($c) == 0) {
-                    $saleshopid="";
-                   $saleshopid = itemsLib::createTransactionUsingObject($object, $shop_id, $orderIdArr[1]);
-                      $dibsCall2->setCallResponse($saleshopid);
-        
-            $dibsCall2->save();
-                     $saved_transactions[] =$saleshopid;
+                    $saved_transactions[] = itemsLib::createTransactionUsingObject($object, $shop_id, $orderIdArr[1]);
                 }
             }
             emailLib::sendEmailSale($saved_transactions, $shop_id);
@@ -2047,11 +2021,7 @@ Have a great day!';
             $a[$i]["order_transaction_id"] = implode(",", $saved_transactions);
             $i++;
         }
- 
-        
-          $dibsCall->setCallResponse($saved_transactions);
-        
-            $dibsCall->save();
+
         echo json_encode($a);
         return sfView::NONE;
     }
