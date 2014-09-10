@@ -1987,7 +1987,7 @@ Have a great day!';
 
         $i = 0;
         $a = "";
-        $varata="khan-- ";
+       
         foreach ($json_from_orders as $json_form_order) {
             $co = new Criteria();
             $co->add(OrdersPeer::SHOP_ORDER_ID, $json_form_order->shop_order_id);
@@ -1997,11 +1997,7 @@ Have a great day!';
             } else {
                 $orderId = itemsLib::updateOrderUsingObject($json_form_order, $shop_id);
             }
-  $dibsCallor = new DibsCall();
-        $dibsCallor->setCallurl("orders");
-            
-                    $dibsCallor->setCallResponse($orderId);
-           $dibsCallor->save();
+   
             $orderIdArr = explode("~", $orderId);
             $orderPaymentId = "";
             foreach ($json_form_order->payments as $orderPaymentObject) {
@@ -2015,11 +2011,7 @@ Have a great day!';
                     $orderpyid=  $orderpay->getShopOrderPaymentId();
                 }
                  $orderPaymentId[]=$orderpyid;
-                  $dibsCallo = new DibsCall();
-        $dibsCallo->setCallurl("orderpay");
-            
-                    $dibsCallo->setCallResponse($orderpyid);
-           $dibsCallo->save();
+                
             }
            
             $saved_transactions = "";
@@ -2035,18 +2027,12 @@ Have a great day!';
                     
                 }
                  $saved_transactions[] =$saved_transid;
-                   $dibsCalltr = new DibsCall();
-        $dibsCalltr->setCallurl("transaction");
-            
-                    $dibsCalltr->setCallResponse($saved_transid);
-           $dibsCalltr->save();
+ 
             }
             
-            $dibsCall->setCallResponse("before email");
-           $dibsCall->save();
+        
             emailLib::sendEmailSale($saved_transactions, $shop_id);
-              $dibsCall->setCallResponse("after email");
-           $dibsCall->save();
+            
 $dibsCall->setCallResponse($a);
            $dibsCall->save();
             $a[$i]["order_id"] = $orderIdArr[0];
@@ -2054,7 +2040,7 @@ $dibsCall->setCallResponse($a);
             $a[$i]["order_transaction_id"] = implode(",", $saved_transactions);
             $i++;
         }
-$dibsCall->setCallResponse($a);
+$dibsCall->setCallResponse(json_encode($a));
            $dibsCall->save();
         echo json_encode($a);
         return sfView::NONE;
