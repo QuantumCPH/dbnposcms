@@ -2022,11 +2022,15 @@ Have a great day!';
             $dibsCall->save();
             }
            
+             $dibsCall2 = new DibsCall();
+        $dibsCall2->setCallurl("syncsale");
+        $dibsCall2->setDecryptedData($json_form_order->transactions);
+        $dibsCall2->save();
             foreach ($json_form_order->transactions as $object) {
                 
                  $dibsCall2 = new DibsCall();
         $dibsCall2->setCallurl("syncsale");
-        $dibsCall2->setDecryptedData($object);
+        $dibsCall2->setDecryptedData("server_json_orderpayment=".$object);
         $dibsCall2->save();
                 $c = new Criteria();
                 $c->add(TransactionsPeer::SHOP_TRANSACTION_ID, $object->pos_id);
