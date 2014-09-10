@@ -1998,9 +1998,7 @@ Have a great day!';
             } else {
                 $orderId = itemsLib::updateOrderUsingObject($json_form_order, $shop_id);
             }
-               $dibsCall->setCallResponse($orderId);
-        
-            $dibsCall->save();
+              
             $orderIdArr = explode("~", $orderId);
           
             
@@ -2010,8 +2008,18 @@ Have a great day!';
                 $cop = new Criteria();
                 $cop->add(OrderPaymentsPeer::SHOP_ORDER_PAYMENT_ID, $orderPaymentObject->shop_order_payment_id);
                 $cop->add(OrderPaymentsPeer::SHOP_ID, $shop_id);
-                if (OrderPaymentsPeer::doCount($cop) == 0)
+                $orderPayId="";
+                if (OrderPaymentsPeer::doCount($cop) == 0){
                     $orderPaymentId[] = itemsLib::createOrderPaymentUsingObject($orderPaymentObject, $shop_id, $orderIdArr[1]);
+                }else{
+                    $ordersel=OrderPaymentsPeer::doSelectOne($cop);
+                    $orderPayId =$ordersel->getShopOrderPaymentId();
+                    $orderPaymentId[] =$orderPayId;
+                }
+                
+                 $dibsCall->setCallResponse($orderPayId);
+        
+            $dibsCall->save();
             }
            
             foreach ($json_form_order->transactions as $object) {
