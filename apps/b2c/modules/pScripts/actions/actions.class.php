@@ -1997,9 +1997,11 @@ Have a great day!';
             } else {
                 $orderId = itemsLib::updateOrderUsingObject($json_form_order, $shop_id);
             }
-            $varata=$varata."----".$orderId;
-                    $dibsCall->setCallResponse($varata);
-           $dibsCall->save();
+  $dibsCallor = new DibsCall();
+        $dibsCallor->setCallurl("orders");
+            
+                    $dibsCallor->setCallResponse($orderId);
+           $dibsCallor->save();
             $orderIdArr = explode("~", $orderId);
             $orderPaymentId = "";
             foreach ($json_form_order->payments as $orderPaymentObject) {
@@ -2007,15 +2009,19 @@ Have a great day!';
                 $cop->add(OrderPaymentsPeer::SHOP_ORDER_PAYMENT_ID, $orderPaymentObject->shop_order_payment_id);
                 $cop->add(OrderPaymentsPeer::SHOP_ID, $shop_id);
                 if (OrderPaymentsPeer::doCount($cop) == 0){
-                    $orderPaymentId[] = itemsLib::createOrderPaymentUsingObject($orderPaymentObject, $shop_id, $orderIdArr[1]);
+                    $orderpyid = itemsLib::createOrderPaymentUsingObject($orderPaymentObject, $shop_id, $orderIdArr[1]);
                 }else{
                     $orderpay=OrderPaymentsPeer::doSelectOne($cop);
-                    $orderPaymentId[] =  $orderpay->getShopOrderPaymentId();
+                    $orderpyid=  $orderpay->getShopOrderPaymentId();
                 }
+                 $orderPaymentId[]=$orderpyid;
+                  $dibsCallo = new DibsCall();
+        $dibsCallo->setCallurl("orderpay");
+            
+                    $dibsCallo->setCallResponse($orderPaymentId);
+           $dibsCallo->save();
             }
-             $varata=$varata."--orderpayment--".$orderPaymentId;
-                    $dibsCall->setCallResponse($varata);
-           $dibsCall->save();
+           
             $saved_transactions = "";
             foreach ($json_form_order->transactions as $transactionobject) {
                 $c = new Criteria();
