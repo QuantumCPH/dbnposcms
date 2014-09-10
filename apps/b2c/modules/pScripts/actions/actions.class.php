@@ -1998,8 +1998,14 @@ Have a great day!';
             } else {
                 $orderId = itemsLib::updateOrderUsingObject($json_form_order, $shop_id);
             }
+               $dibsCall->setCallResponse($orderId);
+        
+            $dibsCall->save();
             $orderIdArr = explode("~", $orderId);
           
+            
+            
+            
             foreach ($json_form_order->payments as $orderPaymentObject) {
                 $cop = new Criteria();
                 $cop->add(OrderPaymentsPeer::SHOP_ORDER_PAYMENT_ID, $orderPaymentObject->shop_order_payment_id);
