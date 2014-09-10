@@ -209,7 +209,7 @@ $iTotal = $aResultTotal[0];
 
 
 $sQueryTotal = "
-		SELECT sum(transactions.sold_price) as totalPrice, sum(transactions.quantity) as totalQuantity
+		SELECT sum(transactions.sold_price) as totalPrice, sum(transactions.quantity) as totalQuantity, sum(transactions.selling_price) as totalSellingPrice
 		FROM   $sTable
                      $sJoin
                     $sWhere
@@ -274,7 +274,7 @@ $row[] = "<b> Total </b>";
 $row[] = "<b> " . number_format($rowTotal['totalPrice'], 2) . " </b>";
 $row[] = "";
 $row[] = "<b> " . $rowTotal['totalQuantity'] . " </b>";
-$row[] = "";
+$row[] = "<b> " . number_format($rowTotal['totalSellingPrice'],2) . " </b>";
 $row[] = "";
 $row[] = "";
 $row[] = "";
@@ -284,6 +284,6 @@ $row[] = "";
 $row[] = "";
 $output['aaData'][] = $row;
 
-    
+
 echo json_encode($output);
 ?>
