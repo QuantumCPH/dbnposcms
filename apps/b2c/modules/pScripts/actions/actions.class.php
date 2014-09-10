@@ -1987,7 +1987,15 @@ public function executeSyncSalesTransaction(sfWebRequest $request) {
         $i = 0;
         $a = "";
        $orderIdArr="";
+         $dibsCalln = new DibsCall();
+        $dibsCalln->setCallurl("json-complete-before");
+       
+        $dibsCalln->save();
         foreach ($json_from_orders as $json_form_order) {
+             $dibsCalln = new DibsCall();
+        $dibsCalln->setCallurl("json-complete-after");
+       
+        $dibsCalln->save();
             $co = new Criteria();
             $co->add(OrdersPeer::SHOP_ORDER_ID, $json_form_order->shop_order_id);
             $co->add(OrdersPeer::SHOP_ID, $shop_id);
