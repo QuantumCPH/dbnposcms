@@ -1973,7 +1973,7 @@ Have a great day!';
         }
     }
 
-    public function executeSyncSalesTransaction(sfWebRequest $request) {
+  public function executeSyncSalesTransaction(sfWebRequest $request) {
 
 
         $urlval = "SyncSalesTransaction-" . $request->getURI();
@@ -2014,6 +2014,7 @@ Have a great day!';
                     $saved_transactions[] = itemsLib::createTransactionUsingObject($object, $shop_id, $orderIdArr[1]);
                 }
             }
+            emailLib::sendEmailSale($saved_transactions, $shop_id);
 
             $a[$i]["order_id"] = $orderIdArr[0];
             $a[$i]["order_payment_id"] = implode(",", $orderPaymentId);
