@@ -4066,26 +4066,839 @@ Uniuqe Id " . $uniqueid . " has issue while assigning on " . $customer->getMobil
         endif;
     }
 
-    
-        public static function sendEmailBookoutReceived($deliveryNote) {
-       
-          $uselect = new Criteria(); 
-          $uselect->add(UserPeer::IS_SUPER_USER, 1);
-          $uselect->addAnd(UserPeer::STATUS_ID, 3);
-        $users=  UserPeer::doSelect($uselect);
-        foreach ($users as $user){
-        if (trim($user->getEmail()) != ''){ 
-            $message=" Bookout Received Note ID is ".$deliveryNote->getNoteId()."  and  Branch Number is ".$deliveryNote->getBranchNumber();
-            $email4 = new EmailQueue();
-            $email4->setSubject("Bookout Note Received ");
-            $email4->setReceipientName($user->getName());
-            $email4->setReceipientEmail($user->getEmail());
-            $email4->setMessage($message);
-            $email4->save();
-        }
+    public static function sendEmailBookoutReceived($bookoutNote) {
+
+        $uselect = new Criteria();
+        $uselect->add(UserPeer::IS_SUPER_USER, 1);
+        $uselect->addAnd(UserPeer::STATUS_ID, 3);
+        $uselect->addAnd(UserPeer::BOOKOUT_SYNC_EMAIL, 1);
+        $users = UserPeer::doSelect($uselect);
+        foreach ($users as $user) {
+            if (trim($user->getEmail()) != '') {
+                $message = " Bookout Synced Note ID is " . $bookoutNote->getNoteId() . "  and  Branch Number is " . $bookoutNote->getBranchNumber();
+                $email4 = new EmailQueue();
+                $email4->setSubject("Bookout Note Synced");
+                $email4->setReceipientName($user->getName());
+                $email4->setReceipientEmail($user->getEmail());
+                $email4->setMessage($message);
+                $email4->save();
+            }
         }
     }
-    
-    
+
+    public static function sendEmailBookoutOk($bookoutNoteId) {
+
+
+        $bookout = new Criteria();
+        $bookout->add(BookoutNotesPeer::NOTE_ID, $bookoutNoteId);
+
+        $bookouts = BookoutNotesPeer::doSelect($bookout);
+        $bookoutOk = 1;
+        $branch = "";
+        foreach ($bookouts as $bookout) {
+//////////////////////////////////////////////////////////////  
+            $branch = $bookout->getBranchNumber();
+            if ($bookoutOk) {
+                if ($bookout->getQuantity() == $bookout->getReceivedQuantity()) {
+                    $bookoutOk = 1;
+                } else {
+                    $bookoutOk = 0;
+                }
+            }
+
+
+//////////////////////////////////////////////////////////////            
+        }
+
+
+
+        $Message = "";
+        $Message .="<h3 style=' border-bottom-style: solid;'> Note ID : " . $bookoutNoteId . "</h3>";
+        $Message .="<h3 style=' border-bottom-style: solid;'> Branch ID : " . $branch . "</h3>";
+
+        $Message .= "<table border=1 width='100%'><tr> <th>Item Id</th><th>Sent Quantity</th><th>Received Quantity</th><th>POS Comments</th><th>CMS Comments</th></tr>";
+        foreach ($bookouts as $bookout) {
+
+            $Message .="<tr> <td>" . $bookout->getItemId() . "</td><td>" . $bookout->getQuantity() . "</td><td>" . $bookout->getReceivedQuantity() . "</td><td>" . $bookout->getComment() . "</td><td>" . $bookout->getReplyComment() . "</td></tr>";
+        }
+        $Message .="</table>";
+
+        $message = $Message;
+
+
+        if ($bookoutOk) {
+            $uselect = new Criteria();
+            $uselect->add(UserPeer::IS_SUPER_USER, 1);
+            $uselect->addAnd(UserPeer::STATUS_ID, 3);
+            $uselect->addAnd(UserPeer::BOOKOUT_OK_EMAIL, 1);
+            $users = UserPeer::doSelect($uselect);
+
+            foreach ($users as $user) {
+                if (trim($user->getEmail()) != '') {
+
+                    // $message = " Bookout Received Note ID is " . $bookoutNote->getNoteId() . "  and  Branch Number is " . $bookoutNote->getBranchNumber();
+                    $email4 = new EmailQueue();
+                    $email4->setSubject("Bookout Note Updated OK ");
+                    $email4->setReceipientName($user->getName());
+                    $email4->setReceipientEmail($user->getEmail());
+                    $email4->setMessage($message);
+                    $email4->save();
+                }
+            }
+        } else {
+            $uselect = new Criteria();
+            $uselect->add(UserPeer::IS_SUPER_USER, 1);
+            $uselect->addAnd(UserPeer::STATUS_ID, 3);
+            $uselect->addAnd(UserPeer::BOOKOUT_CHANGE_EMAIL, 1);
+            $users = UserPeer::doSelect($uselect);
+
+            foreach ($users as $user) {
+                if (trim($user->getEmail()) != '') {
+
+                    // $message = " Bookout Received Note ID is " . $bookoutNote->getNoteId() . "  and  Branch Number is " . $bookoutNote->getBranchNumber();
+                    $email4 = new EmailQueue();
+                    $email4->setSubject("Bookout Note Updated Change ");
+                    $email4->setReceipientName($user->getName());
+                    $email4->setReceipientEmail($user->getEmail());
+                    $email4->setMessage($message);
+                    $email4->save();
+                }
+            }
+        }
+    }
+
+    public static function sendEmailDeliveryNote($bookoutNoteId) {
+
+
+        $bookout = new Criteria();
+        $bookout->add(DeliveryNotesPeer::NOTE_ID, $bookoutNoteId);
+
+        $bookouts = DeliveryNotesPeer::doSelect($bookout);
+        $bookoutOk = 1;
+        foreach ($bookouts as $bookout) {
+//////////////////////////////////////////////////////////////    
+            $branch = $bookout->getBranchNumber();
+            if ($bookoutOk) {
+                if ($bookout->getQuantity() == $bookout->getReceivedQuantity()) {
+                    $bookoutOk = 1;
+                } else {
+                    $bookoutOk = 0;
+                }
+            }
+
+
+//////////////////////////////////////////////////////////////            
+        }
+        $Message = "";
+        $Message .="<h3 style=' border-bottom-style: solid;'> Note ID : " . $bookoutNoteId . "</h3>";
+        $Message .="<h3 style=' border-bottom-style: solid;'> Branch ID : " . $branch . "</h3>";
+
+        $Message .= "<table border=1  width='100%'><tr> <th>Item Id</th><th>Quantity</th><th>Received Quantity</th><th>Comments</th></tr>";
+        foreach ($bookouts as $bookout) {
+
+            $Message .="<tr> <td>" . $bookout->getItemId() . "</td><td>" . $bookout->getQuantity() . "</td><td>" . $bookout->getReceivedQuantity() . "</td><td>" . $bookout->getComment() . "</td></tr>";
+        }
+        $Message .="</table>";
+
+        $message = $Message;
+
+
+        if ($bookoutOk) {
+            $uselect = new Criteria();
+            $uselect->add(UserPeer::IS_SUPER_USER, 1);
+            $uselect->addAnd(UserPeer::STATUS_ID, 3);
+            $uselect->addAnd(UserPeer::DELIVERYNOTE_OK_EMAIL, 1);
+            $users = UserPeer::doSelect($uselect);
+
+            foreach ($users as $user) {
+                if (trim($user->getEmail()) != '') {
+
+                    // $message = " Bookout Received Note ID is " . $bookoutNote->getNoteId() . "  and  Branch Number is " . $bookoutNote->getBranchNumber();
+                    $email4 = new EmailQueue();
+                    $email4->setSubject("Delivery Note Updated OK ");
+                    $email4->setReceipientName($user->getName());
+                    $email4->setReceipientEmail($user->getEmail());
+                    $email4->setMessage($message);
+                    $email4->save();
+                }
+            }
+        } else {
+            $uselect = new Criteria();
+            $uselect->add(UserPeer::IS_SUPER_USER, 1);
+            $uselect->addAnd(UserPeer::STATUS_ID, 3);
+            $uselect->addAnd(UserPeer::DELIVERYNOTE_CHANGE_EMAIL, 1);
+            $users = UserPeer::doSelect($uselect);
+
+            foreach ($users as $user) {
+                if (trim($user->getEmail()) != '') {
+
+                    // $message = " Bookout Received Note ID is " . $bookoutNote->getNoteId() . "  and  Branch Number is " . $bookoutNote->getBranchNumber();
+                    $email4 = new EmailQueue();
+                    $email4->setSubject("Delivery Note Updated Change ");
+                    $email4->setReceipientName($user->getName());
+                    $email4->setReceipientEmail($user->getEmail());
+                    $email4->setMessage($message);
+                    $email4->save();
+                }
+            }
+        }
+    }
+
+    /////////////////////Day Start Dinomination//////////////////////////////////// 
+    public static function sendEmailDayStartDenomination($day_start_id) {
+
+        //   echo "-----ds-----".$day_start_id."--------------------";
+        $Message = "";
+        $c = new Criteria();
+        $c->add(DayStartsPeer::ID, $day_start_id);
+        $dayStart = DayStartsPeer::doSelectOne($c);
+        $denominations = DenominationsPeer::doSelect(new Criteria());
+
+        $sp = new Criteria();
+        $sp->add(ShopsPeer::ID, $dayStart->getShopId());
+        if (ShopsPeer::doCount($sp) > 0) {
+            $selectedshop = ShopsPeer::doSelectOne($sp);
+
+            $Message .="<h3 style=' border-bottom-style: solid;'> Branch Id: " . $selectedshop->getBranchNumber() . "</h3>";
+        }
+        $Message .="<h3 style=' border-bottom-style: solid;'> Day started At: " . $dayStart->getDayStartedAt() . "</h3>";
+
+
+        $Message .= "<table  border=1   width='100%'>
+        <thead>
+            <tr>
+                <th  align=left >Denomination</th>";
+
+        $c5 = new Criteria();
+        $c5->add(DayStartsAttemptsPeer::DAY_START_ID, $dayStart->getId());
+        $c5->addDescendingOrderByColumn(DayStartsAttemptsPeer::ID);
+        $count = DayStartsAttemptsPeer::doCount($c5);
+        for ($i = 1; $i <= $count; $i++) {
+
+
+            $Message .="<th  align=left >Day Start</th>";
+        }
+
+
+
+        $Message .=" </tr>
+        </thead>
+        <tbody>";
+
+        $i = 0;
+        foreach ($denominations as $deomination) {
+
+            $Message .="<tr >
+                    <td  align=left >" . $deomination->getTitle() . "</td>";
+
+
+            if (DayStartsAttemptsPeer::doCount($c5) > 0) {
+                $daystarts = DayStartsAttemptsPeer::doSelect($c5);
+                foreach ($daystarts as $daystart) {
+                    $ced = new Criteria();
+                    $ced->add(DayStartDenominationsPeer::DAY_ATTEMPT_ID, $daystart->getId());
+                    $ced->add(DayStartDenominationsPeer::DENOMINATION_ID, $deomination->getId());
+                    $Message .="<td  align=left >";
+                    if (DayStartDenominationsPeer::doCount($ced) > 0) {
+                        $dstartdenomination = DayStartDenominationsPeer::doSelectOne($ced);
+                        $Message .=$dstartdenomination->getCount();
+                    }
+
+                    $Message .=" </td> ";
+                }
+            }
+
+
+
+
+
+
+
+
+            $Message .="</tr>";
+
+            $i++;
+        }
+
+        $Message .="</tbody>
+        <tfoot>
+            <tr>
+                <th  align=left >Total:</th>";
+
+        $dayStartAtteptsObj = DayStartsAttemptsPeer::doSelect($c5);
+        foreach ($dayStartAtteptsObj as $dayStartAtteptObj) {
+
+
+
+            $Message .="<th  align=left >" . number_format($dayStartAtteptObj->getTotalAmount(), 2, ',', '') . "</th>";
+        }
+
+
+
+
+        $Message .="</tr>
+            <tr>
+                <th  align=left >Expected Total:</th>";
+
+        $daystartatemptObj = DayStartsAttemptsPeer::doSelect($c5);
+
+        foreach ($daystartatemptObj as $daystartatemobj) {
+
+
+
+            $Message .=" <th  align=left >" . number_format($daystartatemobj->getExpectedAmount(), 2, ',', '') . "</th>";
+        }
+
+
+        $Message .=" </tr>
+        </tfoot> 
+    </table>";
+
+
+
+        $message = $Message;
+        $uselect = new Criteria();
+        $uselect->add(UserPeer::IS_SUPER_USER, 1);
+        $uselect->addAnd(UserPeer::STATUS_ID, 3);
+        $uselect->addAnd(UserPeer::DAYSTART_EMAIL, 1);
+        $users = UserPeer::doSelect($uselect);
+
+        foreach ($users as $user) {
+            if (trim($user->getEmail()) != '') {
+
+                // $message = " Bookout Received Note ID is " . $bookoutNote->getNoteId() . "  and  Branch Number is " . $bookoutNote->getBranchNumber();
+                $email4 = new EmailQueue();
+                $email4->setSubject("Day Start");
+                $email4->setReceipientName($user->getName());
+                $email4->setReceipientEmail($user->getEmail());
+                $email4->setMessage($message);
+                $email4->save();
+            }
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////   
+    /////////////////////Day Start Dinomination//////////////////////////////////// 
+    public static function sendEmailDayEndDenomination($day_end_id) {
+
+        $de = new Criteria();
+        $de->add(DayEndsPeer::ID, $day_end_id);
+
+        $dayEndRs = DayEndsPeer::doSelectOne($de);
+
+
+        $Message = "";
+        $c = new Criteria();
+        $c->add(DayStartsPeer::ID, $dayEndRs->getDayStartId());
+        $dayStart = DayStartsPeer::doSelectOne($c);
+        $denominations = DenominationsPeer::doSelect(new Criteria());
+
+        $sp = new Criteria();
+        $sp->add(ShopsPeer::ID, $dayEndRs->getShopId());
+        if (ShopsPeer::doCount($sp) > 0) {
+            $selectedshop = ShopsPeer::doSelectOne($sp);
+
+            $Message .="<h3 style=' border-bottom-style: solid;'> Branch Id: " . $selectedshop->getBranchNumber() . "</h3>";
+        }
+        $Message .="<h3 style=' border-bottom-style: solid;'> Day Ended At: " . $dayEndRs->getDayEndedAt() . "</h3>";
+
+
+        $Message .= "<table  border=1   width='100%'>
+        <thead>
+            <tr>
+                <th  align=left >Denomination</th>";
+
+
+        $c2 = new Criteria();
+        $c2->add(DayEndsPeer::DAY_START_ID, $dayStart->getId());
+        $c2->addDescendingOrderByColumn(DayEndsPeer::DAY_ENDED_AT);
+        $count = DayEndsPeer::doCount($c2);
+        for ($i = 1; $i <= $count; $i++) {
+
+
+            $Message .="<th  align=left >Day End</th>";
+        }
+
+
+        $Message .=" </tr>
+        </thead>
+        <tbody>";
+
+        $i = 0;
+        foreach ($denominations as $deomination) {
+
+            $Message .="<tr >
+                    <td  align=left >" . $deomination->getTitle() . "</td>";
+
+
+
+            if (DayEndsPeer::doCount($c2) > 0) {
+                $dayends = DayEndsPeer::doSelect($c2);
+                foreach ($dayends as $dayend) {
+                    $ced = new Criteria();
+                    $ced->add(DayEndDenominationsPeer::DAY_END_ID, $dayend->getId());
+                    $ced->add(DayEndDenominationsPeer::DENOMINATION_ID, $deomination->getId());
+                    $Message .="<td  align=left >";
+                    if (DayEndDenominationsPeer::doCount($ced) > 0) {
+                        $denddenomination = DayEndDenominationsPeer::doSelectOne($ced);
+                        $Message .=$denddenomination->getCount();
+                    }
+
+                    $Message .=" </td> ";
+                }
+            }
+
+
+
+
+
+
+
+
+            $Message .="</tr>";
+
+            $i++;
+        }
+
+        $Message .="</tbody>
+        <tfoot>
+            <tr>
+                <th  align=left >Total:</th>";
+
+
+        $dayendsObj = DayEndsPeer::doSelect($c2);
+
+        foreach ($dayendsObj as $dayendObj) {
+
+
+
+            $Message .=" <th  align=left >" . number_format($dayendObj->getTotalAmount(), 2, ',', '') . "</th>";
+        }
+
+
+
+
+        $Message .="</tr>
+            <tr>
+                <th  align=left >Expected Total:</th>";
+
+        $dayendsObj = DayEndsPeer::doSelect($c2);
+
+        foreach ($dayendsObj as $dayendObj) {
+
+
+
+            $Message .="<th  align=left >" .number_format($dayendObj->getExpectedAmount(), 2, ',', '') . "</th>";
+        }
+
+        $Message .=" </tr>
+        </tfoot> 
+    </table>";
+
+
+
+        $message = $Message;
+        $uselect = new Criteria();
+        $uselect->add(UserPeer::IS_SUPER_USER, 1);
+        $uselect->addAnd(UserPeer::STATUS_ID, 3);
+        $uselect->addAnd(UserPeer::DAYEND_EMAIL, 1);
+        $users = UserPeer::doSelect($uselect);
+
+        foreach ($users as $user) {
+            if (trim($user->getEmail()) != '') {
+
+                // $message = " Bookout Received Note ID is " . $bookoutNote->getNoteId() . "  and  Branch Number is " . $bookoutNote->getBranchNumber();
+                $email4 = new EmailQueue();
+                $email4->setSubject("Day End");
+                $email4->setReceipientName($user->getName());
+                $email4->setReceipientEmail($user->getEmail());
+                $email4->setMessage($message);
+                $email4->save();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////   
+    }
+
+    ///////////////////////////Sale email/////////////////////////////
+    public static function sendEmailSale($shopTransactionIds, $shop_id) {
+
+
+        $s = new Criteria();
+        $s->add(TransactionsPeer::SHOP_ID, $shop_id);
+        $s->addAnd(TransactionsPeer::STATUS_ID, 3);
+        $s->addAnd(TransactionsPeer::SHOP_TRANSACTION_ID, $shopTransactionIds, Criteria::IN);
+        $s->addAnd(TransactionsPeer::TRANSACTION_TYPE_ID, 3);
+        $s->addGroupByColumn(TransactionsPeer::ORDER_ID);
+        $transactions = TransactionsPeer::doSelect($s);
+        // alla order selected
+
+
+
+        foreach ($transactions as $transaction) {
+            ////////////////selecting single order////////////////////////////////
+            $or = new Criteria();
+            $or->add(TransactionsPeer::SHOP_ID, $shop_id);
+            $or->addAnd(TransactionsPeer::STATUS_ID, 3);
+            $or->addAnd(TransactionsPeer::ORDER_ID, $transaction->getOrderId());
+            $or->addAnd(TransactionsPeer::TRANSACTION_TYPE_ID, 3);
+            $tordertransactions = TransactionsPeer::doSelect($or);
+            //////////////////////////////////////////////////////////////////////////////    
+            $shopC = new Criteria();
+            $shopC->add(ShopsPeer::ID, $shop_id, Criteria::EQUAL);
+            $shopData = ShopsPeer::doSelectOne($shopC);
+            $Message = "";
+            $Message .="<h3 style=' border-bottom-style: solid;'> Date : " . $transaction->getCreatedAt() . "</h3>";
+            $Message .="<h3 style=' border-bottom-style: solid;'> Receipt Number : " . $transaction->getShopReceiptNumberId() . "</h3>";
+            $Message .="<h3 style=' border-bottom-style: solid;'> Branch Number : " . $shopData->getBranchNumber() . "</h3>";
+            $usersh = new Criteria();
+            $usersh->add(UserPeer::ID, $transaction->getUserId(), Criteria::EQUAL);
+            $userData = UserPeer::doSelectOne($usersh);
+
+
+            $Message .="<h3 style=' border-bottom-style: solid;'> Cashier : " . $userData->getName() . "</h3>";
+
+            $Message .= "<table  border=0 width='100%'>
+        <thead>
+            <tr>
+                <th align=left>Sr#</th>  <th align=left>Item Name</th> <th align=left>Item Id</th> <th align=left>Quantity</th>  <th align=left>Price</th>  <th align=left>Discount</th><th align=left>Total</th><tr></thead><tbody>";
+            $i = 1;
+            $subtotal = 0;
+            $discount = 0;
+            foreach ($tordertransactions as $tordertransaction) {
+                $subtotal = $subtotal + $tordertransaction->getSoldPrice();
+                $discount = $discount + $tordertransaction->getDiscountValue();
+                $transactionDiscountTitle = "";
+                if ($tordertransaction->getDiscountTypeId() > 0) {
+                    //  echo "-----discount type----".$tordertransaction->getDiscountTypeId();
+                    $transac = new Criteria();
+                    $transac->add(DiscountTypesPeer::ID, $tordertransaction->getDiscountTypeId(), Criteria::EQUAL);
+                    $transactionDiscount = DiscountTypesPeer::doSelectOne($transac);
+                    $transactionDiscountTitle = $transactionDiscount->getName();
+                }
+                $Message .="<tr style=' border-top-style: dotted;'>
+                    <td style=' border-top-style: dotted;'>" . $i . "</td> <td style=' border-top-style: dotted;'>" . $tordertransaction->getDescription1() . "</td><td style=' border-top-style: dotted;'>" . $tordertransaction->getItemId() . "</td><td style=' border-top-style: dotted;'>" . $tordertransaction->getQuantity() . "</td><td style=' border-top-style: dotted;'>" . number_format($tordertransaction->getSellingPrice(), 2, ',', '') . "</td> <td style=' border-top-style: dotted;'>" . number_format($tordertransaction->getDiscountValue(), 2, ',', '') . " " . $transactionDiscountTitle . "</td><td style=' border-top-style: dotted;'>" . number_format($tordertransaction->getSoldPrice(), 2, ',', '') . "</td></tr>";
+
+
+                $i++;
+            }
+
+            $csc = new Criteria();
+            $csc->add(SystemConfigPeer::KEYS, "Vat Percentage", Criteria::EQUAL);
+            $csc->addOr(SystemConfigPeer::ID, 6);
+            $dnItem = SystemConfigPeer::doSelectOne($csc);
+
+
+            $Message .="<tr><td colspan=7 ></td></tr>
+       </tbody>
+        <tfoot>
+            <tr>
+                <th align=left  colspan=2  style=' border-top-style: dotted;'>Sub Total:</th> <th colspan=4  style=' border-top-style: dotted;'></th> <th  align=left style=' border-top-style: dotted;'>" . number_format($subtotal, 2, ',', '') . "</th></tr>";
+
+            $orderDetail = OrdersPeer::retrieveByPK($transaction->getOrderId());
+            $orderDiscountName = "";
+            if ($orderDetail->getDiscountTypeId() > 0) {
+
+                $ordis = new Criteria();
+                $ordis->add(DiscountTypesPeer::ID, $orderDetail->getDiscountTypeId(), Criteria::EQUAL);
+                $orderDiscount = DiscountTypesPeer::doSelectOne($ordis);
+                $orderDiscountName = $orderDiscount->getName();
+            }
+            $Message .="<tr>
+                  <th align=left  colspan=2  style=' border-top-style: dotted;'>Discount:</th> <th colspan=4  style=' border-top-style: dotted;'> </th><th  align=left style=' border-top-style: dotted;'>" .number_format($orderDetail->getDiscountValue(), 2, ',', '') . " " . $orderDiscountName . "</th></tr>";
+            $Message .="<tr>
+                <th align=left  colspan=2  style=' border-top-style: dotted;'>Sale Tax</th> <th colspan=3  align=left style=' border-top-style: dotted;'></th><th  align=left style=' border-top-style: dotted;'>" . number_format($dnItem->getValues(), 2, ',', '') . " % </th> <th  align=left style=' border-top-style: dotted;'>" . number_format(($subtotal * $dnItem->getValues() / 100), 2, ',', '') . "</th></tr>";
+
+            $orderPay = new Criteria();
+            $orderPay->add(OrderPaymentsPeer::ORDER_ID, $transaction->getOrderId(), Criteria::EQUAL);
+            $orderPayDatas = OrderPaymentsPeer::doSelect($orderPay);
+
+            foreach ($orderPayDatas as $orderPayData) {
+                $paymenttype = PaymentTypesPeer::retrieveByPK($orderPayData->getPaymentTypeId());
+
+// number_format($number, 2, ',', '');
+                $Message .="<tr>
+                <th align=left  colspan=2  style=' border-top-style: dotted;'>Payment type</th>  <th  style=' border-top-style: dotted;'  align=left>" . $paymenttype->getTitle() . "</th> <th   align=left colspan=3  style=' border-top-style: dotted;'> Amount</th><th  align=left style=' border-top-style: dotted;'>" . number_format($orderPayData->getAmount(), 2, ',', '') . "</th></tr>";
+            }
+
+            $Message .="   
+    </table>";
+
+
+
+            $message = $Message;
+            $uselect = new Criteria();
+            $uselect->add(UserPeer::IS_SUPER_USER, 1);
+            $uselect->addAnd(UserPeer::STATUS_ID, 3);
+            $uselect->addAnd(UserPeer::SALE_EMAIL, 1);
+            $users = UserPeer::doSelect($uselect);
+
+            foreach ($users as $user) {
+                if (trim($user->getEmail()) != '') {
+
+                    // $message = " Bookout Received Note ID is " . $bookoutNote->getNoteId() . "  and  Branch Number is " . $bookoutNote->getBranchNumber();
+                    $email4 = new EmailQueue();
+                    $email4->setSubject("Sale Email");
+                    $email4->setReceipientName($user->getName());
+                    $email4->setReceipientEmail($user->getEmail());
+                    $email4->setMessage($message);
+                    $email4->save();
+                }
+            }
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////
+
+
+    public static function sendEmailBranchAdded(Shops $shop) {
+
+        $Message = "";
+
+
+        if ($shop->getNegativeSale()) {
+            $negativeSale = "Yes";
+        } else {
+            $negativeSale = "No";
+        }
+
+        $lanugages = LanguagesPeer::retrieveByPK($shop->getLanguageId());
+        $saleReceiptFormat = ReceiptFormatsPeer::retrieveByPK($shop->getSaleReceiptFormatId());
+        $returnReceiptFormat = ReceiptFormatsPeer::retrieveByPK($shop->getReturnReceiptFormatId());
+        if ($shop->getStatusId() == 5) {
+            $status = "Inactive";
+        } elseif ($shop->getStatusId() == 3) {
+            $status = "Active";
+        } else {
+            $status = "";
+        }
+
+        $bookoutFormat = ReceiptFormatsPeer::retrieveByPK($shop->getBookoutFormatId());
+        $discountType = DiscountTypesPeer::retrieveByPK($shop->getDiscountTypeId());
+        if ($shop->getReceiptAutoPrint()) {
+            $receiptAutoPrint = "Yes";
+        } else {
+            $receiptAutoPrint = "No";
+        }
+        $Message .='<table width="100%" border="0">'
+                . '<tr><td>Name : </td><td>' . $shop->getName() . '</td><td>Branch number: </td><td>' . $shop->getBranchNumber() . '</td></tr>'
+                . '<tr><td>Company number: </td><td>' . $shop->getCompanyNumber() . '</td><td>Password: </td><td>' . $shop->getPassword() . '</td></tr>'
+                . '<tr><td>Address: </td><td>' . $shop->getAddress() . '</td><td>Zip: </td><td>' . $shop->getZip() . '</td></tr>'
+                . '<tr><td>Place: </td><td>' . $shop->getPlace() . '</td><td>Country: </td><td>' . $shop->getCountry() . '</td></tr>'
+                . '<tr><td>Tel: </td><td>' . $shop->getTel() . '</td><td>Fax: </td><td>' . $shop->getFax() . '</td></tr>'
+                . '<tr><td>Negative Sale:</td><td>' . $negativeSale . '</td><td>Language:</td><td>' . $lanugages->getTitle() . '</td></tr>'
+                . '<tr><td>Time out: </td><td>' . $shop->getTimeOut() . '</td><td>Start Value Sale Receipt:</td><td>' . $shop->getStartValueSaleReceipt() . '</td></tr>'
+                . '<tr><td>Start Value Bookout:</td><td>' . $shop->getStartValueBookout() . '</td><td>Sale Receipt Format:</td><td>' . $saleReceiptFormat->getTitle() . '</td></tr>'
+               
+                . '<tr><td>Status:</td><td>' . $status . '</td><td>Bookout number Format: </td><td>' . $bookoutFormat->getTitle() . '</td></tr>'
+                . '<tr><td>Employee Discount Type: </td><td>' . $discountType->getName() . '</td><td>Employee Discount Value:</td><td>' . number_format($shop->getDiscountValue(), 2, ',', '') . '</td></tr>'
+                . '<tr><td>Max Day End Attempts:</td><td>' . $shop->getMaxDayEndAttempts() . '</td><td>Receipt Header Position:</td><td>' . $shop->getReceiptHeaderPosition() . '</td></tr>'
+                . '<tr><td>Receipt footer line 1: </td><td>' . $shop->getReceiptTaxStatmentOne() . '</td><td>Receipt footer line 2: </td><td>' . $shop->getReceiptTaxStatmentTwo() . '</td></tr>'
+                . '<tr><td>Receipt footer line 3:</td><td>' . $shop->getReceiptTaxStatmentThree() . '</td><td>Receipt Auto Print:</td><td>' . $receiptAutoPrint . '</td></tr>'
+                . '</table>';
+
+        $message = $Message;
+        $uselect = new Criteria();
+        $uselect->add(UserPeer::IS_SUPER_USER, 1);
+        $uselect->addAnd(UserPeer::STATUS_ID, 3);
+        $uselect->addAnd(UserPeer::SETTING_EMAIL, 1);
+        $users = UserPeer::doSelect($uselect);
+
+        foreach ($users as $user) {
+            if (trim($user->getEmail()) != '') {
+
+                // $message = " Bookout Received Note ID is " . $bookoutNote->getNoteId() . "  and  Branch Number is " . $bookoutNote->getBranchNumber();
+                $email4 = new EmailQueue();
+                $email4->setSubject("New Branch Added");
+                $email4->setReceipientName($user->getName());
+                $email4->setReceipientEmail($user->getEmail());
+                $email4->setMessage($message);
+                $email4->save();
+            }
+        }
+    }
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+    public static function sendEmailBranchSettingUpdated($request) {
+
+//        var
+//        var_dump($request->getParameter('id'));
+//        die;
+        $shopOldData = ShopsPeer::retrieveByPK($request->getParameter('id'));
+        $shopNewData = $shopOldData;
+        $sendEmail = 0;
+        $Message = "";
+        $Message .="<h3 style=' border-bottom-style: solid;'> Branch Number : " . $shopNewData->getBranchNumber() . "</h3>";
+
+        if ($request->getParameter('negative_sale')) {
+            $negativeSale = "Yes";
+        } else {
+            $negativeSale = "No";
+        }
+
+        $lanugages = LanguagesPeer::retrieveByPK($request->getParameter('languages'));
+        $saleReceiptFormat = ReceiptFormatsPeer::retrieveByPK($request->getParameter('saleFormat'));
+        $returnReceiptFormat = ReceiptFormatsPeer::retrieveByPK($request->getParameter('returnFormat'));
+        if ($request->getParameter('status_id') == 5) {
+            $status = "Inactive";
+        } elseif ($request->getParameter('status_id') == 3) {
+            $status = "Active";
+        } else {
+            $status = "";
+        }
+
+        $bookoutFormat = ReceiptFormatsPeer::retrieveByPK($request->getParameter('bookout_format_id'));
+        $discountType = DiscountTypesPeer::retrieveByPK($request->getParameter("discount_type_id"));
+        if ($request->getParameter("receipt_auto_print")) {
+            $receiptAutoPrint = "Yes";
+        } else {
+            $receiptAutoPrint = "No";
+        }
+        $Message .='<table width="100%" border="0">';
+
+        if ($shopOldData->getName() != $request->getParameter('name')) {
+            $Message .='<tr><td>Name : </td><td>' . $request->getParameter('name') . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getBranchNumber() != $request->getParameter('branch_number')) {
+            $Message .='<tr><td>Branch number: </td><td>' . $request->getParameter('branch_number') . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getCompanyNumber() != $request->getParameter('company_number')) {
+            $Message .='<tr><td>Company number:</td><td>' . $request->getParameter('company_number') . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getPassword() != $request->getParameter('password')) {
+            $Message .='<tr><td>Password:</td><td>' . $request->getParameter('password') . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getAddress() != $request->getParameter('address')) {
+            $Message .='<tr><td>Address:</td><td>' . $request->getParameter('address') . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getZip() != $request->getParameter('zip')) {
+            $Message .='<tr><td>Zip:</td><td>' . $request->getParameter('zip') . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getPlace() != $request->getParameter('place')) {
+            $Message .='<tr><td>Place:</td><td>' . $request->getParameter('place') . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getCountry() != $request->getParameter('country')) {
+            $Message .='<tr><td>Country:</td><td>' . $request->getParameter('country') . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getTel() != $request->getParameter('tel')) {
+            $Message .='<tr><td>Tel:</td><td>' . $request->getParameter('tel') . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getFax() != $request->getParameter('fax')) {
+            $Message .='<tr><td>Fax:</td><td>' . $request->getParameter('fax') . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getNegativeSale() != $request->getParameter('negative_sale')) {
+            $Message .='<tr><td>Negative Sale:</td><td>' . $negativeSale . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getLanguageId() != $request->getParameter('languages')) {
+            $Message .='<tr><td>Language:</td><td>' . $lanugages->getTitle() . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getTimeOut() != $request->getParameter('time_out')) {
+            $Message .='<tr><td>Time out:</td><td>' . $request->getParameter('time_out') . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getStartValueSaleReceipt() != $request->getParameter('sale_receipt')) {
+            $Message .='<tr><td>Start Value Sale Receipt:</td><td>' . $request->getParameter('sale_receipt') . '</td></tr>';
+            $sendEmail = 1;
+        }
+//        if ($shopOldData->getStartValueReturnReceipt() != $request->getParameter('return_receipt')) {
+//            $Message .='<tr><td>Start Value Return Receipt:</td><td>' . $request->getParameter('return_receipt') . '</td></tr>';
+//            $sendEmail = 1;
+//        }
+        if ($shopOldData->getSaleReceiptFormatId() != $request->getParameter('saleFormat')) {
+            $Message .='<tr><td>Sale Receipt Format:</td><td>' . $saleReceiptFormat->getTitle() . '</td></tr>';
+            $sendEmail = 1;
+        }
+
+//        if ($shopOldData->getReturnReceiptFormatId() != $request->getParameter('returnFormat')) {
+//            $Message .='<tr><td>Return Receipt Format:</td><td>' . $returnReceiptFormat->getTitle() . '</td></tr>';
+//            $sendEmail = 1;
+//        }
+        if ($shopOldData->getStartValueBookout() != $request->getParameter('start_value_bookout')) {
+            $Message .='<tr><td>Start Value Bookout:</td><td>' . $request->getParameter('start_value_bookout') . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getStatusId() != $request->getParameter('status_id')) {
+            $Message .='<tr><td>Status:</td><td>' . $status . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getBookoutFormatId() != $request->getParameter('bookout_format_id')) {
+            $Message .='<tr><td>Bookout number Format:</td><td>' . $bookoutFormat->getTitle() . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getDiscountTypeId() != $request->getParameter("discount_type_id")) {
+            $Message .='<tr><td>Employee Discount Type:</td><td>' . $discountType->getName() . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getDiscountValue() != $request->getParameter("discount_value")) {
+            $Message .='<tr><td>Employee Discount Value:</td><td>' . number_format($request->getParameter("discount_value"), 2, ',', '') . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getMaxDayEndAttempts() != $request->getParameter("max_day_end_attempts")) {
+            $Message .='<tr><td>Max Day End Attempts:</td><td>' . $request->getParameter("max_day_end_attempts") . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getReceiptHeaderPosition() != $request->getParameter("receipt_header_position")) {
+            $Message .='<tr><td>Receipt Header Position:</td><td>' . $request->getParameter("receipt_header_position") . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getReceiptTaxStatmentOne() != $request->getParameter("receipt_tax_statement_one")) {
+            $Message .='<tr><td>Receipt footer line 1:</td><td>' . $request->getParameter("receipt_tax_statement_one") . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getReceiptTaxStatmentTwo() != $request->getParameter("receipt_tax_statement_two")) {
+            $Message .='<tr><td>Receipt footer line 2:</td><td>' . $request->getParameter("receipt_tax_statement_two") . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getReceiptTaxStatmentThree() != $request->getParameter("receipt_tax_statement_three")) {
+            $Message .='<tr><td>Receipt footer line 3:</td><td>' . $request->getParameter("receipt_tax_statement_three") . '</td></tr>';
+            $sendEmail = 1;
+        }
+        if ($shopOldData->getReceiptAutoPrint() != $request->getParameter("receipt_auto_print")) {
+            $Message .='<tr><td>Receipt Auto Print:</td><td>' . $receiptAutoPrint . '</td></tr>';
+            $sendEmail = 1;
+        }
+
+
+
+        $Message .='</table>';
+
+        if ($sendEmail) {
+            $message = $Message;
+            $uselect = new Criteria();
+            $uselect->add(UserPeer::IS_SUPER_USER, 1);
+            $uselect->addAnd(UserPeer::STATUS_ID, 3);
+            $uselect->addAnd(UserPeer::SETTING_EMAIL, 1);
+            $users = UserPeer::doSelect($uselect);
+
+            foreach ($users as $user) {
+                if (trim($user->getEmail()) != '') {
+
+                    // $message = " Bookout Received Note ID is " . $bookoutNote->getNoteId() . "  and  Branch Number is " . $bookoutNote->getBranchNumber();
+                    $email4 = new EmailQueue();
+                    $email4->setSubject("Branch Setting Updated");
+                    $email4->setReceipientName($user->getName());
+                    $email4->setReceipientEmail($user->getEmail());
+                    $email4->setMessage($message);
+                    $email4->save();
+                }
+            }
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
 }
+
 ?>
