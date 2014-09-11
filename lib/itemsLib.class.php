@@ -384,7 +384,8 @@ class itemsLib {
         $orderpayment->setCcTypeId($object->cc_type_id);
         $orderpayment->setChangeValue($object->change_value);
         $orderpayment->setChangeType($object->change_type);
-
+         $orderpayment->setShopOrderId($object->shop_order_id);
+    
         if ($orderpayment->save()) {
             return $orderpayment->getShopOrderPaymentId();
         }
