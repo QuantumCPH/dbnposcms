@@ -3740,6 +3740,7 @@ $dibsCall->setCallResponse(json_encode($a));
                     $jsonOrderPayments[$i]['created_at'] = $orderPayment->getCreatedAt();
                     $jsonOrderPayments[$i]['updated_at'] = $orderPayment->getUpdatedAt();
                     $jsonOrderPayments[$i]['day_start_id'] = $orderPayment->getDayStartId();
+                     $jsonOrderPayments[$i]['shop_order_id'] = $orderPayment->getShopOrderId();
 
                     $i++;
                 }
