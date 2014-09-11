@@ -1987,15 +1987,9 @@ public function executeSyncSalesTransaction(sfWebRequest $request) {
         $i = 0;
         $a = "";
        $orderIdArr="";
-         $dibsCalln = new DibsCall();
-        $dibsCalln->setCallurl("json-complete-before");
        
-        $dibsCalln->save();
         foreach ($json_from_orders as $json_form_order) {
-             $dibsCalln = new DibsCall();
-        $dibsCalln->setCallurl("json-complete-after");
-       
-        $dibsCalln->save();
+           
             $co = new Criteria();
             $co->add(OrdersPeer::SHOP_ORDER_ID, $json_form_order->shop_order_id);
             $co->add(OrdersPeer::SHOP_ID, $shop_id);
@@ -2007,10 +2001,7 @@ public function executeSyncSalesTransaction(sfWebRequest $request) {
    
             $orderIdArr = explode("~", $orderId);
             
-             $dibsCalln = new DibsCall();
-        $dibsCalln->setCallurl("ordrrss");
-        $dibsCalln->setDecryptedData($orderId);
-        $dibsCalln->save();
+           
             $orderPaymentId = "";
             foreach ($json_form_order->payments as $orderPaymentObject) {
                 if($orderPaymentObject->shop_order_payment_id){
@@ -2025,10 +2016,7 @@ public function executeSyncSalesTransaction(sfWebRequest $request) {
                 }
                  $orderPaymentId[]=$orderpyid;
                  
-             $dibsCalln = new DibsCall();
-        $dibsCalln->setCallurl("ordrrss payments");
-        $dibsCalln->setDecryptedData($orderpyid);
-        $dibsCalln->save(); 
+           
                 }
             }
            
@@ -2045,10 +2033,7 @@ public function executeSyncSalesTransaction(sfWebRequest $request) {
                     
                 }
                  $saved_transactions[] =$saved_transid;
- $dibsCalln = new DibsCall();
-        $dibsCalln->setCallurl("transaction");
-        $dibsCalln->setDecryptedData($saved_transid);
-        $dibsCalln->save(); 
+  
             }
             
        
@@ -3606,6 +3591,7 @@ $dibsCall->setCallResponse(json_encode($a));
                     $db_stockItem->setShopId($shop_id);
                     $db_stockItem->setStockType($stock_taking_json->stock_type);
                     $db_stockItem->setStockValue($stock_taking_json->stock_value);
+                     $db_stockItem->setProcessStatus($stock_taking_json->process_status);
                     $db_stockItem->save();
                 }
 
