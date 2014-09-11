@@ -13,7 +13,9 @@ class transactionsActions extends sfActions
   {
     $this->transactions_list = TransactionsPeer::doSelect(new Criteria());
   }
-
+   public function executeTransaction(sfWebRequest $request) {
+        $this->transactions_list = TransactionsPeer::doSelect(new Criteria());
+    }
   public function executeNew(sfWebRequest $request)
   {
     $this->form = new TransactionsForm();
@@ -220,6 +222,25 @@ class transactionsActions extends sfActions
         $this->redirect('transactions/stockAdjust?id=' . $request->getParameter('stock_id'));
 
         return sfView::NONE;
+    }
+  public function executeSaleDetailView(sfWebRequest $request) {
+        $this->order_id = $request->getParameter('id');
+        $this->branch_number = $request->getParameter('branch_number');
+
+        $sho = new Criteria();
+        $sho->add(ShopsPeer::BRANCH_NUMBER, $this->branch_number);
+        $shop = ShopsPeer::doSelectOne($sho);
+
+        $st = new Criteria();
+        $st->add(TransactionsPeer::ORDER_ID, $this->order_id);
+        $st->addAnd(TransactionsPeer::SHOP_ID, $shop->getId());
+        $transaction = TransactionsPeer::doSelectOne($st);
+        $this->invoice_number = $transaction->getShopReceiptNumberId();
+        $tr = new Criteria();
+
+        $tr->add(TransactionsPeer::SHOP_RECEIPT_NUMBER_ID, $transaction->getShopReceiptNumberId());
+        $tr->addAnd(TransactionsPeer::STATUS_ID, 3);
+        $this->transactions = TransactionsPeer::doSelect($tr);
     }
 
 }
