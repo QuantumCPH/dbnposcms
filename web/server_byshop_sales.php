@@ -152,9 +152,9 @@ for ($i = 0; $i < count($aColumns); $i++) {
 //            $sWhere .= " AND  transactions.transaction_type_id=2  AND transactions.parent_type='receipt_numbers' ";
 //        }
 if ($sWhere == "") {
-    $sWhere = "WHERE  transactions.transaction_type_id<>1 AND transactions.transaction_type_id<>4 ";
+    $sWhere = "WHERE  transactions.transaction_type_id<>1 AND transactions.transaction_type_id<>4  AND transactions.transaction_type_id<6   ";
 } else {
-    $sWhere .= " AND transactions.transaction_type_id<>1  AND transactions.transaction_type_id<>4 ";
+    $sWhere .= " AND transactions.transaction_type_id<>1  AND transactions.transaction_type_id<>4  AND transactions.transaction_type_id<6   ";
 }
 
 
@@ -166,7 +166,7 @@ if(isset($_GET["item_id"]) && $_GET["item_id"]!=""){
 
 //AND transactions.status_id=3 
 
-
+$sWhere .=" Group by transactions.shop_receipt_number_id";
 
 /*
  * SQL queries
@@ -235,7 +235,14 @@ while ($aRow = mysql_fetch_array($rResult)) {
 //    die;
     for ($i = 0; $i < count($aColumns); $i++) {
         $col = explode('.', $aColumns[$i]);
-        if ($col[1] == "order_id") {
+        
+               if ($col[1] == "shop_receipt_number_id") {
+            /* Special output formatting for 'version' column */
+            //$row[] = ($aRow[ $aColumns[$i] ]=="0") ? '-' : $aRow[ $aColumns[$i] ];  branch_number       
+            $vartal = $aRow[$col[1]];
+            $row[] = "<a href=".$siteUrl."backend.php/transactions/saleDetailView?id=" . $aRow['order_id'] . "&branch_number=".$aRow['branch_number'].">" . $vartal . " </a>";
+        
+        }elseif($col[1] == "order_id") {
 //            var_dump($aRow);
 //            echo "<hr/>";
 //            var_dump($col);
