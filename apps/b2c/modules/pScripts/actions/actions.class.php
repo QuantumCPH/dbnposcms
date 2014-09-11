@@ -3591,6 +3591,7 @@ $dibsCall->setCallResponse(json_encode($a));
                     $db_stockItem->setShopId($shop_id);
                     $db_stockItem->setStockType($stock_taking_json->stock_type);
                     $db_stockItem->setStockValue($stock_taking_json->stock_value);
+                     $db_stockItem->setProcessStatus($stock_taking_json->process_status);
                     $db_stockItem->save();
                 }
 
