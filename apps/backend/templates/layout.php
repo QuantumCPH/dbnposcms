@@ -101,6 +101,9 @@
                         <li class="<?php echo (($modulName=="transactions"&&$actionName=="index"))?'active active_sale':'sale'?>">
                          <a href="<?php echo sfConfig::get("app_admin_url"); ?>transactions/index">Sales</a>
                         </li>
+                      <li class="<?php echo (($modulName=="transactions"&&$actionName=="transaction"))?'active active_sale':'sale'?>">
+                         <a href="<?php echo sfConfig::get("app_admin_url"); ?>transactions/transaction">Transactions</a>
+                        </li>
                      <li class="<?php echo (($modulName=="transactions"&&$actionName=="reports"))?'active active_sale':'sale'?>">
                          <a href="<?php echo sfConfig::get("app_admin_url"); ?>transactions/reports">Reports</a>
                         </li>
