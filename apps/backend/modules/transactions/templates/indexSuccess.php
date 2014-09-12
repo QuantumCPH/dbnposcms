@@ -25,6 +25,8 @@
         var oTable = $('#myTable').dataTable({
             "bProcessing": true,
             "bServerSide": true,
+               "bFilter": false,
+            "bInfo": false,
             "sAjaxSource": "<?php echo sfConfig::get('app_web_url') ?>server_byshop_sales.php",
             "sPaginationType": "full_numbers",
             "sDom": 'T<"clear">lfrtip',
