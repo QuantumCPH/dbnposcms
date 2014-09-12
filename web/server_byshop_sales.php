@@ -16,7 +16,7 @@ require_once('../lib/itemsLib.class.php');
 /* Array of database columns which should be read and sent back to DataTables. Use a space where
  * you want to insert a non-database field (for example a counter or static image)
  */
-$aColumns = array("shops.branch_number", "transactions.sold_price", "transactions.shop_receipt_number_id", "transactions.quantity","transactions.selling_price", "user.name", "transactions.item_id","transactions.description1", "statuses.title as status", "transaction_types.title", "transactions.created_at", "transactions.order_id");
+$aColumns = array("transactions.shop_receipt_number_id","shops.branch_number",    "user.name", "transactions.id",   "transactions.created_at", "transactions.order_id");
 
 /* Indexed column (used for fast and accurate table cardinality) */
 $sIndexColumn = "transactions.id";
@@ -28,7 +28,7 @@ $sTable = "transactions";
 
 $sJoin = 'LEFT JOIN shops   ON shops.id = transactions.shop_id ';
 $sJoin .= ' LEFT JOIN user   ON user.id = transactions.user_id ';
-$sJoin .= ' LEFT JOIN statuses   ON statuses.id = transactions.status_id ';
+//$sJoin .= ' LEFT JOIN statuses   ON statuses.id = transactions.status_id ';
 $sJoin .= ' LEFT JOIN transaction_types   ON transaction_types.id = transactions.transaction_type_id ';
 //$sJoin .= ' RIGHT JOIN order_payments   ON order_payments.id = transactions.order_id ';
 //$sJoin .= ' LEFT JOIN payment_types   ON payment_types.id = order_payments.payment_type_id ';
@@ -79,22 +79,10 @@ if ($_GET['sSearch'] != "") {
     $sWhere = "WHERE (";
     for ($i = 0; $i < count($aColumns); $i++) {
 
-        if ($aColumns[$i] == "selling_price") {
-
-            if (!is_numeric($_GET['sSearch'])) {
-
-                $numpricve = itemsLib::currencyVersionConvertor($_GET['sSearch']);
-
-                if (is_numeric($numpricve)) {
-                    $sWhere .= $aColumns[$i] . " = '" . mysql_real_escape_string($numpricve) . "' OR ";
-                }
-            } else {
-                // $sWhere .= $aColumns[$i] . " LIKE '" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
-            }
-        } else {
+       
 
             $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
-        }
+       
     }
     $sWhere = substr_replace($sWhere, "", -3);
     $sWhere .= ')';
@@ -152,9 +140,9 @@ for ($i = 0; $i < count($aColumns); $i++) {
 //            $sWhere .= " AND  transactions.transaction_type_id=2  AND transactions.parent_type='receipt_numbers' ";
 //        }
 if ($sWhere == "") {
-    $sWhere = "WHERE  transactions.transaction_type_id<>1 AND transactions.transaction_type_id<>4  AND transactions.transaction_type_id<6   ";
+    $sWhere = "WHERE  transactions.transaction_type_id<>1 AND transactions.transaction_type_id<>4  AND transactions.transaction_type_id<6   AND transactions.status_id=3   AND transactions.shop_receipt_number_id<>0 ";
 } else {
-    $sWhere .= " AND transactions.transaction_type_id<>1  AND transactions.transaction_type_id<>4  AND transactions.transaction_type_id<6   ";
+    $sWhere .= " AND transactions.transaction_type_id<>1  AND transactions.transaction_type_id<>4  AND transactions.transaction_type_id<6    AND transactions.status_id=3    AND transactions.shop_receipt_number_id<>0 ";
 }
 
 
@@ -181,9 +169,9 @@ $sQuery = "
 		$sLimit
 	";
 
+ //echo $sQuery;
 //echo $sQuery;
-//echo $sQuery;
-//die;
+// die;
 $rResult = mysql_query($sQuery, $gaSql['link']) or die(mysql_error());
 
 
@@ -209,13 +197,13 @@ $iTotal = $aResultTotal[0];
 
 
 $sQueryTotal = "
-		SELECT sum(transactions.sold_price) as totalPrice, sum(transactions.quantity) as totalQuantity, sum(transactions.selling_price) as totalSellingPrice
+		SELECT sum(transactions.sold_price) as totalPrice  
 		FROM   $sTable
                      $sJoin
                     $sWhere
 	";
 
-
+ 
 $rsTotal = mysql_query($sQueryTotal, $gaSql['link']) or die(mysql_error());
 
 
@@ -240,8 +228,14 @@ while ($aRow = mysql_fetch_array($rResult)) {
             /* Special output formatting for 'version' column */
             //$row[] = ($aRow[ $aColumns[$i] ]=="0") ? '-' : $aRow[ $aColumns[$i] ];  branch_number       
             $vartal = $aRow[$col[1]];
-            $row[] = "<a href=".$siteUrl."backend.php/transactions/saleDetailView?id=" . $aRow['order_id'] . "&branch_number=".$aRow['branch_number'].">" . $vartal . " </a>";
+            $row[] = "<a href=".$siteUrl."backend.php/transactions/saleDetailView?id=" . $aRow['id'] . "&branch_number=".$aRow['branch_number'].">" . $vartal . " </a>";
         
+        }elseif($col[1] == "id") {
+            
+            $queryrolin = "select sum(amount) as totalInvoicePrice  from  order_payments   where  order_id=" . $aRow['order_id'];
+                $rRsin = mysql_query($queryrolin, $gaSql['link']) or die("3nd query" . mysql_error()); 
+            $rowTotalinvoice = mysql_fetch_array($rRsin);
+             $row[] =  number_format($rowTotalinvoice['totalInvoicePrice'], 2);
         }elseif($col[1] == "order_id") {
 //            var_dump($aRow);
 //            echo "<hr/>";
@@ -261,33 +255,22 @@ while ($aRow = mysql_fetch_array($rResult)) {
                 }
             }
             $row[] = $abc;
-        }elseif($aColumns[$i] == "statuses.title as status"){
-            
-           // $col = explode('.', $aColumns[$i]);
-            $row[] = $aRow['status'];
-        }
-        else {
+        }else {
             $col = explode('.', $aColumns[$i]);
             $row[] = $aRow[$col[1]];
         }
     }
     $output['aaData'][] = $row;
 }
-
+ 
 
 $rowTotal = mysql_fetch_array($rsTotal);
 $row = array();
 $row[] = "<b> Total </b>";
+$row[] = "";
+$row[] = "";
 $row[] = "<b> " . number_format($rowTotal['totalPrice'], 2) . " </b>";
-$row[] = "";
-$row[] = "<b> " . $rowTotal['totalQuantity'] . " </b>";
-$row[] = "<b> " . number_format($rowTotal['totalSellingPrice'],2) . " </b>";
-$row[] = "";
-$row[] = "";
-$row[] = "";
-$row[] = "";
-$row[] = "";
-$row[] = "";
+  $row[] = "";
 $row[] = "";
 $output['aaData'][] = $row;
 
