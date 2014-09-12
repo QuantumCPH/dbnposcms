@@ -13,7 +13,7 @@
                 aoData.push({"name": "shop_id", "value": <?php echo $shops->getId(); ?>});
             }
 
-        }).columnFilter({aoColumns: [null, null,{type: "text"}, null,null, {type: "text"},{type: "text"}, {type: "text"}, {type: "text"}, {type: "text"},
+        }).columnFilter({aoColumns: [{type: "text"},  {type: "text"},  null, {type: "text"},
                 {type: "date-range"},
                 null
 
@@ -339,20 +339,12 @@
     <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="myTablesale" >
         <thead>
             <tr>
-               <th>Branch</th>
-                <th>Sold Price</th>
                 <th>Invoice no</th>
-                <th>Qty</th>
-                <th>Sell. Price</th>
+                <th>Branch</th>
                 <th>User</th>
-                <th>Item</th>
-                 <th>Desc</th>
-                <th>Status</th>
-                <th>Type</th>
+                <th> Invoice Total</th>
                 <th>Date</th>
                 <th>Payment</th>
-
-
             </tr>
         </thead>
         <tbody>
@@ -361,20 +353,12 @@
         </tbody>
         <tfoot>
             <tr>
-                 <th>Branch</th>
-                <th>Sold Price</th>
                 <th>Invoice no</th>
-                <th>Qty</th>
-                <th>Sell. Price</th>
+                <th>Branch</th>
                 <th>User</th>
-                <th>Item</th>
-                 <th>Desc</th>
-                <th>Status</th>
-                <th>Type</th>
+                <th>Invoice Total</th>
                 <th>Date</th>
                 <th>Payment</th>
-
-
             </tr>
         </tfoot>
     </table>
