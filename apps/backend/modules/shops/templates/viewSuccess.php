@@ -13,7 +13,7 @@
                 aoData.push({"name": "shop_id", "value": <?php echo $shops->getId(); ?>});
             }
 
-        }).columnFilter({aoColumns: [{type: "text"},  {type: "text"},  null, {type: "text"},
+        }).columnFilter({aoColumns: [{type: "text"},  {type: "text"},   {type: "text"},null,
                 {type: "date-range"},
                 null
 
