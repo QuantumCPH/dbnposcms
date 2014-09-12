@@ -15,14 +15,14 @@
     table.table thead .sorting_asc_disabled { background:#752271 url('<?php echo sfConfig::get("app_web_url") ?>media/images/sort_asc_disabled.png') no-repeat center right; }
     table.table thead .sorting_desc_disabled { background:#752271 url('<?php echo sfConfig::get("app_web_url") ?>media/images/sort_desc_disabled.png') no-repeat center right; }
 </style>
-    
+
 <script type="text/javascript">
 
     $(document).ready(function() {
 
         $.datepicker.regional[""].dateFormat = 'yy-mm-dd 00:00:00';
         $.datepicker.setDefaults($.datepicker.regional['']);
-       var oTable =  $('#myTable').dataTable({
+        var oTable = $('#myTable').dataTable({
             "bProcessing": true,
             "bServerSide": true,
             "sAjaxSource": "<?php echo sfConfig::get('app_web_url') ?>server_byshop_sales.php",
@@ -36,20 +36,20 @@
 
                 ]
             },
-            "aLengthMenu": [[10, 25, 50,100,250 ,-1], [10, 25, 50,100,250,"All"]]
+            "aLengthMenu": [[10, 25, 50, 100, 250, -1], [10, 25, 50, 100, 250, "All"]]
 
-        }).columnFilter({aoColumns: [{type: "text"}, null,{type: "text"}, null, null, {type: "text"}, {type: "text"}, {type: "text"},{type: "text"}, {type: "text"},
+        }).columnFilter({aoColumns: [{type: "text"},  {type: "text"},  null, {type: "text"},
                 {type: "date-range"},
                 null
 
             ]
 
         });
-        oTable.fnSort( [ [10,'desc'] ] );
+        oTable.fnSort([[4, 'desc']]);
         $.extend($.fn.dataTableExt.oStdClasses, {
             "sWrapper": "dataTables_wrapper form-inline"
         });
-        
+
         jQuery("#myTable_filter").hide();
 
     });
@@ -69,21 +69,13 @@
     <?php endif; ?>
     <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="myTable" >
         <thead>
-          <tr>
-                <th>Branch</th>
-                <th>Sold Price</th>
+            <tr>
                 <th>Invoice no</th>
-                <th>Qty</th>
-                <th>Sell. Price</th>
+                <th>Branch</th>
                 <th>User</th>
-                <th>Item</th>
-                 <th>Desc</th>
-                <th>Status</th>
-                <th>Type</th>
+                <th> Invoice Total</th>
                 <th>Date</th>
                 <th>Payment</th>
-
-
             </tr>
         </thead>
         <tbody>
@@ -91,17 +83,11 @@
 
         </tbody>
         <tfoot>
-             <tr>
-                <th>Branch</th>
-                <th>Sold Price</th>
+            <tr>
                 <th>Invoice no</th>
-                <th>Qty</th>
-                <th>Sell. Price</th>
+                <th>Branch</th>
                 <th>User</th>
-                <th>Item</th>
-                 <th>Desc</th>
-                <th>Status</th>
-                <th>Type</th>
+                <th>Invoice Total</th>
                 <th>Date</th>
                 <th>Payment</th>
 
