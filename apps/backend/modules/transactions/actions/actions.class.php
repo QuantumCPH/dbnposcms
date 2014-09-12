@@ -236,6 +236,7 @@ class transactionsActions extends sfActions
         $st->add(TransactionsPeer::ID, $this->id);
         $st->addAnd(TransactionsPeer::SHOP_ID, $shop->getId());
         $transaction = TransactionsPeer::doSelectOne($st);
+        $this->transactionOne=$transaction;
         $this->invoice_number = $transaction->getShopReceiptNumberId();
         $tr = new Criteria();
 
