@@ -2,7 +2,7 @@
 
 <div class="itemslist">
     <h1 class="items-head list-page" style="padding: 10px 17px 0;">
-        <img src="<?php echo sfConfig::get('app_web_url') . 'images/shops_over.png' ?>" />&nbsp;Invoice Detail     # <?php echo $invoice_number; ?>
+        <img src="<?php echo sfConfig::get('app_web_url') . 'images/shops_over.png' ?>" />&nbsp;Invoice Detail     Invoice Number # <?php echo $invoice_number; ?>  And  Branch no # <?php echo $branch_number;   ?>
 
     </h1>
      <div class="backimgDiv">
@@ -16,9 +16,9 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Branch</th>
+              
                 <th>Sold Price</th>
-                <th>Invoice no</th>
+               
                 <th>Qty</th>
                 <th>Sell. Price</th>
                 <th>User</th>
@@ -45,9 +45,9 @@
                 }
                 ?>
                 <tr class='<?php echo $class; ?>'>
-                    <td><?php echo $branch_number; ?></td>
+                   
                     <td><?php echo $transaction->getSoldPrice();  $totalsoldprice=$totalsoldprice+$transaction->getSoldPrice();    ?></td>
-                    <td><?php echo $transaction->getShopReceiptNumberId(); ?></td>
+                    
                     <td><?php echo $transaction->getQuantity(); $totalquantity=$totalquantity+$transaction->getQuantity(); ?></td>
                     <td><?php echo $transaction->getSellingPrice(); $totalsellingprice=$totalsellingprice+$transaction->getSellingPrice(); ?></td>
                     <td><?php $user = UserPeer::retrieveByPK($transaction->getUserId());
@@ -86,12 +86,12 @@
                 
         </tbody>
  <tr>
-                <th> Total</th>
-                <th><?php echo number_format($totalsoldprice,2); ?></th>
-                <th> </th>
-                <th><?php  echo $totalquantity; ?></th>
-                <th><?php echo number_format($totalsellingprice,2); ?></th>
-                <th> </th>
+               
+                <th><b><?php echo number_format($totalsoldprice,2); ?></b></th>
+                
+                <th><b><?php  echo $totalquantity; ?></b></th>
+                <th><b><?php echo number_format($totalsellingprice,2); ?></b></th>
+                <th><b>Total</b></th>
                 <th> </th>
                 <th> </th>
 
