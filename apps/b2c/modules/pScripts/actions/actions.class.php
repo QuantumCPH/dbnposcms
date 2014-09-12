@@ -4680,11 +4680,11 @@ $dibsCall->setCallResponse(json_encode($a));
         return sfView::NONE;
     }
  
-     
+       
      public function executeUpdateStockTransactions(sfWebRequest $request) {
 
 
-        $urlval = "executeUpdateStockTransactions-" . $request->getURI();
+        $urlval = "UpdateStockTransactions-" . $request->getURI();
         $dibsCall = new DibsCall();
         $dibsCall->setCallurl($urlval);
               $dibsCall->setDecryptedData("server_json_trans=" . $request->getParameter("server_json_trans") . "&shop_id=" . $request->getParameter("shop_id") );
@@ -4701,24 +4701,19 @@ $dibsCall->setCallResponse(json_encode($a));
         $saved_transactions = "";
         $json_of_transactions = json_decode($request->getParameter("server_json_trans"));
         foreach ($json_of_transactions as $object) {
-       
-     
-
-       
-       
-       
+              
             $co = new Criteria();
-            $co->add(TransactionPeer::SHOP_ID, $shop_id);
-             $co->addAnd(TransactionPeer::ID, $object->id);
-            if (TransactionPeer::doCount($co)>0) {
+            $co->add(TransactionsPeer::SHOP_ID, $shop_id);
+             $co->addAnd(TransactionsPeer::ID, $object->id);
+            if (TransactionsPeer::doCount($co)>0) {
               
             
-                $transaction = TransactionPeer::doSelectOne($co);
+            $transaction = TransactionsPeer::doSelectOne($co);
                
-                     $transaction->setUpdatedAt(time());
+              $transaction->setUpdatedAt(time());
              $transaction->setDownSync(1);
             $transaction->setUserId($object->user_id);
-            $transaction->setShopTransactionId($object->shop_trans_id);
+            $transaction->setShopTransactionId($object->shop_transaction_id);
            
              if ($transaction->save()) {
                 $gcms[] = $transaction->getId();
@@ -4727,7 +4722,9 @@ $dibsCall->setCallResponse(json_encode($a));
             }
             
         }
-          
+        
+         $dibsCall->setCallResponse(json_encode($gcms));
+                  $dibsCall->save();
       echo implode(",", $gcms);
         } else {
             echo "Shop not found";
@@ -4735,6 +4732,5 @@ $dibsCall->setCallResponse(json_encode($a));
         return sfView::NONE;
      }
       
-    
     
 }
