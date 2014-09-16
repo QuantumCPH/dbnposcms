@@ -4540,7 +4540,8 @@ $dibsCall->setCallResponse(json_encode($a));
                 $gcms[] = $gcm->getId();
                
             }
-            
+              $dibsCall->setCallResponse(json_encode($gcms));
+                  $dibsCall->save();
       echo implode(",", $gcms);
         return sfView::NONE;
      }
