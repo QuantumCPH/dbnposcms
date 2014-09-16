@@ -18,9 +18,8 @@
                 null
 
             ]
-
         });
-        oTable.fnSort([[10, 'desc']]);
+        oTable.fnSort([[4, 'desc']]);
         $.extend($.fn.dataTableExt.oStdClasses, {
             "sWrapper": "dataTables_wrapper form-inline"
         });
@@ -352,13 +351,15 @@
 
         </tbody>
         <tfoot>
-            <tr>
+             <tr>
                 <th>Invoice no</th>
                 <th>Branch</th>
                 <th>User</th>
                 <th>Invoice Total</th>
                 <th>Date</th>
                 <th>Payment</th>
+
+
             </tr>
         </tfoot>
     </table>
@@ -466,6 +467,6 @@
         $('.ui-datepicker-current-day').click();
 
 
-   
+
     });
 </script>
