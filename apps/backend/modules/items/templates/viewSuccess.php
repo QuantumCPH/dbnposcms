@@ -31,14 +31,13 @@
                 aoData.push({"name": "item_id", "value": $("#itemId").val()});
             }
 
-       }).columnFilter({aoColumns: [null, null, null,  null,{type: "text"},{type: "text"}, {type: "text"}, {type: "text"}, {type: "text"},
+       }).columnFilter({aoColumns: [{type: "text"},  {type: "text"},   {type: "text"},null,
                 {type: "date-range"},
                 null
 
             ]
-
         });
-        oTable.fnSort([[8, 'desc']]);
+        oTable.fnSort([[4, 'desc']]);
         $.extend($.fn.dataTableExt.oStdClasses, {
             "sWrapper": "dataTables_wrapper form-inline"
         });
@@ -309,38 +308,26 @@
     </h1>  
       <div class="regForm" id="sales-block">
         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="myTablesale" >
-            <thead>
-                <tr>
+          <thead>
+            <tr>
+                <th>Invoice no</th>
                 <th>Branch</th>
-                <th>Sold Price</th>
-                <th>Quantity</th>
-                <th>Selling Price</th>
                 <th>User</th>
-                <th>Item</th>
-                 <th>Description</th>
-                <th>Status</th>
-                <th>Type</th>
+                <th> Invoice Total</th>
                 <th>Date</th>
                 <th>Payment</th>
-
-
             </tr>
-            </thead>
-            <tbody>
+        </thead>
+        <tbody>
 
 
-            </tbody>
-            <tfoot>
-              <tr>
+        </tbody>
+        <tfoot>
+             <tr>
+                <th>Invoice no</th>
                 <th>Branch</th>
-                <th>Sold Price</th>
-                <th>Quantity</th>
-                <th>Selling Price</th>
                 <th>User</th>
-                <th>Item</th>
-                 <th>Description</th>
-                <th>Status</th>
-                <th>Type</th>
+                <th>Invoice Total</th>
                 <th>Date</th>
                 <th>Payment</th>
 
