@@ -938,7 +938,20 @@ class pScriptsActions extends sfActions {
                             // as CSV parsed so move it and move XML as well to the backup.
                             rename("$csv_root_dir/$xml_obj->file", "$csv_backup_dir/$xml_obj->file");
                             rename("$xml_root_dir/$file", "$xml_backup_dir/$file");
-
+ if($insert_new){
+             $sc = new Criteria();
+            
+            $sc->addAnd(ShopsPeer::STATUS_ID, 3);
+            $sc->addAnd(ShopsPeer::GCM_KEY, null, Criteria::ISNOTNULL);
+            if (ShopsPeer::doCount($sc) > 0) {
+                $shops = ShopsPeer::doSelect($sc);
+                $gcmKeyArray = "";
+                foreach ($shops as $shop) {
+                    $gcmKeyArray[] = $shop->getGcmKey();
+                }
+                new GcmLib("item_updated", $gcmKeyArray);
+            }
+ }
                             $cronHistoryInfo = new CronJobHistoryInfo();
                             $cronHistoryInfo->setXml($file);
                             $cronHistoryInfo->setCsv($xml_obj->file);
