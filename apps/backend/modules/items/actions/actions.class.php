@@ -583,6 +583,18 @@ class itemsActions extends sfActions {
                 }
 
                 if ($insert_new) {
+                       $sc = new Criteria();
+            
+            $sc->addAnd(ShopsPeer::STATUS_ID, 3);
+            $sc->addAnd(ShopsPeer::GCM_KEY, null, Criteria::ISNOTNULL);
+            if (ShopsPeer::doCount($sc) > 0) {
+                $shops = ShopsPeer::doSelect($sc);
+                $gcmKeyArray = "";
+                foreach ($shops as $shop) {
+                    $gcmKeyArray[] = $shop->getGcmKey();
+                }
+                new GcmLib("item_updated", $gcmKeyArray);
+            }
                     $this->getUser()->setFlash('file_done', $this->getContext()->getI18N()->__('Items imported successfully'));
                     $this->redirect('items/addItems');
                     exit;
@@ -973,6 +985,18 @@ $extension = end($temp);
         //  var_dump($item);die;
         $insert_new = itemsLib::populateWebItem($item);
         if($insert_new){
+               $sc = new Criteria();
+            
+            $sc->addAnd(ShopsPeer::STATUS_ID, 3);
+            $sc->addAnd(ShopsPeer::GCM_KEY, null, Criteria::ISNOTNULL);
+            if (ShopsPeer::doCount($sc) > 0) {
+                $shops = ShopsPeer::doSelect($sc);
+                $gcmKeyArray = "";
+                foreach ($shops as $shop) {
+                    $gcmKeyArray[] = $shop->getGcmKey();
+                }
+                new GcmLib("item_updated", $gcmKeyArray);
+            }
             $this->getUser()->setFlash('message', $this->getContext()->getI18N()->__('Item Updated.'));
             $this->redirect('items/view?id='.$id);
         }else{
