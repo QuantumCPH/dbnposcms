@@ -14,8 +14,7 @@
             }
 
         }).columnFilter({aoColumns: [{type: "text"},  {type: "text"},   {type: "text"},null,
-                {type: "date-range"},
-                null
+                {type: "date-range"} 
 
             ]
         });
@@ -343,7 +342,7 @@
                 <th>User</th>
                 <th> Invoice Total</th>
                 <th>Date</th>
-                <th>Payment</th>
+               
             </tr>
         </thead>
         <tbody>
@@ -357,7 +356,7 @@
                 <th>User</th>
                 <th>Invoice Total</th>
                 <th>Date</th>
-                <th>Payment</th>
+               
 
 
             </tr>
