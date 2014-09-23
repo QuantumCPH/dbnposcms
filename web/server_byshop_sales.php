@@ -16,7 +16,7 @@ require_once('../lib/itemsLib.class.php');
 /* Array of database columns which should be read and sent back to DataTables. Use a space where
  * you want to insert a non-database field (for example a counter or static image)
  */
-$aColumns = array("transactions.shop_receipt_number_id","shops.branch_number",    "user.name", "transactions.id",   "transactions.created_at", "transactions.order_id");
+$aColumns = array("transactions.shop_receipt_number_id","shops.branch_number",    "user.name", "transactions.order_id",   "transactions.created_at");
 
 /* Indexed column (used for fast and accurate table cardinality) */
 $sIndexColumn = "transactions.id";
@@ -195,7 +195,7 @@ $rResultTotal = mysql_query($sQuery, $gaSql['link']) or die(mysql_error());
 $aResultTotal = mysql_fetch_array($rResultTotal);
 $iTotal = $aResultTotal[0];
 
-
+/*
 $sQueryTotal = "
 		SELECT sum(transactions.sold_price) as totalPrice  
 		FROM   $sTable
@@ -206,7 +206,7 @@ $sQueryTotal = "
  
 $rsTotal = mysql_query($sQueryTotal, $gaSql['link']) or die(mysql_error());
 
-
+*/
 /*
  * Output
  */
@@ -230,32 +230,33 @@ while ($aRow = mysql_fetch_array($rResult)) {
             $vartal = $aRow[$col[1]];
             $row[] = "<a href=".$siteUrl."backend.php/transactions/saleDetailView?id=" . $aRow['id'] . "&branch_number=".$aRow['branch_number'].">" . $vartal . " </a>";
         
-        }elseif($col[1] == "id") {
+        }elseif($col[1] == "order_id") {
             
             $queryrolin = "select sum(amount) as totalInvoicePrice  from  order_payments   where  order_id=" . $aRow['order_id'];
                 $rRsin = mysql_query($queryrolin, $gaSql['link']) or die("3nd query" . mysql_error()); 
             $rowTotalinvoice = mysql_fetch_array($rRsin);
              $row[] =  number_format($rowTotalinvoice['totalInvoicePrice'], 2);
-        }elseif($col[1] == "order_id") {
-//            var_dump($aRow);
-//            echo "<hr/>";
-//            var_dump($col);
-            $abc = "";
-            if ($aRow[$col[1]] != "") {
-                $queryroll = "select payment_types.title from  order_payments left join payment_types on  payment_types.id=order_payments.payment_type_id where order_payments.order_id=" . $aRow[$col[1]];
-                $rRs = mysql_query($queryroll, $gaSql['link']) or die("2nd query" . mysql_error());
-                while ($aRowP = mysql_fetch_array($rRs)) {
-
-
-                    if ($abc == "") {
-                        $abc = $aRowP['title'];
-                    } else {
-                        $abc = $abc . " , " . $aRowP['title'];
-                    }
-                }
-            }
-            $row[] = $abc;
-        }else {
+//        }elseif($col[1] == "payment") {
+////            var_dump($aRow);
+////            echo "<hr/>";
+////            var_dump($col);
+//            $abc = "";
+//            if ($aRow[$col[1]] != "") {
+//                $queryroll = "select payment_types.title from  order_payments left join payment_types on  payment_types.id=order_payments.payment_type_id where order_payments.order_id=" . $aRow[$col[1]];
+//                $rRs = mysql_query($queryroll, $gaSql['link']) or die("2nd query" . mysql_error());
+//                while ($aRowP = mysql_fetch_array($rRs)) {
+//
+//
+//                    if ($abc == "") {
+//                        $abc = $aRowP['title'];
+//                    } else {
+//                        $abc = $abc . " , " . $aRowP['title'];
+//                    }
+//                }
+//            }
+//            $row[] = $abc;
+//            
+         }else {
             $col = explode('.', $aColumns[$i]);
             $row[] = $aRow[$col[1]];
         }
@@ -263,7 +264,7 @@ while ($aRow = mysql_fetch_array($rResult)) {
     $output['aaData'][] = $row;
 }
  
-
+/*
 $rowTotal = mysql_fetch_array($rsTotal);
 $row = array();
 $row[] = "<b> Total </b>";
@@ -273,7 +274,7 @@ $row[] = "<b> " . number_format($rowTotal['totalPrice'], 2) . " </b>";
   $row[] = "";
 $row[] = "";
 $output['aaData'][] = $row;
-
+*/
 
 echo json_encode($output);
 ?>
