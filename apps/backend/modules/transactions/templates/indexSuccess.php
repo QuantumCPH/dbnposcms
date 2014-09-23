@@ -40,8 +40,7 @@
             "aLengthMenu": [[10, 25, 50, 100, 250, -1], [10, 25, 50, 100, 250, "All"]]
 
         }).columnFilter({aoColumns: [{type: "text"},  {type: "text"},   {type: "text"},null,
-                {type: "date-range"},
-                null
+                {type: "date-range"} 
 
             ]
 
@@ -76,7 +75,7 @@
                 <th>User</th>
                 <th> Invoice Total</th>
                 <th>Date</th>
-                <th>Payment</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -90,7 +89,7 @@
                 <th>User</th>
                 <th>Invoice Total</th>
                 <th>Date</th>
-                <th>Payment</th>
+                 
 
 
             </tr>
