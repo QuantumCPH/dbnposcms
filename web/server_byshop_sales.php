@@ -228,7 +228,7 @@ while ($aRow = mysql_fetch_array($rResult)) {
             /* Special output formatting for 'version' column */
             //$row[] = ($aRow[ $aColumns[$i] ]=="0") ? '-' : $aRow[ $aColumns[$i] ];  branch_number       
             $vartal = $aRow[$col[1]];
-            $row[] = "<a href=".$siteUrl."backend.php/transactions/saleDetailView?id=" . $aRow['id'] . "&branch_number=".$aRow['branch_number'].">" . $vartal . " </a>";
+            $row[] = "<a href=".$siteUrl."backend.php/transactions/saleDetailView?id=" . $aRow['order_id'] . "&branch_number=".$aRow['branch_number'].">" . $vartal . " </a>";
         
         }elseif($col[1] == "order_id") {
             

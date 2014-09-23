@@ -233,7 +233,7 @@ class transactionsActions extends sfActions
         $shop = ShopsPeer::doSelectOne($sho);
 
         $st = new Criteria();
-        $st->add(TransactionsPeer::ID, $this->id);
+        $st->add(TransactionsPeer::ORDER_ID, $this->id);
         $st->addAnd(TransactionsPeer::SHOP_ID, $shop->getId());
         $transaction = TransactionsPeer::doSelectOne($st);
         $this->transactionOne=$transaction;
