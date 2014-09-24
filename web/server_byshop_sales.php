@@ -139,6 +139,7 @@ for ($i = 0; $i < count($aColumns); $i++) {
  if(isset($_GET["item_id"]) && $_GET["item_id"]!=""){
      $sJoin .= ' LEFT JOIN transactions   ON transactions.order_id = orders.id ';
    $sWhere .= " AND transactions.item_id=".$_GET["item_id"]; 
+   $sWhere .=" Group by transactions.order_id";
 }elseif (isset($_GET["shop_id"]) && $_GET["shop_id"]!=""){
    $sWhere .= " AND orders.shop_id=".$_GET["shop_id"];  
 }
@@ -146,7 +147,7 @@ for ($i = 0; $i < count($aColumns); $i++) {
 //AND transactions.status_id=3 
 $beforeWhereGroupBy=$sWhere;
 
-$sWhere .=" Group by transactions.shop_receipt_number_id";
+
 */
 /*
  * SQL queries
