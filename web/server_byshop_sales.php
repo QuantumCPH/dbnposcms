@@ -170,7 +170,7 @@ $sQuery = "
 		$sLimit
 	";
 
- //echo $sQuery;
+ echo $sQuery;
 //echo $sQuery;
 // die;
 $rResult = mysql_query($sQuery, $gaSql['link']) or die(mysql_error());
