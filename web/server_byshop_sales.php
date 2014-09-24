@@ -137,7 +137,7 @@ for ($i = 0; $i < count($aColumns); $i++) {
 */
 
  if(isset($_GET["item_id"]) && $_GET["item_id"]!=""){
-     $sJoin .= ' RIGHT JOIN transactions   ON transactions.order_id = orders.id ';
+     $sJoin .= ' INNER JOIN transactions   ON transactions.order_id = orders.id ';
    $sWhere .= " AND transactions.item_id=".$_GET["item_id"]; 
   // $sWhere .=" Group by transactions.order_id";
 }elseif (isset($_GET["shop_id"]) && $_GET["shop_id"]!=""){
