@@ -135,7 +135,11 @@ for ($i = 0; $i < count($aColumns); $i++) {
     $sWhere .= " AND transactions.transaction_type_id<>1  AND transactions.transaction_type_id<>4  AND transactions.transaction_type_id<6    AND transactions.status_id=3    AND transactions.shop_receipt_number_id<>0 ";
 }
 */
-
+if ($sWhere == "") {
+    $sWhere = "WHERE  orders.shop_receipt_number_id NOT LIKE '0' ";
+} else {
+    $sWhere .= " AND orders.shop_receipt_number_id  NOT LIKE '0'    ";
+}
  if(isset($_GET["item_id"]) && $_GET["item_id"]!=""){
      $sJoin .= ' INNER JOIN transactions   ON transactions.order_id = orders.id ';
    $sWhere .= " AND transactions.item_id=".$_GET["item_id"]; 
