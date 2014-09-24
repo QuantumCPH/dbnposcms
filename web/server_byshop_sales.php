@@ -28,6 +28,7 @@ $sTable = "orders";
 
 $sJoin = 'LEFT JOIN shops   ON shops.id = orders.shop_id ';
 $sJoin .= ' LEFT JOIN user   ON user.id = orders.shop_user_id ';
+
  
 
  
@@ -135,7 +136,10 @@ for ($i = 0; $i < count($aColumns); $i++) {
 }
 */
 
- if (isset($_GET["shop_id"]) && $_GET["shop_id"]!=""){
+ if(isset($_GET["item_id"]) && $_GET["item_id"]!=""){
+     $sJoin .= ' LEFT JOIN transactions   ON transactions.order_id = orders.id ';
+   $sWhere .= " AND transactions.item_id=".$_GET["item_id"]; 
+}elseif (isset($_GET["shop_id"]) && $_GET["shop_id"]!=""){
    $sWhere .= " AND orders.shop_id=".$_GET["shop_id"];  
 }
 /*
