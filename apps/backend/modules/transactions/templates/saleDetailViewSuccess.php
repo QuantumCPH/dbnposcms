@@ -125,7 +125,7 @@
                         foreach ($orderpayments as $orderpayment) {  ?>
                            <tr>
                
-                               <th> <?php $paymentType=PaymentTypesPeer::retrieveByPK($orderpayment->getPaymentTypeId());  echo $paymentType->getTitle();  ?></th>
+                               <th> <?php  if($orderpayment->getPaymentTypeId()){  $paymentType=PaymentTypesPeer::retrieveByPK($orderpayment->getPaymentTypeId());  echo $paymentType->getTitle(); } ?></th>
                 <th><?php echo number_format($orderpayment->getAmount(),2);  ?></th>
              
               
