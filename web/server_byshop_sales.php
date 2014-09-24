@@ -153,6 +153,7 @@ if(isset($_GET["item_id"]) && $_GET["item_id"]!=""){
 }
 
 //AND transactions.status_id=3 
+$beforeWhereGroupBy=$sWhere;
 
 $sWhere .=" Group by transactions.shop_receipt_number_id";
 
@@ -195,18 +196,18 @@ $rResultTotal = mysql_query($sQuery, $gaSql['link']) or die(mysql_error());
 $aResultTotal = mysql_fetch_array($rResultTotal);
 $iTotal = $aResultTotal[0];
 
-/*
+ 
 $sQueryTotal = "
 		SELECT sum(transactions.sold_price) as totalPrice  
 		FROM   $sTable
                      $sJoin
-                    $sWhere
+                    $beforeWhereGroupBy
 	";
 
  
 $rsTotal = mysql_query($sQueryTotal, $gaSql['link']) or die(mysql_error());
 
-*/
+ 
 /*
  * Output
  */
@@ -264,7 +265,7 @@ while ($aRow = mysql_fetch_array($rResult)) {
     $output['aaData'][] = $row;
 }
  
-/*
+ 
 $rowTotal = mysql_fetch_array($rsTotal);
 $row = array();
 $row[] = "<b> Total </b>";
@@ -272,9 +273,9 @@ $row[] = "";
 $row[] = "";
 $row[] = "<b> " . number_format($rowTotal['totalPrice'], 2) . " </b>";
   $row[] = "";
-$row[] = "";
+ 
 $output['aaData'][] = $row;
-*/
+ 
 
 echo json_encode($output);
 ?>
