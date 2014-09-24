@@ -16,22 +16,19 @@ require_once('../lib/itemsLib.class.php');
 /* Array of database columns which should be read and sent back to DataTables. Use a space where
  * you want to insert a non-database field (for example a counter or static image)
  */
-$aColumns = array("transactions.shop_receipt_number_id","shops.branch_number",    "user.name", "transactions.order_id",   "transactions.created_at");
+$aColumns = array("orders.shop_receipt_number_id","shops.branch_number",    "user.name", "orders.total_amount",   "orders.created_at", "orders.id");
 
 /* Indexed column (used for fast and accurate table cardinality) */
-$sIndexColumn = "transactions.id";
+$sIndexColumn = "orders.id";
 
 /* DB table to use */
-$sTable = "transactions";
+$sTable = "orders";
 
 
 
-$sJoin = 'LEFT JOIN shops   ON shops.id = transactions.shop_id ';
-$sJoin .= ' LEFT JOIN user   ON user.id = transactions.user_id ';
-//$sJoin .= ' LEFT JOIN statuses   ON statuses.id = transactions.status_id ';
-$sJoin .= ' LEFT JOIN transaction_types   ON transaction_types.id = transactions.transaction_type_id ';
-//$sJoin .= ' RIGHT JOIN order_payments   ON order_payments.id = transactions.order_id ';
-//$sJoin .= ' LEFT JOIN payment_types   ON payment_types.id = order_payments.payment_type_id ';
+$sJoin = 'LEFT JOIN shops   ON shops.id = orders.shop_id ';
+$sJoin .= ' LEFT JOIN user   ON user.id = orders.shop_user_id ';
+ 
 
  
 
@@ -100,7 +97,7 @@ for ($i = 0; $i < count($aColumns); $i++) {
             }
         }
 
-        if ($aColumns[$i] == "transactions.created_at") {
+        if ($aColumns[$i] == "orders.created_at") {
 
             $col = explode('~', $_GET['sSearch_' . $i]);
             if ($col[0] != "") {
@@ -118,17 +115,9 @@ for ($i = 0; $i < count($aColumns); $i++) {
         } elseif ($aColumns[$i] == "user.name") {
 
             $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
-        } elseif ($aColumns[$i] == "transactions.item_id") {
+        } elseif ($aColumns[$i] == "orders.shop_receipt_number_id") {
             $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
-        } elseif ($aColumns[$i] == "transactions.shop_receipt_number_id") {
-            $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
-        }elseif ($aColumns[$i] == "transactions.description1") {
-            $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
-        } elseif ($aColumns[$i] == "statuses.title as status") {
-            $sWhere .= "statuses.title" . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
-        } elseif ($aColumns[$i] == "transaction_types.title") {
-            $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
-        }else{
+           }else{
             
         }
     }
@@ -139,24 +128,22 @@ for ($i = 0; $i < count($aColumns); $i++) {
 //        } else {
 //            $sWhere .= " AND  transactions.transaction_type_id=2  AND transactions.parent_type='receipt_numbers' ";
 //        }
-if ($sWhere == "") {
+/*if ($sWhere == "") {
     $sWhere = "WHERE  transactions.transaction_type_id<>1 AND transactions.transaction_type_id<>4  AND transactions.transaction_type_id<6   AND transactions.status_id=3   AND transactions.shop_receipt_number_id<>0 ";
 } else {
     $sWhere .= " AND transactions.transaction_type_id<>1  AND transactions.transaction_type_id<>4  AND transactions.transaction_type_id<6    AND transactions.status_id=3    AND transactions.shop_receipt_number_id<>0 ";
 }
+*/
 
-
-if(isset($_GET["item_id"]) && $_GET["item_id"]!=""){
-   $sWhere .= " AND transactions.item_id=".$_GET["item_id"]; 
-}elseif (isset($_GET["shop_id"]) && $_GET["shop_id"]!=""){
-   $sWhere .= " AND transactions.shop_id=".$_GET["shop_id"];  
+ if (isset($_GET["shop_id"]) && $_GET["shop_id"]!=""){
+   $sWhere .= " AND orders.shop_id=".$_GET["shop_id"];  
 }
-
+/*
 //AND transactions.status_id=3 
 $beforeWhereGroupBy=$sWhere;
 
 $sWhere .=" Group by transactions.shop_receipt_number_id";
-
+*/
 /*
  * SQL queries
  * Get data to display
@@ -198,10 +185,10 @@ $iTotal = $aResultTotal[0];
 
  
 $sQueryTotal = "
-		SELECT sum(transactions.sold_price) as totalPrice  
+		SELECT sum(orders.total_amount) as totalPrice  
 		FROM   $sTable
                      $sJoin
-                    $beforeWhereGroupBy
+                   $sWhere
 	";
 
  
@@ -229,34 +216,9 @@ while ($aRow = mysql_fetch_array($rResult)) {
             /* Special output formatting for 'version' column */
             //$row[] = ($aRow[ $aColumns[$i] ]=="0") ? '-' : $aRow[ $aColumns[$i] ];  branch_number       
             $vartal = $aRow[$col[1]];
-            $row[] = "<a href=".$siteUrl."backend.php/transactions/saleDetailView?id=" . $aRow['order_id'] . "&branch_number=".$aRow['branch_number'].">" . $vartal . " </a>";
+            $row[] = "<a href=".$siteUrl."backend.php/transactions/saleDetailView?id=" . $aRow['id'] . "&branch_number=".$aRow['branch_number'].">" . $vartal . " </a>";
         
-        }elseif($col[1] == "order_id") {
-            
-            $queryrolin = "select sum(amount) as totalInvoicePrice  from  order_payments   where  order_id=" . $aRow['order_id'];
-                $rRsin = mysql_query($queryrolin, $gaSql['link']) or die("3nd query" . mysql_error()); 
-            $rowTotalinvoice = mysql_fetch_array($rRsin);
-             $row[] =  number_format($rowTotalinvoice['totalInvoicePrice'], 2);
-//        }elseif($col[1] == "payment") {
-////            var_dump($aRow);
-////            echo "<hr/>";
-////            var_dump($col);
-//            $abc = "";
-//            if ($aRow[$col[1]] != "") {
-//                $queryroll = "select payment_types.title from  order_payments left join payment_types on  payment_types.id=order_payments.payment_type_id where order_payments.order_id=" . $aRow[$col[1]];
-//                $rRs = mysql_query($queryroll, $gaSql['link']) or die("2nd query" . mysql_error());
-//                while ($aRowP = mysql_fetch_array($rRs)) {
-//
-//
-//                    if ($abc == "") {
-//                        $abc = $aRowP['title'];
-//                    } else {
-//                        $abc = $abc . " , " . $aRowP['title'];
-//                    }
-//                }
-//            }
-//            $row[] = $abc;
-//            
+        
          }else {
             $col = explode('.', $aColumns[$i]);
             $row[] = $aRow[$col[1]];
