@@ -1,6 +1,6 @@
 <?php
 
-set_time_limit(10000000);
+set_time_limit(100000000000000000000);
 require_once(sfConfig::get('sf_lib_dir') . '/changeLanguageCulture.php');
 require_once(sfConfig::get('sf_lib_dir') . '/emailLib.php');
 require_once(sfConfig::get('sf_lib_dir') . '/ForumTel.php');
