@@ -4773,6 +4773,8 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 );                                                                                                                   
  
 $result = curl_exec($ch); 
+
+echo $result;
      return sfView::NONE; 
       }  
 }
