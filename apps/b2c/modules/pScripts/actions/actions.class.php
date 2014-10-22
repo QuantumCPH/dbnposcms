@@ -1996,7 +1996,7 @@ public function executeSyncSalesTransaction(sfWebRequest $request) {
 
         $shop_id = $request->getParameter("shop_id");
         
-          $json_from_orders = json_decode($_POST[]);
+          $json_from_orders = json_decode($_POST);
           
           var_dump($json_from_orders);
        // $json_from_orders = json_decode($request->getParameter("server_json_order"));
