@@ -2001,14 +2001,16 @@ public function executeSyncSalesTransaction(sfWebRequest $request) {
         
           $json_from_orders = json_decode($data_string);
           
-          var_dump($json_from_orders);
+        //  var_dump($json_from_orders);
          //     $shop_id = $request->getParameter("shop_id");
        // $json_from_orders = json_decode($request->getParameter("server_json_order"));
 
         $i = 0;
         $a = "";
        $orderIdArr="";
-       
+         foreach ($json_from_orders as $json_form_order) {
+            echo  "<br/>".$json_form_order->shop_order_id;
+         }
        
        
        die('no execution');
