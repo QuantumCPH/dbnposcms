@@ -25,6 +25,8 @@ class BaseInventoryFormFilter extends BaseFormFilterPropel
       'updated_at'     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'item_id'        => new sfWidgetFormFilterInput(),
       'delivery_count' => new sfWidgetFormFilterInput(),
+      'stock_in'       => new sfWidgetFormFilterInput(),
+      'stock_out'      => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -39,6 +41,8 @@ class BaseInventoryFormFilter extends BaseFormFilterPropel
       'updated_at'     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'item_id'        => new sfValidatorPass(array('required' => false)),
       'delivery_count' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'stock_in'       => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'stock_out'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('inventory_filters[%s]');
@@ -68,6 +72,8 @@ class BaseInventoryFormFilter extends BaseFormFilterPropel
       'updated_at'     => 'Date',
       'item_id'        => 'Text',
       'delivery_count' => 'Number',
+      'stock_in'       => 'Number',
+      'stock_out'      => 'Number',
     );
   }
 }

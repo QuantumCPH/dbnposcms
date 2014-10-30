@@ -21,6 +21,7 @@ class BaseDayStartsForm extends BaseFormPropel
       'total_amount'    => new sfWidgetFormInput(),
       'success'         => new sfWidgetFormInputCheckbox(),
       'expected_amount' => new sfWidgetFormInput(),
+      'journal_id'      => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -33,6 +34,7 @@ class BaseDayStartsForm extends BaseFormPropel
       'total_amount'    => new sfValidatorNumber(array('required' => false)),
       'success'         => new sfValidatorBoolean(array('required' => false)),
       'expected_amount' => new sfValidatorNumber(array('required' => false)),
+      'journal_id'      => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('day_starts[%s]');

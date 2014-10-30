@@ -24,6 +24,8 @@ class BaseInventoryForm extends BaseFormPropel
       'updated_at'     => new sfWidgetFormDateTime(),
       'item_id'        => new sfWidgetFormInput(),
       'delivery_count' => new sfWidgetFormInput(),
+      'stock_in'       => new sfWidgetFormInput(),
+      'stock_out'      => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -39,6 +41,8 @@ class BaseInventoryForm extends BaseFormPropel
       'updated_at'     => new sfValidatorDateTime(),
       'item_id'        => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'delivery_count' => new sfValidatorInteger(array('required' => false)),
+      'stock_in'       => new sfValidatorInteger(array('required' => false)),
+      'stock_out'      => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('inventory[%s]');

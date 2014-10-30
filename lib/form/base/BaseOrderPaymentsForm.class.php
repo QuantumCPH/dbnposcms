@@ -25,6 +25,9 @@ class BaseOrderPaymentsForm extends BaseFormPropel
       'shop_created_at'       => new sfWidgetFormDateTime(),
       'shop_order_user_id'    => new sfWidgetFormInput(),
       'cc_type_id'            => new sfWidgetFormInput(),
+      'change_type'           => new sfWidgetFormInput(),
+      'change_value'          => new sfWidgetFormInput(),
+      'shop_order_id'         => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -41,6 +44,9 @@ class BaseOrderPaymentsForm extends BaseFormPropel
       'shop_created_at'       => new sfValidatorDateTime(array('required' => false)),
       'shop_order_user_id'    => new sfValidatorInteger(array('required' => false)),
       'cc_type_id'            => new sfValidatorInteger(array('required' => false)),
+      'change_type'           => new sfValidatorInteger(array('required' => false)),
+      'change_value'          => new sfValidatorNumber(array('required' => false)),
+      'shop_order_id'         => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('order_payments[%s]');
