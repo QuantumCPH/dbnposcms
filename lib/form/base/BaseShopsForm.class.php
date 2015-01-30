@@ -6,6 +6,7 @@
  * @package    zapnacrm
  * @subpackage form
  * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseShopsForm extends BaseFormPropel
 {
@@ -39,12 +40,12 @@ class BaseShopsForm extends BaseFormPropel
       'user_sync_synced_at'            => new sfWidgetFormDateTime(),
       'updated_at'                     => new sfWidgetFormDateTime(),
       'negative_sale'                  => new sfWidgetFormInputCheckbox(),
-      'language_id'                    => new sfWidgetFormPropelChoice(array('model' => 'Languages', 'add_empty' => true)),
+      'language_id'                    => new sfWidgetFormInput(),
       'time_out'                       => new sfWidgetFormInput(),
       'start_value_sale_receipt'       => new sfWidgetFormInput(),
       'start_value_return_receipt'     => new sfWidgetFormInput(),
-      'sale_receipt_format_id'         => new sfWidgetFormPropelChoice(array('model' => 'ReceiptFormats', 'add_empty' => true)),
-      'return_receipt_format_id'       => new sfWidgetFormPropelChoice(array('model' => 'ReceiptFormats', 'add_empty' => true)),
+      'sale_receipt_format_id'         => new sfWidgetFormInput(),
+      'return_receipt_format_id'       => new sfWidgetFormInput(),
       'shop_setting_sync_requested_at' => new sfWidgetFormDateTime(),
       'shop_setting_sync_synced_at'    => new sfWidgetFormDateTime(),
       'voucher_sync_requested_at'      => new sfWidgetFormDateTime(),
@@ -58,12 +59,6 @@ class BaseShopsForm extends BaseFormPropel
       'receipt_tax_statment_two'       => new sfWidgetFormTextarea(),
       'receipt_tax_statment_three'     => new sfWidgetFormTextarea(),
       'receipt_auto_print'             => new sfWidgetFormInputCheckbox(),
-      'bookout_format_id'              => new sfWidgetFormInput(),
-      'start_value_bookout'            => new sfWidgetFormInput(),
-      'promotion_sync_requested_at'    => new sfWidgetFormDateTime(),
-      'promotion_sync_synced_at'       => new sfWidgetFormDateTime(),
-      'vat_value'                      => new sfWidgetFormInput(),
-      'currency_id'                    => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -94,12 +89,12 @@ class BaseShopsForm extends BaseFormPropel
       'user_sync_synced_at'            => new sfValidatorDateTime(array('required' => false)),
       'updated_at'                     => new sfValidatorDateTime(array('required' => false)),
       'negative_sale'                  => new sfValidatorBoolean(array('required' => false)),
-      'language_id'                    => new sfValidatorPropelChoice(array('model' => 'Languages', 'column' => 'id', 'required' => false)),
+      'language_id'                    => new sfValidatorInteger(array('required' => false)),
       'time_out'                       => new sfValidatorString(array('max_length' => 45, 'required' => false)),
       'start_value_sale_receipt'       => new sfValidatorInteger(array('required' => false)),
       'start_value_return_receipt'     => new sfValidatorInteger(array('required' => false)),
-      'sale_receipt_format_id'         => new sfValidatorPropelChoice(array('model' => 'ReceiptFormats', 'column' => 'id', 'required' => false)),
-      'return_receipt_format_id'       => new sfValidatorPropelChoice(array('model' => 'ReceiptFormats', 'column' => 'id', 'required' => false)),
+      'sale_receipt_format_id'         => new sfValidatorInteger(array('required' => false)),
+      'return_receipt_format_id'       => new sfValidatorInteger(array('required' => false)),
       'shop_setting_sync_requested_at' => new sfValidatorDateTime(array('required' => false)),
       'shop_setting_sync_synced_at'    => new sfValidatorDateTime(array('required' => false)),
       'voucher_sync_requested_at'      => new sfValidatorDateTime(array('required' => false)),
@@ -113,12 +108,6 @@ class BaseShopsForm extends BaseFormPropel
       'receipt_tax_statment_two'       => new sfValidatorString(array('required' => false)),
       'receipt_tax_statment_three'     => new sfValidatorString(array('required' => false)),
       'receipt_auto_print'             => new sfValidatorBoolean(array('required' => false)),
-      'bookout_format_id'              => new sfValidatorInteger(array('required' => false)),
-      'start_value_bookout'            => new sfValidatorInteger(array('required' => false)),
-      'promotion_sync_requested_at'    => new sfValidatorDateTime(array('required' => false)),
-      'promotion_sync_synced_at'       => new sfValidatorDateTime(array('required' => false)),
-      'vat_value'                      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'currency_id'                    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('shops[%s]');

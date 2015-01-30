@@ -6,6 +6,7 @@
  * @package    zapnacrm
  * @subpackage form
  * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseRolePermissionRefForm extends BaseFormPropel
 {
@@ -13,14 +14,14 @@ class BaseRolePermissionRefForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'            => new sfWidgetFormInputHidden(),
-      'role_id'       => new sfWidgetFormPropelChoice(array('model' => 'Role', 'add_empty' => false)),
-      'permission_id' => new sfWidgetFormPropelChoice(array('model' => 'Permission', 'add_empty' => false)),
+      'role_id'       => new sfWidgetFormInput(),
+      'permission_id' => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
       'id'            => new sfValidatorPropelChoice(array('model' => 'RolePermissionRef', 'column' => 'id', 'required' => false)),
-      'role_id'       => new sfValidatorPropelChoice(array('model' => 'Role', 'column' => 'id')),
-      'permission_id' => new sfValidatorPropelChoice(array('model' => 'Permission', 'column' => 'id')),
+      'role_id'       => new sfValidatorInteger(),
+      'permission_id' => new sfValidatorInteger(),
     ));
 
     $this->widgetSchema->setNameFormat('role_permission_ref[%s]');

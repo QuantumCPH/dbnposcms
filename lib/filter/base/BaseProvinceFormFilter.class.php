@@ -8,18 +8,19 @@ require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.clas
  * @package    zapnacrm
  * @subpackage filter
  * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormFilterGeneratedTemplate.php 13459 2008-11-28 14:48:12Z fabien $
  */
 class BaseProvinceFormFilter extends BaseFormFilterPropel
 {
   public function setup()
   {
     $this->setWidgets(array(
-      'country_id' => new sfWidgetFormPropelChoice(array('model' => 'EnableCountry', 'add_empty' => true)),
+      'country_id' => new sfWidgetFormFilterInput(),
       'province'   => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
-      'country_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'EnableCountry', 'column' => 'id')),
+      'country_id' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'province'   => new sfValidatorPass(array('required' => false)),
     ));
 
@@ -39,7 +40,7 @@ class BaseProvinceFormFilter extends BaseFormFilterPropel
   {
     return array(
       'id'         => 'Number',
-      'country_id' => 'ForeignKey',
+      'country_id' => 'Number',
       'province'   => 'Text',
     );
   }

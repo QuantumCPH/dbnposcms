@@ -8,6 +8,7 @@ require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.clas
  * @package    zapnacrm
  * @subpackage filter
  * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormFilterGeneratedTemplate.php 13459 2008-11-28 14:48:12Z fabien $
  */
 class BaseEnableCountryFormFilter extends BaseFormFilterPropel
 {
@@ -19,7 +20,7 @@ class BaseEnableCountryFormFilter extends BaseFormFilterPropel
       'language_symbol' => new sfWidgetFormFilterInput(),
       'currency'        => new sfWidgetFormFilterInput(),
       'currency_symbol' => new sfWidgetFormFilterInput(),
-      'status'          => new sfWidgetFormPropelChoice(array('model' => 'Status', 'add_empty' => true)),
+      'status'          => new sfWidgetFormFilterInput(),
       'ceated_at'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'base_url'        => new sfWidgetFormFilterInput(),
       'refill'          => new sfWidgetFormFilterInput(),
@@ -33,7 +34,7 @@ class BaseEnableCountryFormFilter extends BaseFormFilterPropel
       'language_symbol' => new sfValidatorPass(array('required' => false)),
       'currency'        => new sfValidatorPass(array('required' => false)),
       'currency_symbol' => new sfValidatorPass(array('required' => false)),
-      'status'          => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Status', 'column' => 'id')),
+      'status'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'ceated_at'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'base_url'        => new sfValidatorPass(array('required' => false)),
       'refill'          => new sfValidatorPass(array('required' => false)),
@@ -62,7 +63,7 @@ class BaseEnableCountryFormFilter extends BaseFormFilterPropel
       'language_symbol' => 'Text',
       'currency'        => 'Text',
       'currency_symbol' => 'Text',
-      'status'          => 'ForeignKey',
+      'status'          => 'Number',
       'ceated_at'       => 'Date',
       'base_url'        => 'Text',
       'refill'          => 'Text',

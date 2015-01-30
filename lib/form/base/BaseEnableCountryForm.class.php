@@ -6,6 +6,7 @@
  * @package    zapnacrm
  * @subpackage form
  * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseEnableCountryForm extends BaseFormPropel
 {
@@ -18,7 +19,7 @@ class BaseEnableCountryForm extends BaseFormPropel
       'language_symbol' => new sfWidgetFormInput(),
       'currency'        => new sfWidgetFormInput(),
       'currency_symbol' => new sfWidgetFormInput(),
-      'status'          => new sfWidgetFormPropelChoice(array('model' => 'Status', 'add_empty' => false)),
+      'status'          => new sfWidgetFormInput(),
       'ceated_at'       => new sfWidgetFormDateTime(),
       'base_url'        => new sfWidgetFormInput(),
       'refill'          => new sfWidgetFormInput(),
@@ -33,7 +34,7 @@ class BaseEnableCountryForm extends BaseFormPropel
       'language_symbol' => new sfValidatorString(array('max_length' => 300)),
       'currency'        => new sfValidatorString(array('max_length' => 300)),
       'currency_symbol' => new sfValidatorString(array('max_length' => 300)),
-      'status'          => new sfValidatorPropelChoice(array('model' => 'Status', 'column' => 'id')),
+      'status'          => new sfValidatorInteger(),
       'ceated_at'       => new sfValidatorDateTime(),
       'base_url'        => new sfValidatorString(array('max_length' => 300)),
       'refill'          => new sfValidatorString(array('max_length' => 400)),

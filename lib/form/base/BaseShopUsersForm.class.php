@@ -6,6 +6,7 @@
  * @package    zapnacrm
  * @subpackage form
  * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseShopUsersForm extends BaseFormPropel
 {
@@ -13,8 +14,8 @@ class BaseShopUsersForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'             => new sfWidgetFormInputHidden(),
-      'user_id'        => new sfWidgetFormPropelChoice(array('model' => 'User', 'add_empty' => true)),
-      'shop_id'        => new sfWidgetFormPropelChoice(array('model' => 'Shops', 'add_empty' => true)),
+      'user_id'        => new sfWidgetFormInput(),
+      'shop_id'        => new sfWidgetFormInput(),
       'created_at'     => new sfWidgetFormDateTime(),
       'updated_at'     => new sfWidgetFormDateTime(),
       'status_id'      => new sfWidgetFormInput(),
@@ -26,8 +27,8 @@ class BaseShopUsersForm extends BaseFormPropel
 
     $this->setValidators(array(
       'id'             => new sfValidatorPropelChoice(array('model' => 'ShopUsers', 'column' => 'id', 'required' => false)),
-      'user_id'        => new sfValidatorPropelChoice(array('model' => 'User', 'column' => 'id', 'required' => false)),
-      'shop_id'        => new sfValidatorPropelChoice(array('model' => 'Shops', 'column' => 'id', 'required' => false)),
+      'user_id'        => new sfValidatorInteger(array('required' => false)),
+      'shop_id'        => new sfValidatorInteger(array('required' => false)),
       'created_at'     => new sfValidatorDateTime(),
       'updated_at'     => new sfValidatorDateTime(array('required' => false)),
       'status_id'      => new sfValidatorInteger(array('required' => false)),

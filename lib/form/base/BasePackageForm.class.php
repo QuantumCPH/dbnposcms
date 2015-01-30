@@ -6,6 +6,7 @@
  * @package    zapnacrm
  * @subpackage form
  * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BasePackageForm extends BaseFormPropel
 {
@@ -17,8 +18,8 @@ class BasePackageForm extends BaseFormPropel
       'billing_dur'        => new sfWidgetFormInput(),
       'billing_due_days'   => new sfWidgetFormInput(),
       'specificatoin_cost' => new sfWidgetFormInput(),
-      'R1_cost'            => new sfWidgetFormInput(),
-      'R2_cost'            => new sfWidgetFormInput(),
+      'r1_cost'            => new sfWidgetFormInput(),
+      'r2_cost'            => new sfWidgetFormInput(),
       'activaton_cost'     => new sfWidgetFormInput(),
       'created_at'         => new sfWidgetFormDateTime(),
       'updated_at'         => new sfWidgetFormDateTime(),
@@ -30,8 +31,8 @@ class BasePackageForm extends BaseFormPropel
       'billing_dur'        => new sfValidatorInteger(),
       'billing_due_days'   => new sfValidatorInteger(array('required' => false)),
       'specificatoin_cost' => new sfValidatorNumber(array('required' => false)),
-      'R1_cost'            => new sfValidatorNumber(array('required' => false)),
-      'R2_cost'            => new sfValidatorNumber(array('required' => false)),
+      'r1_cost'            => new sfValidatorNumber(array('required' => false)),
+      'r2_cost'            => new sfValidatorNumber(array('required' => false)),
       'activaton_cost'     => new sfValidatorNumber(array('required' => false)),
       'created_at'         => new sfValidatorDateTime(),
       'updated_at'         => new sfValidatorDateTime(array('required' => false)),

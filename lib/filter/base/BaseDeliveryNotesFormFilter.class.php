@@ -8,6 +8,7 @@ require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.clas
  * @package    zapnacrm
  * @subpackage filter
  * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormFilterGeneratedTemplate.php 13459 2008-11-28 14:48:12Z fabien $
  */
 class BaseDeliveryNotesFormFilter extends BaseFormFilterPropel
 {
@@ -36,7 +37,6 @@ class BaseDeliveryNotesFormFilter extends BaseFormFilterPropel
       'updated_by'            => new sfWidgetFormFilterInput(),
       'synced_day_start_id'   => new sfWidgetFormFilterInput(),
       'received_day_start_id' => new sfWidgetFormFilterInput(),
-      'delivery_note_type_id' => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -62,7 +62,6 @@ class BaseDeliveryNotesFormFilter extends BaseFormFilterPropel
       'updated_by'            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'synced_day_start_id'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'received_day_start_id' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'delivery_note_type_id' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('delivery_notes_filters[%s]');
@@ -103,7 +102,6 @@ class BaseDeliveryNotesFormFilter extends BaseFormFilterPropel
       'updated_by'            => 'Number',
       'synced_day_start_id'   => 'Number',
       'received_day_start_id' => 'Number',
-      'delivery_note_type_id' => 'Number',
     );
   }
 }

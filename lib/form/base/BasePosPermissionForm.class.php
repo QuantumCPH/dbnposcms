@@ -6,6 +6,7 @@
  * @package    zapnacrm
  * @subpackage form
  * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BasePosPermissionForm extends BaseFormPropel
 {
@@ -13,7 +14,7 @@ class BasePosPermissionForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'            => new sfWidgetFormInputHidden(),
-      'pos_module_id' => new sfWidgetFormPropelChoice(array('model' => 'PosModules', 'add_empty' => false)),
+      'pos_module_id' => new sfWidgetFormInput(),
       'action_name'   => new sfWidgetFormInput(),
       'action_title'  => new sfWidgetFormInput(),
       'position'      => new sfWidgetFormInput(),
@@ -21,7 +22,7 @@ class BasePosPermissionForm extends BaseFormPropel
 
     $this->setValidators(array(
       'id'            => new sfValidatorPropelChoice(array('model' => 'PosPermission', 'column' => 'id', 'required' => false)),
-      'pos_module_id' => new sfValidatorPropelChoice(array('model' => 'PosModules', 'column' => 'id')),
+      'pos_module_id' => new sfValidatorInteger(),
       'action_name'   => new sfValidatorString(array('max_length' => 50)),
       'action_title'  => new sfValidatorString(array('max_length' => 250)),
       'position'      => new sfValidatorInteger(array('required' => false)),

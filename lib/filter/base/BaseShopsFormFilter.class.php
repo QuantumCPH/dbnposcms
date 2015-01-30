@@ -8,6 +8,7 @@ require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.clas
  * @package    zapnacrm
  * @subpackage filter
  * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormFilterGeneratedTemplate.php 13459 2008-11-28 14:48:12Z fabien $
  */
 class BaseShopsFormFilter extends BaseFormFilterPropel
 {
@@ -40,12 +41,12 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'user_sync_synced_at'            => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_at'                     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'negative_sale'                  => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
-      'language_id'                    => new sfWidgetFormPropelChoice(array('model' => 'Languages', 'add_empty' => true)),
+      'language_id'                    => new sfWidgetFormFilterInput(),
       'time_out'                       => new sfWidgetFormFilterInput(),
       'start_value_sale_receipt'       => new sfWidgetFormFilterInput(),
       'start_value_return_receipt'     => new sfWidgetFormFilterInput(),
-      'sale_receipt_format_id'         => new sfWidgetFormPropelChoice(array('model' => 'ReceiptFormats', 'add_empty' => true)),
-      'return_receipt_format_id'       => new sfWidgetFormPropelChoice(array('model' => 'ReceiptFormats', 'add_empty' => true)),
+      'sale_receipt_format_id'         => new sfWidgetFormFilterInput(),
+      'return_receipt_format_id'       => new sfWidgetFormFilterInput(),
       'shop_setting_sync_requested_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'shop_setting_sync_synced_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'voucher_sync_requested_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
@@ -59,12 +60,6 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'receipt_tax_statment_two'       => new sfWidgetFormFilterInput(),
       'receipt_tax_statment_three'     => new sfWidgetFormFilterInput(),
       'receipt_auto_print'             => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
-      'bookout_format_id'              => new sfWidgetFormFilterInput(),
-      'start_value_bookout'            => new sfWidgetFormFilterInput(),
-      'promotion_sync_requested_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
-      'promotion_sync_synced_at'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
-      'vat_value'                      => new sfWidgetFormFilterInput(),
-      'currency_id'                    => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -94,12 +89,12 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'user_sync_synced_at'            => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'                     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'negative_sale'                  => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
-      'language_id'                    => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Languages', 'column' => 'id')),
+      'language_id'                    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'time_out'                       => new sfValidatorPass(array('required' => false)),
       'start_value_sale_receipt'       => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'start_value_return_receipt'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'sale_receipt_format_id'         => new sfValidatorPropelChoice(array('required' => false, 'model' => 'ReceiptFormats', 'column' => 'id')),
-      'return_receipt_format_id'       => new sfValidatorPropelChoice(array('required' => false, 'model' => 'ReceiptFormats', 'column' => 'id')),
+      'sale_receipt_format_id'         => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'return_receipt_format_id'       => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'shop_setting_sync_requested_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'shop_setting_sync_synced_at'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'voucher_sync_requested_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
@@ -113,12 +108,6 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'receipt_tax_statment_two'       => new sfValidatorPass(array('required' => false)),
       'receipt_tax_statment_three'     => new sfValidatorPass(array('required' => false)),
       'receipt_auto_print'             => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
-      'bookout_format_id'              => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'start_value_bookout'            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'promotion_sync_requested_at'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-      'promotion_sync_synced_at'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-      'vat_value'                      => new sfValidatorPass(array('required' => false)),
-      'currency_id'                    => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('shops_filters[%s]');
@@ -163,12 +152,12 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'user_sync_synced_at'            => 'Date',
       'updated_at'                     => 'Date',
       'negative_sale'                  => 'Boolean',
-      'language_id'                    => 'ForeignKey',
+      'language_id'                    => 'Number',
       'time_out'                       => 'Text',
       'start_value_sale_receipt'       => 'Number',
       'start_value_return_receipt'     => 'Number',
-      'sale_receipt_format_id'         => 'ForeignKey',
-      'return_receipt_format_id'       => 'ForeignKey',
+      'sale_receipt_format_id'         => 'Number',
+      'return_receipt_format_id'       => 'Number',
       'shop_setting_sync_requested_at' => 'Date',
       'shop_setting_sync_synced_at'    => 'Date',
       'voucher_sync_requested_at'      => 'Date',
@@ -182,12 +171,6 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'receipt_tax_statment_two'       => 'Text',
       'receipt_tax_statment_three'     => 'Text',
       'receipt_auto_print'             => 'Boolean',
-      'bookout_format_id'              => 'Number',
-      'start_value_bookout'            => 'Number',
-      'promotion_sync_requested_at'    => 'Date',
-      'promotion_sync_synced_at'       => 'Date',
-      'vat_value'                      => 'Text',
-      'currency_id'                    => 'Text',
     );
   }
 }

@@ -8,20 +8,21 @@ require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.clas
  * @package    zapnacrm
  * @subpackage filter
  * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormFilterGeneratedTemplate.php 13459 2008-11-28 14:48:12Z fabien $
  */
 class BasePosPermissionFormFilter extends BaseFormFilterPropel
 {
   public function setup()
   {
     $this->setWidgets(array(
-      'pos_module_id' => new sfWidgetFormPropelChoice(array('model' => 'PosModules', 'add_empty' => true)),
+      'pos_module_id' => new sfWidgetFormFilterInput(),
       'action_name'   => new sfWidgetFormFilterInput(),
       'action_title'  => new sfWidgetFormFilterInput(),
       'position'      => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
-      'pos_module_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'PosModules', 'column' => 'id')),
+      'pos_module_id' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'action_name'   => new sfValidatorPass(array('required' => false)),
       'action_title'  => new sfValidatorPass(array('required' => false)),
       'position'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
@@ -43,7 +44,7 @@ class BasePosPermissionFormFilter extends BaseFormFilterPropel
   {
     return array(
       'id'            => 'Number',
-      'pos_module_id' => 'ForeignKey',
+      'pos_module_id' => 'Number',
       'action_name'   => 'Text',
       'action_title'  => 'Text',
       'position'      => 'Number',

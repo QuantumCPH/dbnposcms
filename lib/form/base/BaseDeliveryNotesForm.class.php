@@ -6,6 +6,7 @@
  * @package    zapnacrm
  * @subpackage form
  * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseDeliveryNotesForm extends BaseFormPropel
 {
@@ -35,7 +36,6 @@ class BaseDeliveryNotesForm extends BaseFormPropel
       'updated_by'            => new sfWidgetFormInput(),
       'synced_day_start_id'   => new sfWidgetFormInput(),
       'received_day_start_id' => new sfWidgetFormInput(),
-      'delivery_note_type_id' => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -62,7 +62,6 @@ class BaseDeliveryNotesForm extends BaseFormPropel
       'updated_by'            => new sfValidatorInteger(array('required' => false)),
       'synced_day_start_id'   => new sfValidatorInteger(array('required' => false)),
       'received_day_start_id' => new sfValidatorInteger(array('required' => false)),
-      'delivery_note_type_id' => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('delivery_notes[%s]');
