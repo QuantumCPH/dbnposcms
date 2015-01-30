@@ -29,6 +29,7 @@ class BaseCronJobsForm extends BaseFormPropel
       'data_file_path'       => new sfWidgetFormTextarea(),
       'job_name'             => new sfWidgetFormInput(),
       'email'                => new sfWidgetFormInput(),
+      'cron_jobs'            => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -49,6 +50,7 @@ class BaseCronJobsForm extends BaseFormPropel
       'data_file_path'       => new sfValidatorString(array('required' => false)),
       'job_name'             => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'email'                => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'cron_jobs'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('cron_jobs[%s]');

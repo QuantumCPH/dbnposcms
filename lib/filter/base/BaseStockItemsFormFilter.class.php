@@ -23,18 +23,24 @@ class BaseStockItemsFormFilter extends BaseFormFilterPropel
       'bookout_qty'   => new sfWidgetFormFilterInput(),
       'stock_qty'     => new sfWidgetFormFilterInput(),
       'stock_id'      => new sfWidgetFormFilterInput(),
+      'created_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
+      'updated_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
+      'updated_by'    => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
       'cms_item_id'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'item_id'       => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'total_qty'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'sold_qty'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'return_qty'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'remaining_qty' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'bookout_qty'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'stock_qty'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'total_qty'     => new sfValidatorPass(array('required' => false)),
+      'sold_qty'      => new sfValidatorPass(array('required' => false)),
+      'return_qty'    => new sfValidatorPass(array('required' => false)),
+      'remaining_qty' => new sfValidatorPass(array('required' => false)),
+      'bookout_qty'   => new sfValidatorPass(array('required' => false)),
+      'stock_qty'     => new sfValidatorPass(array('required' => false)),
       'stock_id'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'created_at'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'updated_at'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'updated_by'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('stock_items_filters[%s]');
@@ -55,13 +61,16 @@ class BaseStockItemsFormFilter extends BaseFormFilterPropel
       'id'            => 'Number',
       'cms_item_id'   => 'Number',
       'item_id'       => 'Number',
-      'total_qty'     => 'Number',
-      'sold_qty'      => 'Number',
-      'return_qty'    => 'Number',
-      'remaining_qty' => 'Number',
-      'bookout_qty'   => 'Number',
-      'stock_qty'     => 'Number',
+      'total_qty'     => 'Text',
+      'sold_qty'      => 'Text',
+      'return_qty'    => 'Text',
+      'remaining_qty' => 'Text',
+      'bookout_qty'   => 'Text',
+      'stock_qty'     => 'Text',
       'stock_id'      => 'Number',
+      'created_at'    => 'Date',
+      'updated_at'    => 'Date',
+      'updated_by'    => 'Number',
     );
   }
 }

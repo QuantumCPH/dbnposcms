@@ -74,7 +74,7 @@
         });
     </script>
     <form action="<?php echo url_for('user/edit?id=' . $form->getObject()->getId()) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?> id="frmUser">
-        <div  class="backimgDiv"> 
+        <div  class="backimgDiv">
             <?php
             //var_dump($form->getErrorSchema()->getErrors());
 //            echo "<hr/>";

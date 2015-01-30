@@ -17,8 +17,6 @@ class BaseDayStartDenominationsForm extends BaseFormPropel
       'day_start_id'    => new sfWidgetFormInput(),
       'count'           => new sfWidgetFormInput(),
       'amount'          => new sfWidgetFormInput(),
-      'day_attempt_id'  => new sfWidgetFormInput(),
-      'created_at'      => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
@@ -27,8 +25,6 @@ class BaseDayStartDenominationsForm extends BaseFormPropel
       'day_start_id'    => new sfValidatorInteger(array('required' => false)),
       'count'           => new sfValidatorInteger(array('required' => false)),
       'amount'          => new sfValidatorNumber(array('required' => false)),
-      'day_attempt_id'  => new sfValidatorInteger(array('required' => false)),
-      'created_at'      => new sfValidatorDateTime(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('day_start_denominations[%s]');
