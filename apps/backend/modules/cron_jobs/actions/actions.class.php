@@ -24,11 +24,10 @@ class cron_jobsActions extends sfActions {
     public function executeCreate(sfWebRequest $request) {
         //die("I m here");
         $this->forward404Unless($request->isMethod('post'));
-
         $minutes = $request->getParameter("minutes");
         $minutesSelect = implode(",", $request->getParameter("selectMinutes"));
         $hours = $request->getParameter("hours");
-        $hoursSelect = implode(",", $request->getParameter("selectHours"));
+        //$hoursSelect = implode(",", $request->getParameter("selectHours"));
         $days = $request->getParameter("days");
         $daysSelect = implode(",", $request->getParameter("selectDays"));
         $months = $request->getParameter("months");
@@ -95,7 +94,7 @@ class cron_jobsActions extends sfActions {
         $new_cron->setCustomMinutes($minutesSelect);
 
         $new_cron->setHours($hours);
-        $new_cron->setCustomHours($hoursSelect);
+        //$new_cron->setCustomHours($hoursSelect);
 
         $new_cron->setDays($days);
         $new_cron->setCustomDays($daysSelect);
@@ -136,12 +135,11 @@ class cron_jobsActions extends sfActions {
 
         $new_cron->save();
 
-        $this->update_cron_job_on_server();
+       // $this->update_cron_job_on_server();
 
         $this->getUser()->setFlash('success', $this->getContext()->getI18N()->__('Job Successfully Added.'));
         $this->redirect('cron_jobs/index');
     }
-
     public function executeEdit(sfWebRequest $request) {
         $this->forward404Unless($cron_jobs = CronJobsPeer::retrieveByPk($request->getParameter('id')), sprintf('Object cron_jobs does not exist (%s).', $request->getParameter('id')));
         // $this->form = new CronJobsForm($cron_jobs);
@@ -156,7 +154,7 @@ class cron_jobsActions extends sfActions {
         $hours = $request->getParameter("hours");
         $hoursSelect = implode(",", $request->getParameter("selectHours"));
         $days = $request->getParameter("days");
-        $daysSelect = implode(",", $request->getParameter("selectDays"));
+        //$daysSelect = implode(",", $request->getParameter("selectDays"));
         $months = $request->getParameter("months");
         $monthsSelect = implode(",", $request->getParameter("selectMonths"));
         $weekdays = $request->getParameter("weekdays");
@@ -194,8 +192,6 @@ class cron_jobsActions extends sfActions {
 
         $directory_base = "/home/dbnposcms/";
         
-
-
 
         $full_defination_file_path = $directory_base . $defination_file_path;
         $full_data_file_path = $directory_base . $data_file_path;
@@ -241,7 +237,7 @@ class cron_jobsActions extends sfActions {
         $new_cron->setCustomHours($hoursSelect);
 
         $new_cron->setDays($days);
-        $new_cron->setCustomDays($daysSelect);
+        //$new_cron->setCustomDays($daysSelect);
 
         $new_cron->setMonths($months);
         $new_cron->setCustomMonths($monthsSelect);
@@ -264,6 +260,7 @@ class cron_jobsActions extends sfActions {
         if ($weekdays == "select") {
             $weekdays = $weekdaysSelect;
         }
+        
         $cron_string = $minutes . " " . $hours . " " . $days . " " . $months . " " . $weekdays . " " . " chmod 777 -R " . $full_defination_file_path . " && chmod 777 -R " . $full_data_file_path . " && " . $cronTypeObj->getUrl();
         $new_cron->setJob($cron_string);
         $new_cron->save();
@@ -272,7 +269,7 @@ class cron_jobsActions extends sfActions {
 
         $new_cron->save();
 
-        $this->update_cron_job_on_server();
+       // $this->update_cron_job_on_server();
         $this->getUser()->setFlash('success', $this->getContext()->getI18N()->__('Job Successfully Updated.'));
         $this->redirect('cron_jobs/index');
     }
@@ -282,7 +279,7 @@ class cron_jobsActions extends sfActions {
 
         $this->forward404Unless($cron_jobs = CronJobsPeer::retrieveByPk($request->getParameter('id')), sprintf('Object cron_jobs does not exist (%s).', $request->getParameter('id')));
         $cron_jobs->delete();
-        $this->update_cron_job_on_server();
+        //$this->update_cron_job_on_server();
         $this->getUser()->setFlash('success', $this->getContext()->getI18N()->__('Job Deleted Successfully.'));
         $this->redirect('cron_jobs/index');
     }

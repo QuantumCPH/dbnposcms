@@ -31,6 +31,7 @@ class BaseCronJobsFormFilter extends BaseFormFilterPropel
       'data_file_path'       => new sfWidgetFormFilterInput(),
       'job_name'             => new sfWidgetFormFilterInput(),
       'email'                => new sfWidgetFormFilterInput(),
+      'cron_jobs'            => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -50,6 +51,7 @@ class BaseCronJobsFormFilter extends BaseFormFilterPropel
       'data_file_path'       => new sfValidatorPass(array('required' => false)),
       'job_name'             => new sfValidatorPass(array('required' => false)),
       'email'                => new sfValidatorPass(array('required' => false)),
+      'cron_jobs'            => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('cron_jobs_filters[%s]');
@@ -84,6 +86,7 @@ class BaseCronJobsFormFilter extends BaseFormFilterPropel
       'data_file_path'       => 'Text',
       'job_name'             => 'Text',
       'email'                => 'Text',
+      'cron_jobs'            => 'Text',
     );
   }
 }

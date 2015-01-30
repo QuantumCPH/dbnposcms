@@ -21,10 +21,12 @@ class BaseInventoryForm extends BaseFormPropel
       'book_out'       => new sfWidgetFormInput(),
       'returned'       => new sfWidgetFormInput(),
       'available'      => new sfWidgetFormInput(),
-      'created_at'     => new sfWidgetFormDateTime(),
-      'updated_at'     => new sfWidgetFormDateTime(),
+      'created_at'     => new sfWidgetFormInput(),
+      'updated_at'     => new sfWidgetFormInput(),
       'item_id'        => new sfWidgetFormInput(),
       'delivery_count' => new sfWidgetFormInput(),
+      'stock_in'       => new sfWidgetFormInput(),
+      'stock_out'      => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -33,13 +35,15 @@ class BaseInventoryForm extends BaseFormPropel
       'cms_item_id'    => new sfValidatorInteger(array('required' => false)),
       'total'          => new sfValidatorInteger(array('required' => false)),
       'sold'           => new sfValidatorInteger(array('required' => false)),
-      'book_out'       => new sfValidatorInteger(array('required' => false)),
-      'returned'       => new sfValidatorInteger(array('required' => false)),
-      'available'      => new sfValidatorInteger(array('required' => false)),
-      'created_at'     => new sfValidatorDateTime(),
-      'updated_at'     => new sfValidatorDateTime(),
-      'item_id'        => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+      'book_out'       => new sfValidatorString(array('max_length' => 20, 'required' => false)),
+      'returned'       => new sfValidatorString(array('max_length' => 20, 'required' => false)),
+      'available'      => new sfValidatorString(array('max_length' => 20, 'required' => false)),
+      'created_at'     => new sfValidatorString(array('max_length' => 255)),
+      'updated_at'     => new sfValidatorString(array('max_length' => 255)),
+      'item_id'        => new sfValidatorInteger(array('required' => false)),
       'delivery_count' => new sfValidatorInteger(array('required' => false)),
+      'stock_in'       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'stock_out'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('inventory[%s]');

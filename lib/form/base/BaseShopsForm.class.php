@@ -59,6 +59,12 @@ class BaseShopsForm extends BaseFormPropel
       'receipt_tax_statment_two'       => new sfWidgetFormTextarea(),
       'receipt_tax_statment_three'     => new sfWidgetFormTextarea(),
       'receipt_auto_print'             => new sfWidgetFormInputCheckbox(),
+<<<<<<< HEAD
+=======
+      'start_value_bookout'            => new sfWidgetFormInput(),
+      'bookout_format_id'              => new sfWidgetFormInput(),
+      'values'                         => new sfWidgetFormInput(),
+>>>>>>> c82fca5f4bb8c82de272993a4e02d907f8eaa1fa
     ));
 
     $this->setValidators(array(
@@ -108,6 +114,12 @@ class BaseShopsForm extends BaseFormPropel
       'receipt_tax_statment_two'       => new sfValidatorString(array('required' => false)),
       'receipt_tax_statment_three'     => new sfValidatorString(array('required' => false)),
       'receipt_auto_print'             => new sfValidatorBoolean(array('required' => false)),
+<<<<<<< HEAD
+=======
+      'start_value_bookout'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'bookout_format_id'              => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'values'                         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+>>>>>>> c82fca5f4bb8c82de272993a4e02d907f8eaa1fa
     ));
 
     $this->widgetSchema->setNameFormat('shops[%s]');

@@ -20,7 +20,7 @@ class gf {
 
     public static function checkImage1($image) {
 
-        $imagearay = split("_", $image);
+        $imagearay = explode("_", $image);
         $image = $imagearay[0];
         $imageName = $image . "_50.jpg";
 

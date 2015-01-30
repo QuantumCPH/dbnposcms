@@ -60,6 +60,12 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'receipt_tax_statment_two'       => new sfWidgetFormFilterInput(),
       'receipt_tax_statment_three'     => new sfWidgetFormFilterInput(),
       'receipt_auto_print'             => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+<<<<<<< HEAD
+=======
+      'start_value_bookout'            => new sfWidgetFormFilterInput(),
+      'bookout_format_id'              => new sfWidgetFormFilterInput(),
+      'values'                         => new sfWidgetFormFilterInput(),
+>>>>>>> c82fca5f4bb8c82de272993a4e02d907f8eaa1fa
     ));
 
     $this->setValidators(array(
@@ -108,6 +114,12 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'receipt_tax_statment_two'       => new sfValidatorPass(array('required' => false)),
       'receipt_tax_statment_three'     => new sfValidatorPass(array('required' => false)),
       'receipt_auto_print'             => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+<<<<<<< HEAD
+=======
+      'start_value_bookout'            => new sfValidatorPass(array('required' => false)),
+      'bookout_format_id'              => new sfValidatorPass(array('required' => false)),
+      'values'                         => new sfValidatorPass(array('required' => false)),
+>>>>>>> c82fca5f4bb8c82de272993a4e02d907f8eaa1fa
     ));
 
     $this->widgetSchema->setNameFormat('shops_filters[%s]');
@@ -171,6 +183,12 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'receipt_tax_statment_two'       => 'Text',
       'receipt_tax_statment_three'     => 'Text',
       'receipt_auto_print'             => 'Boolean',
+<<<<<<< HEAD
+=======
+      'start_value_bookout'            => 'Text',
+      'bookout_format_id'              => 'Text',
+      'values'                         => 'Text',
+>>>>>>> c82fca5f4bb8c82de272993a4e02d907f8eaa1fa
     );
   }
 }

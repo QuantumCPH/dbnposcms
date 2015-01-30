@@ -23,8 +23,8 @@ class BaseStocksForm extends BaseFormPropel
     $this->setValidators(array(
       'id'         => new sfValidatorPropelChoice(array('model' => 'Stocks', 'column' => 'id', 'required' => false)),
       'shop_id'    => new sfValidatorInteger(array('required' => false)),
-      'stock_id'   => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'created_at' => new sfValidatorDateTime(),
+      'stock_id'   => new sfValidatorInteger(array('required' => false)),
+      'created_at' => new sfValidatorDateTime(array('required' => false)),
       'updated_at' => new sfValidatorDateTime(array('required' => false)),
       'updated_by' => new sfValidatorInteger(array('required' => false)),
     ));
