@@ -19,11 +19,6 @@ class shopsActions extends sfActions {
         }
 
 
-
-
-
-
-
         //  $this->shops_list = ShopsPeer::doSelect();
 //      $c=new Criteria();
 //    
@@ -421,10 +416,6 @@ class shopsActions extends sfActions {
                 }
             }
         }
-
-
-
-
 
         $this->redirect('shops/index');
     }

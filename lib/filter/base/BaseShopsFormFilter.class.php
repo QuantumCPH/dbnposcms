@@ -63,6 +63,8 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'start_value_bookout'            => new sfWidgetFormFilterInput(),
       'bookout_format_id'              => new sfWidgetFormFilterInput(),
       'values'                         => new sfWidgetFormFilterInput(),
+      'vat_value'                      => new sfWidgetFormFilterInput(),
+      'currency_id'                    => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -114,6 +116,8 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'start_value_bookout'            => new sfValidatorPass(array('required' => false)),
       'bookout_format_id'              => new sfValidatorPass(array('required' => false)),
       'values'                         => new sfValidatorPass(array('required' => false)),
+      'vat_value'                      => new sfValidatorPass(array('required' => false)),
+      'currency_id'                    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('shops_filters[%s]');
@@ -180,6 +184,8 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'start_value_bookout'            => 'Text',
       'bookout_format_id'              => 'Text',
       'values'                         => 'Text',
+      'vat_value'                      => 'Text',
+      'currency_id'                    => 'Number',
     );
   }
 }

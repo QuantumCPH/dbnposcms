@@ -149,8 +149,6 @@ class userActions extends sfActions {
         $this->user_role = $this->getUser()->getAttribute('role_id', '', 'backendsession');
         $this->pos_user_role = $this->getUser()->getAttribute('pos_user_role_id', '', 'backendsession');
 
-
-
         $sp = new Criteria();
         $sp->add(ShopsPeer::STATUS_ID, 3);
         $this->shops = ShopsPeer::doSelect($sp);
@@ -172,7 +170,6 @@ class userActions extends sfActions {
         } else {
             $this->shopsSelectedUser = false;
         }
-
 
         $this->user = UserPeer::retrieveByPK($userid);
 
@@ -369,7 +366,6 @@ class userActions extends sfActions {
             $this->shopsSelectedUser = false;
         }
 
-
         if (!$this->shopsSelectedUser && $branch != "") {
 
             $c = new Criteria();
@@ -403,8 +399,6 @@ class userActions extends sfActions {
                 $this->shopsSelectedUser->save();
             }
         }
-
-
 
         $this->form = new UserForm($user);
         $this->user = $user;
@@ -510,12 +504,12 @@ class userActions extends sfActions {
         $this->getUser()->setFlash('message', 'User info updated');
 
         if ($request->getParameter("redirect_shop_id") == "") {
-            $this->redirect('user/edit?id=' . $user->getId());
-        } else {
+            
             $this->redirect(sfConfig::get("app_admin_url") . 'shops/view?id=' . $request->getParameter("redirect_shop_id"));
+        } else {
+            $this->redirect('user/edit?id=' . $user->getId());
         }
     }
-
     protected function processForm(sfWebRequest $request, sfForm $form) {
 
         unset($form['status_id']);
