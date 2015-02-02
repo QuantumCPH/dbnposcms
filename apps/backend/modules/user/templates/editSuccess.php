@@ -259,9 +259,6 @@
 
                                     <?php foreach ($shops as $shop) { ?>
 
-
-
-
                                         <option value="<?php echo $shop->getId(); ?>"   ><?php echo $shop->getBranchNumber(); ?></option> 
 
                                         <?php

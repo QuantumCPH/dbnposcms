@@ -53,7 +53,6 @@ class cron_jobsActions extends sfActions {
             }
         }
 
-
         $directory_base = "/home/dbnposcms/";
         $defination_file_path = $request->getParameter("defination_file_path");
         $data_file_path = $request->getParameter("data_file_path");
@@ -301,7 +300,6 @@ class cron_jobsActions extends sfActions {
             if ($cronjob->getJob() != "") {
                 $jobs .= $cronjob->getJob() . " \n";
             }
-
 
             $c1 = "mkdir -p " . $cronjob->getDefinationFilePath() . "/backup && mkdir -p " . $cronjob->getDataFilePath() . "/backup";
             $c2 = "mkdir -p " . $cronjob->getDefinationFilePath() . "/error && mkdir -p " . $cronjob->getDataFilePath() . "/error";
