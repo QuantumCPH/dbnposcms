@@ -64,6 +64,7 @@ class BaseShopsForm extends BaseFormPropel
       'values'                         => new sfWidgetFormInput(),
       'vat_value'                      => new sfWidgetFormInput(),
       'currency_id'                    => new sfWidgetFormInput(),
+      'promotion_sync_requested_at'    => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -118,6 +119,7 @@ class BaseShopsForm extends BaseFormPropel
       'values'                         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'vat_value'                      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'currency_id'                    => new sfValidatorInteger(array('required' => false)),
+      'promotion_sync_requested_at'    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('shops[%s]');
