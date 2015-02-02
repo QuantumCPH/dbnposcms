@@ -62,6 +62,8 @@ class BaseShopsForm extends BaseFormPropel
       'start_value_bookout'            => new sfWidgetFormInput(),
       'bookout_format_id'              => new sfWidgetFormInput(),
       'values'                         => new sfWidgetFormInput(),
+      'vat_value'                      => new sfWidgetFormInput(),
+      'currency_id'                    => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -114,6 +116,8 @@ class BaseShopsForm extends BaseFormPropel
       'start_value_bookout'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'bookout_format_id'              => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'values'                         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'vat_value'                      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'currency_id'                    => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('shops[%s]');
