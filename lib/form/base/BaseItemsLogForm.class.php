@@ -35,7 +35,7 @@ class BaseItemsLogForm extends BaseFormPropel
       'item_status_id'       => new sfWidgetFormInput(),
       'updated_by'           => new sfWidgetFormInput(),
       'image_name'           => new sfWidgetFormInput(),
-      'image_status'         => new sfWidgetFormInputCheckbox(),
+      'image_status'         => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -61,7 +61,7 @@ class BaseItemsLogForm extends BaseFormPropel
       'item_status_id'       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'updated_by'           => new sfValidatorInteger(array('required' => false)),
       'image_name'           => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'image_status'         => new sfValidatorBoolean(array('required' => false)),
+      'image_status'         => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->validatorSchema->setPostValidator(

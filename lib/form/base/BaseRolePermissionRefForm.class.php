@@ -14,14 +14,14 @@ class BaseRolePermissionRefForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'            => new sfWidgetFormInputHidden(),
-      'role_id'       => new sfWidgetFormInput(),
-      'permission_id' => new sfWidgetFormInput(),
+      'role_id'       => new sfWidgetFormPropelChoice(array('model' => 'Role', 'add_empty' => false)),
+      'permission_id' => new sfWidgetFormPropelChoice(array('model' => 'Permission', 'add_empty' => false)),
     ));
 
     $this->setValidators(array(
       'id'            => new sfValidatorPropelChoice(array('model' => 'RolePermissionRef', 'column' => 'id', 'required' => false)),
-      'role_id'       => new sfValidatorInteger(),
-      'permission_id' => new sfValidatorInteger(),
+      'role_id'       => new sfValidatorPropelChoice(array('model' => 'Role', 'column' => 'id')),
+      'permission_id' => new sfValidatorPropelChoice(array('model' => 'Permission', 'column' => 'id')),
     ));
 
     $this->widgetSchema->setNameFormat('role_permission_ref[%s]');

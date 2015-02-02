@@ -18,7 +18,7 @@ class BaseImageHistoryForm extends BaseFormPropel
       'created_at'      => new sfWidgetFormDateTime(),
       'image_name'      => new sfWidgetFormInput(),
       'updated_by'      => new sfWidgetFormInput(),
-      'image_status_id' => new sfWidgetFormInputCheckbox(),
+      'image_status_id' => new sfWidgetFormInput(),
       'updated_at'      => new sfWidgetFormDateTime(),
     ));
 
@@ -28,7 +28,7 @@ class BaseImageHistoryForm extends BaseFormPropel
       'created_at'      => new sfValidatorDateTime(),
       'image_name'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'updated_by'      => new sfValidatorInteger(array('required' => false)),
-      'image_status_id' => new sfValidatorBoolean(array('required' => false)),
+      'image_status_id' => new sfValidatorInteger(array('required' => false)),
       'updated_at'      => new sfValidatorDateTime(array('required' => false)),
     ));
 

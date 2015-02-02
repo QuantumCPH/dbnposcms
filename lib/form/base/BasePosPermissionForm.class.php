@@ -14,7 +14,7 @@ class BasePosPermissionForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'            => new sfWidgetFormInputHidden(),
-      'pos_module_id' => new sfWidgetFormInput(),
+      'pos_module_id' => new sfWidgetFormPropelChoice(array('model' => 'PosModules', 'add_empty' => false)),
       'action_name'   => new sfWidgetFormInput(),
       'action_title'  => new sfWidgetFormInput(),
       'position'      => new sfWidgetFormInput(),
@@ -22,7 +22,7 @@ class BasePosPermissionForm extends BaseFormPropel
 
     $this->setValidators(array(
       'id'            => new sfValidatorPropelChoice(array('model' => 'PosPermission', 'column' => 'id', 'required' => false)),
-      'pos_module_id' => new sfValidatorInteger(),
+      'pos_module_id' => new sfValidatorPropelChoice(array('model' => 'PosModules', 'column' => 'id')),
       'action_name'   => new sfValidatorString(array('max_length' => 50)),
       'action_title'  => new sfValidatorString(array('max_length' => 250)),
       'position'      => new sfValidatorInteger(array('required' => false)),

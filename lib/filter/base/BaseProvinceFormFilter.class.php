@@ -15,12 +15,12 @@ class BaseProvinceFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'country_id' => new sfWidgetFormFilterInput(),
+      'country_id' => new sfWidgetFormPropelChoice(array('model' => 'EnableCountry', 'add_empty' => true)),
       'province'   => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
-      'country_id' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'country_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'EnableCountry', 'column' => 'id')),
       'province'   => new sfValidatorPass(array('required' => false)),
     ));
 
@@ -40,7 +40,7 @@ class BaseProvinceFormFilter extends BaseFormFilterPropel
   {
     return array(
       'id'         => 'Number',
-      'country_id' => 'Number',
+      'country_id' => 'ForeignKey',
       'province'   => 'Text',
     );
   }

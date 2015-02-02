@@ -21,7 +21,7 @@ class BaseDayEndsFormFilter extends BaseFormFilterPropel
       'day_start_id'    => new sfWidgetFormFilterInput(),
       'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'total_amount'    => new sfWidgetFormFilterInput(),
-      'success'         => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'success'         => new sfWidgetFormFilterInput(),
       'expected_amount' => new sfWidgetFormFilterInput(),
     ));
 
@@ -32,7 +32,7 @@ class BaseDayEndsFormFilter extends BaseFormFilterPropel
       'day_start_id'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'total_amount'    => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
-      'success'         => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'success'         => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'expected_amount' => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
     ));
 
@@ -58,7 +58,7 @@ class BaseDayEndsFormFilter extends BaseFormFilterPropel
       'day_start_id'    => 'Number',
       'created_at'      => 'Date',
       'total_amount'    => 'Number',
-      'success'         => 'Boolean',
+      'success'         => 'Number',
       'expected_amount' => 'Number',
     );
   }

@@ -15,14 +15,14 @@ class BasePermissionFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'module_id'    => new sfWidgetFormFilterInput(),
+      'module_id'    => new sfWidgetFormPropelChoice(array('model' => 'Modules', 'add_empty' => true)),
       'action_name'  => new sfWidgetFormFilterInput(),
       'action_title' => new sfWidgetFormFilterInput(),
       'position'     => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
-      'module_id'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'module_id'    => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Modules', 'column' => 'id')),
       'action_name'  => new sfValidatorPass(array('required' => false)),
       'action_title' => new sfValidatorPass(array('required' => false)),
       'position'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
@@ -44,7 +44,7 @@ class BasePermissionFormFilter extends BaseFormFilterPropel
   {
     return array(
       'id'           => 'Number',
-      'module_id'    => 'Number',
+      'module_id'    => 'ForeignKey',
       'action_name'  => 'Text',
       'action_title' => 'Text',
       'position'     => 'Number',

@@ -17,7 +17,7 @@ class BaseDayStartsForm extends BaseFormPropel
       'day_started_at' => new sfWidgetFormDateTime(),
       'day_started_by' => new sfWidgetFormInput(),
       'shop_id'        => new sfWidgetFormInput(),
-      'is_day_closed'  => new sfWidgetFormInputCheckbox(),
+      'is_day_closed'  => new sfWidgetFormInput(),
       'created_at'     => new sfWidgetFormDateTime(),
       'total_amount'   => new sfWidgetFormInput(),
     ));
@@ -27,7 +27,7 @@ class BaseDayStartsForm extends BaseFormPropel
       'day_started_at' => new sfValidatorDateTime(array('required' => false)),
       'day_started_by' => new sfValidatorInteger(array('required' => false)),
       'shop_id'        => new sfValidatorInteger(array('required' => false)),
-      'is_day_closed'  => new sfValidatorBoolean(array('required' => false)),
+      'is_day_closed'  => new sfValidatorInteger(array('required' => false)),
       'created_at'     => new sfValidatorDateTime(array('required' => false)),
       'total_amount'   => new sfValidatorNumber(array('required' => false)),
     ));

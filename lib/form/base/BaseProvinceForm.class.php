@@ -14,13 +14,13 @@ class BaseProvinceForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
-      'country_id' => new sfWidgetFormInput(),
+      'country_id' => new sfWidgetFormPropelChoice(array('model' => 'EnableCountry', 'add_empty' => false)),
       'province'   => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
       'id'         => new sfValidatorPropelChoice(array('model' => 'Province', 'column' => 'id', 'required' => false)),
-      'country_id' => new sfValidatorInteger(),
+      'country_id' => new sfValidatorPropelChoice(array('model' => 'EnableCountry', 'column' => 'id')),
       'province'   => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
