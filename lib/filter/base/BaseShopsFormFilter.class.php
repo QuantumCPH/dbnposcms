@@ -64,6 +64,7 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'values'                         => new sfWidgetFormFilterInput(),
       'vat_value'                      => new sfWidgetFormFilterInput(),
       'currency_id'                    => new sfWidgetFormFilterInput(),
+      'promotion_sync_requested_at'    => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -117,6 +118,7 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'values'                         => new sfValidatorPass(array('required' => false)),
       'vat_value'                      => new sfValidatorPass(array('required' => false)),
       'currency_id'                    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'promotion_sync_requested_at'    => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('shops_filters[%s]');
@@ -185,6 +187,7 @@ class BaseShopsFormFilter extends BaseFormFilterPropel
       'values'                         => 'Text',
       'vat_value'                      => 'Text',
       'currency_id'                    => 'Number',
+      'promotion_sync_requested_at'    => 'Text',
     );
   }
 }
