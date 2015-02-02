@@ -32,7 +32,7 @@ class BaseItemsSyncForm extends BaseFormPropel
       'created_at'           => new sfWidgetFormDateTime(),
       'synced_at'            => new sfWidgetFormDateTime(),
       'shop_id'              => new sfWidgetFormInput(),
-      'is_synced'            => new sfWidgetFormInput(),
+      'is_synced'            => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -55,7 +55,7 @@ class BaseItemsSyncForm extends BaseFormPropel
       'created_at'           => new sfValidatorDateTime(array('required' => false)),
       'synced_at'            => new sfValidatorDateTime(array('required' => false)),
       'shop_id'              => new sfValidatorInteger(array('required' => false)),
-      'is_synced'            => new sfValidatorInteger(array('required' => false)),
+      'is_synced'            => new sfValidatorBoolean(array('required' => false)),
     ));
 
     $this->validatorSchema->setPostValidator(

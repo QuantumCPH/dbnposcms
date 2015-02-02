@@ -19,7 +19,7 @@ class BaseImageHistoryFormFilter extends BaseFormFilterPropel
       'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'image_name'      => new sfWidgetFormFilterInput(),
       'updated_by'      => new sfWidgetFormFilterInput(),
-      'image_status_id' => new sfWidgetFormFilterInput(),
+      'image_status_id' => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'updated_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
     ));
 
@@ -28,7 +28,7 @@ class BaseImageHistoryFormFilter extends BaseFormFilterPropel
       'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'image_name'      => new sfValidatorPass(array('required' => false)),
       'updated_by'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'image_status_id' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'image_status_id' => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'updated_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
 
@@ -52,7 +52,7 @@ class BaseImageHistoryFormFilter extends BaseFormFilterPropel
       'created_at'      => 'Date',
       'image_name'      => 'Text',
       'updated_by'      => 'Number',
-      'image_status_id' => 'Number',
+      'image_status_id' => 'Boolean',
       'updated_at'      => 'Date',
     );
   }

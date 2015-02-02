@@ -17,7 +17,7 @@ class BaseShopsForm extends BaseFormPropel
       'name'                           => new sfWidgetFormInput(),
       'branch_number'                  => new sfWidgetFormInput(),
       'company_number'                 => new sfWidgetFormInput(),
-      'is_configured'                  => new sfWidgetFormInput(),
+      'is_configured'                  => new sfWidgetFormInputCheckbox(),
       'created_by'                     => new sfWidgetFormInput(),
       'created_at'                     => new sfWidgetFormDateTime(),
       'configured_at'                  => new sfWidgetFormDateTime(),
@@ -39,7 +39,7 @@ class BaseShopsForm extends BaseFormPropel
       'user_sync_requested_at'         => new sfWidgetFormDateTime(),
       'user_sync_synced_at'            => new sfWidgetFormDateTime(),
       'updated_at'                     => new sfWidgetFormDateTime(),
-      'negative_sale'                  => new sfWidgetFormInput(),
+      'negative_sale'                  => new sfWidgetFormInputCheckbox(),
       'language_id'                    => new sfWidgetFormPropelChoice(array('model' => 'Languages', 'add_empty' => true)),
       'time_out'                       => new sfWidgetFormInput(),
       'start_value_sale_receipt'       => new sfWidgetFormInput(),
@@ -58,12 +58,10 @@ class BaseShopsForm extends BaseFormPropel
       'receipt_tax_statment_one'       => new sfWidgetFormTextarea(),
       'receipt_tax_statment_two'       => new sfWidgetFormTextarea(),
       'receipt_tax_statment_three'     => new sfWidgetFormTextarea(),
-      'receipt_auto_print'             => new sfWidgetFormInput(),
+      'receipt_auto_print'             => new sfWidgetFormInputCheckbox(),
       'start_value_bookout'            => new sfWidgetFormInput(),
       'bookout_format_id'              => new sfWidgetFormInput(),
       'values'                         => new sfWidgetFormInput(),
-      'vat_value'                      => new sfWidgetFormInput(),
-      'currency_id'                    => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -71,7 +69,7 @@ class BaseShopsForm extends BaseFormPropel
       'name'                           => new sfValidatorString(array('max_length' => 45, 'required' => false)),
       'branch_number'                  => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'company_number'                 => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'is_configured'                  => new sfValidatorInteger(array('required' => false)),
+      'is_configured'                  => new sfValidatorBoolean(array('required' => false)),
       'created_by'                     => new sfValidatorInteger(array('required' => false)),
       'created_at'                     => new sfValidatorDateTime(array('required' => false)),
       'configured_at'                  => new sfValidatorDateTime(array('required' => false)),
@@ -93,7 +91,7 @@ class BaseShopsForm extends BaseFormPropel
       'user_sync_requested_at'         => new sfValidatorDateTime(array('required' => false)),
       'user_sync_synced_at'            => new sfValidatorDateTime(array('required' => false)),
       'updated_at'                     => new sfValidatorDateTime(array('required' => false)),
-      'negative_sale'                  => new sfValidatorInteger(array('required' => false)),
+      'negative_sale'                  => new sfValidatorBoolean(array('required' => false)),
       'language_id'                    => new sfValidatorPropelChoice(array('model' => 'Languages', 'column' => 'id', 'required' => false)),
       'time_out'                       => new sfValidatorString(array('max_length' => 45, 'required' => false)),
       'start_value_sale_receipt'       => new sfValidatorInteger(array('required' => false)),
@@ -112,12 +110,10 @@ class BaseShopsForm extends BaseFormPropel
       'receipt_tax_statment_one'       => new sfValidatorString(array('required' => false)),
       'receipt_tax_statment_two'       => new sfValidatorString(array('required' => false)),
       'receipt_tax_statment_three'     => new sfValidatorString(array('required' => false)),
-      'receipt_auto_print'             => new sfValidatorInteger(array('required' => false)),
+      'receipt_auto_print'             => new sfValidatorBoolean(array('required' => false)),
       'start_value_bookout'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'bookout_format_id'              => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'values'                         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'vat_value'                      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'currency_id'                    => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('shops[%s]');

@@ -40,9 +40,9 @@ class BaseTestFormFilter extends BaseFormFilterPropel
       'confirmed_at'           => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'sim_card_dispatch_date' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'package_id'             => new sfWidgetFormFilterInput(),
-      'send_letter'            => new sfWidgetFormFilterInput(),
-      'send_email'             => new sfWidgetFormFilterInput(),
-      'send_specification'     => new sfWidgetFormFilterInput(),
+      'send_letter'            => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'send_email'             => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'send_specification'     => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
     ));
 
     $this->setValidators(array(
@@ -71,9 +71,9 @@ class BaseTestFormFilter extends BaseFormFilterPropel
       'confirmed_at'           => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'sim_card_dispatch_date' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'package_id'             => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'send_letter'            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'send_email'             => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'send_specification'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'send_letter'            => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'send_email'             => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'send_specification'     => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
     ));
 
     $this->widgetSchema->setNameFormat('test_filters[%s]');
@@ -117,9 +117,9 @@ class BaseTestFormFilter extends BaseFormFilterPropel
       'confirmed_at'           => 'Date',
       'sim_card_dispatch_date' => 'Date',
       'package_id'             => 'Number',
-      'send_letter'            => 'Number',
-      'send_email'             => 'Number',
-      'send_specification'     => 'Number',
+      'send_letter'            => 'Boolean',
+      'send_email'             => 'Boolean',
+      'send_specification'     => 'Boolean',
     );
   }
 }

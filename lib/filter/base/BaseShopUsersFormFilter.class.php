@@ -22,8 +22,8 @@ class BaseShopUsersFormFilter extends BaseFormFilterPropel
       'status_id'      => new sfWidgetFormFilterInput(),
       'log_histry'     => new sfWidgetFormFilterInput(),
       'pos_role_id'    => new sfWidgetFormFilterInput(),
-      'pos_super_user' => new sfWidgetFormFilterInput(),
-      'is_primary'     => new sfWidgetFormFilterInput(),
+      'pos_super_user' => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'is_primary'     => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
     ));
 
     $this->setValidators(array(
@@ -34,8 +34,8 @@ class BaseShopUsersFormFilter extends BaseFormFilterPropel
       'status_id'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'log_histry'     => new sfValidatorPass(array('required' => false)),
       'pos_role_id'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'pos_super_user' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'is_primary'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'pos_super_user' => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'is_primary'     => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
     ));
 
     $this->widgetSchema->setNameFormat('shop_users_filters[%s]');
@@ -61,8 +61,8 @@ class BaseShopUsersFormFilter extends BaseFormFilterPropel
       'status_id'      => 'Number',
       'log_histry'     => 'Text',
       'pos_role_id'    => 'Number',
-      'pos_super_user' => 'Number',
-      'is_primary'     => 'Number',
+      'pos_super_user' => 'Boolean',
+      'is_primary'     => 'Boolean',
     );
   }
 }

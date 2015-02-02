@@ -21,8 +21,8 @@ class BaseShopUsersForm extends BaseFormPropel
       'status_id'      => new sfWidgetFormInput(),
       'log_histry'     => new sfWidgetFormTextarea(),
       'pos_role_id'    => new sfWidgetFormInput(),
-      'pos_super_user' => new sfWidgetFormInput(),
-      'is_primary'     => new sfWidgetFormInput(),
+      'pos_super_user' => new sfWidgetFormInputCheckbox(),
+      'is_primary'     => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -34,8 +34,8 @@ class BaseShopUsersForm extends BaseFormPropel
       'status_id'      => new sfValidatorInteger(array('required' => false)),
       'log_histry'     => new sfValidatorString(array('required' => false)),
       'pos_role_id'    => new sfValidatorInteger(array('required' => false)),
-      'pos_super_user' => new sfValidatorInteger(array('required' => false)),
-      'is_primary'     => new sfValidatorInteger(array('required' => false)),
+      'pos_super_user' => new sfValidatorBoolean(array('required' => false)),
+      'is_primary'     => new sfValidatorBoolean(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('shop_users[%s]');

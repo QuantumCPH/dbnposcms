@@ -20,7 +20,7 @@ class BaseDayEndsForm extends BaseFormPropel
       'day_start_id'    => new sfWidgetFormInput(),
       'created_at'      => new sfWidgetFormDateTime(),
       'total_amount'    => new sfWidgetFormInput(),
-      'success'         => new sfWidgetFormInput(),
+      'success'         => new sfWidgetFormInputCheckbox(),
       'expected_amount' => new sfWidgetFormInput(),
     ));
 
@@ -32,7 +32,7 @@ class BaseDayEndsForm extends BaseFormPropel
       'day_start_id'    => new sfValidatorInteger(array('required' => false)),
       'created_at'      => new sfValidatorDateTime(array('required' => false)),
       'total_amount'    => new sfValidatorNumber(array('required' => false)),
-      'success'         => new sfValidatorInteger(array('required' => false)),
+      'success'         => new sfValidatorBoolean(array('required' => false)),
       'expected_amount' => new sfValidatorNumber(array('required' => false)),
     ));
 

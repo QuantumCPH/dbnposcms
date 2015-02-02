@@ -39,9 +39,9 @@ class BaseTestForm extends BaseFormPropel
       'confirmed_at'           => new sfWidgetFormDate(),
       'sim_card_dispatch_date' => new sfWidgetFormDate(),
       'package_id'             => new sfWidgetFormInput(),
-      'send_letter'            => new sfWidgetFormInput(),
-      'send_email'             => new sfWidgetFormInput(),
-      'send_specification'     => new sfWidgetFormInput(),
+      'send_letter'            => new sfWidgetFormInputCheckbox(),
+      'send_email'             => new sfWidgetFormInputCheckbox(),
+      'send_specification'     => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -71,9 +71,9 @@ class BaseTestForm extends BaseFormPropel
       'confirmed_at'           => new sfValidatorDate(array('required' => false)),
       'sim_card_dispatch_date' => new sfValidatorDate(array('required' => false)),
       'package_id'             => new sfValidatorInteger(),
-      'send_letter'            => new sfValidatorInteger(),
-      'send_email'             => new sfValidatorInteger(),
-      'send_specification'     => new sfValidatorInteger(),
+      'send_letter'            => new sfValidatorBoolean(),
+      'send_email'             => new sfValidatorBoolean(),
+      'send_specification'     => new sfValidatorBoolean(),
     ));
 
     $this->widgetSchema->setNameFormat('test[%s]');

@@ -33,7 +33,7 @@ class BaseItemsSyncFormFilter extends BaseFormFilterPropel
       'created_at'           => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'synced_at'            => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'shop_id'              => new sfWidgetFormFilterInput(),
-      'is_synced'            => new sfWidgetFormFilterInput(),
+      'is_synced'            => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
     ));
 
     $this->setValidators(array(
@@ -55,7 +55,7 @@ class BaseItemsSyncFormFilter extends BaseFormFilterPropel
       'created_at'           => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'synced_at'            => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'shop_id'              => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'is_synced'            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'is_synced'            => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
     ));
 
     $this->widgetSchema->setNameFormat('items_sync_filters[%s]');
@@ -92,7 +92,7 @@ class BaseItemsSyncFormFilter extends BaseFormFilterPropel
       'created_at'           => 'Date',
       'synced_at'            => 'Date',
       'shop_id'              => 'Number',
-      'is_synced'            => 'Number',
+      'is_synced'            => 'Boolean',
     );
   }
 }

@@ -36,7 +36,7 @@ class BaseItemsLogFormFilter extends BaseFormFilterPropel
       'item_status_id'       => new sfWidgetFormFilterInput(),
       'updated_by'           => new sfWidgetFormFilterInput(),
       'image_name'           => new sfWidgetFormFilterInput(),
-      'image_status'         => new sfWidgetFormFilterInput(),
+      'image_status'         => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
     ));
 
     $this->setValidators(array(
@@ -61,7 +61,7 @@ class BaseItemsLogFormFilter extends BaseFormFilterPropel
       'item_status_id'       => new sfValidatorPass(array('required' => false)),
       'updated_by'           => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'image_name'           => new sfValidatorPass(array('required' => false)),
-      'image_status'         => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'image_status'         => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
     ));
 
     $this->widgetSchema->setNameFormat('items_log_filters[%s]');
@@ -101,7 +101,7 @@ class BaseItemsLogFormFilter extends BaseFormFilterPropel
       'item_status_id'       => 'Text',
       'updated_by'           => 'Number',
       'image_name'           => 'Text',
-      'image_status'         => 'Number',
+      'image_status'         => 'Boolean',
     );
   }
 }
