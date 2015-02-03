@@ -19,6 +19,7 @@ class BaseDayStartDenominationsFormFilter extends BaseFormFilterPropel
       'day_start_id'    => new sfWidgetFormFilterInput(),
       'count'           => new sfWidgetFormFilterInput(),
       'amount'          => new sfWidgetFormFilterInput(),
+      'day_attempt_id'  => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -26,6 +27,7 @@ class BaseDayStartDenominationsFormFilter extends BaseFormFilterPropel
       'day_start_id'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'count'           => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'amount'          => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'day_attempt_id'  => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('day_start_denominations_filters[%s]');
@@ -48,6 +50,7 @@ class BaseDayStartDenominationsFormFilter extends BaseFormFilterPropel
       'day_start_id'    => 'Number',
       'count'           => 'Number',
       'amount'          => 'Number',
+      'day_attempt_id'  => 'Number',
     );
   }
 }
