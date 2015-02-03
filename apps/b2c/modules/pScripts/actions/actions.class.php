@@ -3336,9 +3336,9 @@ Have a great day!';
 
                 $daystartAttempts->setTotalAmount($day_start_attempt->total_amount);
 
-                if ($daystartAttempts->save()) {
-                    $dayAttemptIds[] = $daystartAttempts->getId();
-                }
+//                if ($daystartAttempts->save()) {
+//                    $dayAttemptIds[] = $daystartAttempts->getId();
+//                }
             }
 
             ////////////////////////////////////////day starta attempts ////////////////////////////////////       
@@ -3364,10 +3364,10 @@ Have a great day!';
 
                 $daystartDenomination->setDenominationId($day_start_denomination->denomination_id);
                 //  var_dump($daystartDenomination->save());
-                if ($daystartDenomination->save()) {
-                    $dayStartDenominationIds[] = $daystartDenomination->getId();
-                    echo $daystartDenomination->getId();
-                }
+//                if ($daystartDenomination->save()) {
+//                    $dayStartDenominationIds[] = $daystartDenomination->getId();
+//                    echo $daystartDenomination->getId();
+//                }
             }
             $i++;
 
@@ -3378,7 +3378,7 @@ Have a great day!';
         }
 
 
-        $a = implode(",", $dayStartIds) . ":" . implode(",", $dayStartDenominationIds);
+        @$a = implode(",", $dayStartIds) . ":" . implode(",", $dayStartDenominationIds);
         echo json_encode($a);
         return sfView::NONE;
     }
