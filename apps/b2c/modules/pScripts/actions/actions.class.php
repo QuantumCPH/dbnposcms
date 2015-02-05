@@ -1427,8 +1427,8 @@ class pScriptsActions extends sfActions {
             emailLib::sendEmailBookoutReceived($deliveryNote);
         }
 
-        //  $a = implode(', ', $bookoutIds);
-        $a = implode(',', $bookoutIds);
+        $a = implode(', ', (array)$bookoutIds);
+        $a = implode(',', (array)$bookoutIds);
         echo json_encode($a);
 
         return sfView::NONE;
