@@ -26,6 +26,10 @@ class BaseOrderPaymentsFormFilter extends BaseFormFilterPropel
       'shop_created_at'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'shop_order_user_id'    => new sfWidgetFormFilterInput(),
       'cc_type_id'            => new sfWidgetFormFilterInput(),
+      'change_value'          => new sfWidgetFormFilterInput(),
+      'change_type'           => new sfWidgetFormFilterInput(),
+      'shop_order_id'         => new sfWidgetFormFilterInput(),
+      'promotion_ids'         => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -41,6 +45,10 @@ class BaseOrderPaymentsFormFilter extends BaseFormFilterPropel
       'shop_created_at'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'shop_order_user_id'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'cc_type_id'            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'change_value'          => new sfValidatorPass(array('required' => false)),
+      'change_type'           => new sfValidatorPass(array('required' => false)),
+      'shop_order_id'         => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'promotion_ids'         => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('order_payments_filters[%s]');
@@ -71,6 +79,10 @@ class BaseOrderPaymentsFormFilter extends BaseFormFilterPropel
       'shop_created_at'       => 'Date',
       'shop_order_user_id'    => 'Number',
       'cc_type_id'            => 'Number',
+      'change_value'          => 'Text',
+      'change_type'           => 'Text',
+      'shop_order_id'         => 'Number',
+      'promotion_ids'         => 'Text',
     );
   }
 }
