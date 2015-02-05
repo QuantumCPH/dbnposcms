@@ -3451,9 +3451,9 @@ Have a great day!';
                 $dayendDenomination->setDayEndId($day_end_denomination->day_end_id);
                 $dayendDenomination->setAmount($day_end_denomination->amount);
                 $dayendDenomination->setDenominationId($day_end_denomination->denomination_id);
-                //if ($dayendDenomination->save()) {
+                if ($dayendDenomination->save()) {
                     $dayEndDenominationIds[] = $dayendDenomination->getId();
-                //}
+                }
             }
             $i++;
         }
