@@ -31,6 +31,7 @@ class BaseGcmRequestFormFilter extends BaseFormFilterPropel
       'user_id'        => new sfWidgetFormFilterInput(),
       'received_at'    => new sfWidgetFormFilterInput(),
       'receive_count'  => new sfWidgetFormFilterInput(),
+      'updated_at'     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
     ));
 
     $this->setValidators(array(
@@ -51,6 +52,7 @@ class BaseGcmRequestFormFilter extends BaseFormFilterPropel
       'user_id'        => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'received_at'    => new sfValidatorPass(array('required' => false)),
       'receive_count'  => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'updated_at'     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
 
     $this->widgetSchema->setNameFormat('gcm_request_filters[%s]');
@@ -86,6 +88,7 @@ class BaseGcmRequestFormFilter extends BaseFormFilterPropel
       'user_id'        => 'Number',
       'received_at'    => 'Text',
       'receive_count'  => 'Number',
+      'updated_at'     => 'Date',
     );
   }
 }

@@ -30,6 +30,7 @@ class BaseGcmRequestForm extends BaseFormPropel
       'user_id'        => new sfWidgetFormInput(),
       'received_at'    => new sfWidgetFormInput(),
       'receive_count'  => new sfWidgetFormInput(),
+      'updated_at'     => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
@@ -51,6 +52,7 @@ class BaseGcmRequestForm extends BaseFormPropel
       'user_id'        => new sfValidatorInteger(array('required' => false)),
       'received_at'    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'receive_count'  => new sfValidatorInteger(array('required' => false)),
+      'updated_at'     => new sfValidatorDateTime(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('gcm_request[%s]');
