@@ -25,6 +25,12 @@ class BaseBookoutNotesForm extends BaseFormPropel
       'note_id'        => new sfWidgetFormInput(),
       'status_id'      => new sfWidgetFormInput(),
       'item_id'        => new sfWidgetFormInput(),
+      'company_number' => new sfWidgetFormInput(),
+      'shop_id'        => new sfWidgetFormInput(),
+      'quantity'       => new sfWidgetFormInput(),
+      'delivery_date'  => new sfWidgetFormInput(),
+      'comment'        => new sfWidgetFormInput(),
+      'group_id'       => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -36,11 +42,17 @@ class BaseBookoutNotesForm extends BaseFormPropel
       'received_at'    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'action'         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'created_at'     => new sfValidatorDateTime(array('required' => false)),
-      'updated_at'     => new sfValidatorDateTime(),
-      'updated_by'     => new sfValidatorInteger(array('required' => false)),
+      'updated_at'     => new sfValidatorDateTime(array('required' => false)),
+      'updated_by'     => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'note_id'        => new sfValidatorInteger(array('required' => false)),
       'status_id'      => new sfValidatorInteger(array('required' => false)),
       'item_id'        => new sfValidatorInteger(array('required' => false)),
+      'company_number' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'shop_id'        => new sfValidatorInteger(array('required' => false)),
+      'quantity'       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'delivery_date'  => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'comment'        => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'group_id'       => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('bookout_notes[%s]');
