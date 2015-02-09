@@ -1,0 +1,790 @@
+rpropel:
+  _attributes:
+    package: lib.model
+    defaultIdMethod: native
+  bookout_notes:
+    _attributes: { phpName: BookoutNotes }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    bookout_number: { type: VARCHAR, size: '255', required: false }
+    branch_number: { type: VARCHAR, size: '255', required: false }
+    status: { type: VARCHAR, size: '255', required: false }
+    synced_at: { type: VARCHAR, size: '255', required: false }
+    received_at: { type: VARCHAR, size: '255', required: false }
+    action: { type: VARCHAR, size: '255', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    updated_at: { type: TIMESTAMP, required: true, defaultValue: CURRENT_TIMESTAMP }
+    updated_by: { type: BIGINT, size: '20', required: false }
+    note_id: { type: BIGINT, size: '20', required: false }
+    status_id: { type: BIGINT, size: '20', required: false }
+    item_id: { type: BIGINT, size: '20', required: false }
+  city:
+    _attributes: { phpName: City }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    country_id: { type: INTEGER, size: '11', required: false, foreignTable: country, foreignReference: id, onDelete: CASCADE, onUpdate: CASCADE }
+    name: { type: VARCHAR, size: '255', required: true }
+    _indexes: { city_FI_1: [country_id] }
+  country:
+    _attributes: { phpName: Country }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    name: { type: VARCHAR, size: '255', required: true }
+    code: { type: VARCHAR, size: '50', required: true }
+    calling_code: { type: VARCHAR, size: '5', required: true }
+    cbf_rate: { type: FLOAT, required: false }
+    taisys_rate: { type: FLOAT, required: false }
+    web_sms_status: { type: INTEGER, size: '11', required: false }
+  cron_job_history:
+    _attributes: { phpName: CronJobHistory }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    start: { type: TIMESTAMP, required: false }
+    end: { type: TIMESTAMP, required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    cron_job_id: { type: BIGINT, size: '20', required: false }
+  cron_job_history_info:
+    _attributes: { phpName: CronJobHistoryInfo }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    xml: { type: VARCHAR, size: '255', required: false }
+    csv: { type: VARCHAR, size: '255', required: false }
+    status: { type: TINYINT, size: '4', required: false }
+    message: { type: LONGVARCHAR, required: false }
+    cron_job_history_id: { type: BIGINT, size: '20', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    _indexes: { balance: [cron_job_history_id] }
+  cron_jobs:
+    _attributes: { phpName: CronJobs }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    custom_minutes: { type: VARCHAR, size: '255', required: false }
+    minutes: { type: VARCHAR, size: '255', required: false }
+    hours: { type: VARCHAR, size: '255', required: false }
+    custom_hours: { type: VARCHAR, size: '255', required: false }
+    days: { type: VARCHAR, size: '255', required: false }
+    custom_days: { type: VARCHAR, size: '255', required: false }
+    months: { type: VARCHAR, size: '255', required: false }
+    custom_months: { type: VARCHAR, size: '255', required: false }
+    weekdays: { type: VARCHAR, size: '255', required: false }
+    custom_weekdays: { type: VARCHAR, size: '255', required: false }
+    cron_type_id: { type: BIGINT, size: '20', required: false }
+    job: { type: LONGVARCHAR, required: false }
+    defination_file_path: { type: LONGVARCHAR, required: false }
+    data_file_path: { type: LONGVARCHAR, required: false }
+    job_name: { type: VARCHAR, size: '255', required: false }
+    email: { type: VARCHAR, size: '255', required: false }
+    cron_jobs: { type: VARCHAR, size: '255', required: false }
+  cron_types:
+    _attributes: { phpName: CronTypes }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    title: { type: VARCHAR, size: '45', required: false }
+    url: { type: LONGVARCHAR, required: false }
+  day_end_denominations:
+    _attributes: { phpName: DayEndDenominations }
+    id: { type: BIGINT, size: '20', primaryKey: true, required: true }
+    denomination_id: { type: INTEGER, size: '11', required: false }
+    day_end_id: { type: BIGINT, size: '20', required: false }
+    count: { type: INTEGER, size: '11', required: false }
+    amount: { type: DOUBLE, required: false }
+  day_ends:
+    _attributes: { phpName: DayEnds }
+    id: { type: BIGINT, size: '20', primaryKey: true, required: true }
+    day_ended_at: { type: TIMESTAMP, required: false }
+    day_ended_by: { type: BIGINT, size: '20', required: false }
+    shop_id: { type: BIGINT, size: '20', required: false }
+    day_start_id: { type: BIGINT, size: '20', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    total_amount: { type: DOUBLE, required: false }
+    success: { type: TINYINT, size: '1', required: false }
+    expected_amount: { type: DOUBLE, required: false }
+    cash: { type: VARCHAR, size: '255', required: false }
+    card: { type: VARCHAR, size: '255', required: false }
+    voucher: { type: VARCHAR, size: '255', required: false }
+    sale: { type: VARCHAR, size: '255', required: false }
+  day_start_denominations:
+    _attributes: { phpName: DayStartDenominations }
+    id: { type: BIGINT, size: '20', primaryKey: true, required: true }
+    denomination_id: { type: INTEGER, size: '11', required: false }
+    day_start_id: { type: BIGINT, size: '20', required: false }
+    count: { type: INTEGER, size: '11', required: false }
+    amount: { type: DOUBLE, required: false }
+    day_attempt_id: { type: BIGINT, size: '20', required: false }
+  day_starts:
+    _attributes: { phpName: DayStarts }
+    id: { type: BIGINT, size: '20', primaryKey: true, required: true }
+    day_started_at: { type: TIMESTAMP, required: false }
+    day_started_by: { type: BIGINT, size: '20', required: false }
+    shop_id: { type: BIGINT, size: '20', required: false }
+    is_day_closed: { type: TINYINT, size: '1', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    total_amount: { type: DOUBLE, required: false }
+    expected_amount: { type: VARCHAR, size: '255', required: false }
+    journal_id: { type: BIGINT, size: '20', required: false }
+    success: { type: VARCHAR, size: '255', required: false }
+  day_starts_attempts:
+    _attributes: { phpName: DayStartsAttempts }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    total_amount: { type: VARCHAR, size: '255', required: false }
+    expected_amount: { type: VARCHAR, size: '255', required: false }
+    day_start_id: { type: BIGINT, size: '20', required: false }
+    is_synce: { type: VARCHAR, size: '255', required: false }
+    created_at: { type: TIMESTAMP, required: true, defaultValue: CURRENT_TIMESTAMP }
+    updated_by: { type: VARCHAR, size: '255', required: false }
+    shop_id: { type: BIGINT, size: '20', required: false }
+  delivery_notes:
+    _attributes: { phpName: DeliveryNotes }
+    id: { type: BIGINT, size: '20', primaryKey: true, required: true }
+    note_id: { type: VARCHAR, size: '100', required: false }
+    group_id: { type: INTEGER, size: '11', required: false }
+    item_id: { type: VARCHAR, size: '100', required: false }
+    branch_number: { type: VARCHAR, size: '100', required: false }
+    company_number: { type: VARCHAR, size: '100', required: false }
+    quantity: { type: INTEGER, size: '11', required: false }
+    delivery_date: { type: TIMESTAMP, required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    status_id: { type: INTEGER, size: '11', required: false }
+    received_at: { type: TIMESTAMP, required: false }
+    received_quantity: { type: INTEGER, size: '11', required: false }
+    comment: { type: VARCHAR, size: '500', required: false }
+    user_id: { type: INTEGER, size: '11', required: false }
+    shop_id: { type: BIGINT, size: '20', required: false }
+    is_synced: { type: TINYINT, size: '1', required: false, defaultValue: '0' }
+    is_received: { type: TINYINT, size: '1', required: false, defaultValue: '0' }
+    synced_at: { type: TIMESTAMP, required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    shop_responded_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: BIGINT, size: '20', required: false }
+    synced_day_start_id: { type: BIGINT, size: '20', required: false }
+    received_day_start_id: { type: BIGINT, size: '20', required: false }
+  denominations:
+    _attributes: { phpName: Denominations }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    title: { type: VARCHAR, size: '100', required: false }
+    amount: { type: DOUBLE, required: false }
+  device:
+    _attributes: { phpName: Device }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    name: { type: VARCHAR, size: '255', required: true }
+    manufacturer_id: { type: BIGINT, size: '20', required: true, foreignTable: manufacturer, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    image_file_name: { type: VARCHAR, size: '100', required: false }
+    _indexes: { FK_device_manufacturer: [manufacturer_id] }
+  dibs_call:
+    _attributes: { phpName: DibsCall }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    callurl: { type: LONGVARCHAR, required: false }
+    created_at: { type: TIMESTAMP, required: true, defaultValue: CURRENT_TIMESTAMP }
+    decrypted_data: { type: LONGVARCHAR, required: false }
+    call_response: { type: VARCHAR, size: '255', required: false }
+  discount_types:
+    _attributes: { phpName: DiscountTypes }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    name: { type: VARCHAR, size: '100', required: false }
+  email_queue:
+    _attributes: { phpName: EmailQueue }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    message: { type: LONGVARCHAR, required: true }
+    receipient_email: { type: VARCHAR, size: '100', required: true }
+    subject: { type: VARCHAR, size: '500', required: true }
+    created_at: { type: TIMESTAMP, required: true, defaultValue: CURRENT_TIMESTAMP }
+    receipient_name: { type: VARCHAR, size: '100', required: true }
+    ref_id: { type: BIGINT, size: '20', required: false }
+    email_status_id: { type: INTEGER, size: '11', required: true, defaultValue: '1', foreignTable: status, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    email_type: { type: VARCHAR, size: '25', required: false }
+    _indexes: { FK_email_queue: [email_status_id] }
+  enable_country:
+    _attributes: { phpName: EnableCountry }
+    id: { type: INTEGER, size: '200', primaryKey: true, autoIncrement: true, required: true }
+    name: { type: VARCHAR, size: '300', required: true }
+    language: { type: VARCHAR, size: '300', required: true }
+    language_symbol: { type: VARCHAR, size: '300', required: true }
+    currency: { type: VARCHAR, size: '300', required: true }
+    currency_symbol: { type: VARCHAR, size: '300', required: true }
+    status: { type: INTEGER, size: '10', required: true, foreignTable: status, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    ceated_at: { type: TIMESTAMP, required: true, defaultValue: CURRENT_TIMESTAMP }
+    base_url: { type: VARCHAR, size: '300', required: true }
+    refill: { type: VARCHAR, size: '400', required: true }
+    calling_code: { type: VARCHAR, size: '50', required: true }
+    cbf_rate: { type: FLOAT, required: true }
+    _indexes: { status: [status] }
+  entity_status:
+    _attributes: { phpName: EntityStatus }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    name: { type: VARCHAR, size: '255', required: true }
+  gcm_request:
+    _attributes: { phpName: GcmRequest }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    branch_number: { type: VARCHAR, size: '255', required: false }
+    branch_name: { type: VARCHAR, size: '255', required: false }
+    user: { type: VARCHAR, size: '255', required: false }
+    actiion_name: { type: VARCHAR, size: '255', required: false }
+    created_at: { type: VARCHAR, size: '255', required: false }
+    status: { type: VARCHAR, size: '255', required: false }
+    sent: { type: VARCHAR, size: '255', required: false }
+    recieved: { type: VARCHAR, size: '255', required: false }
+    updaed_at: { type: VARCHAR, size: '255', required: false }
+    updated_by: { type: VARCHAR, size: '255', required: false }
+    shop_id: { type: BIGINT, size: '20', required: false }
+    action_name: { type: VARCHAR, size: '255', required: false }
+    sent_count: { type: VARCHAR, size: '255', required: false }
+    request_status: { type: VARCHAR, size: '255', required: false }
+    user_id: { type: BIGINT, size: '20', required: false }
+    received_at: { type: VARCHAR, size: '255', required: false }
+    receive_count: { type: BIGINT, size: '20', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+  image_history:
+    _attributes: { phpName: ImageHistory }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    item_id: { type: VARCHAR, size: '255', required: false }
+    created_at: { type: TIMESTAMP, required: true, defaultValue: CURRENT_TIMESTAMP }
+    image_name: { type: VARCHAR, size: '255', required: false }
+    updated_by: { type: BIGINT, size: '20', required: false }
+    image_status_id: { type: TINYINT, size: '1', required: false, defaultValue: '0' }
+    updated_at: { type: TIMESTAMP, required: false }
+  inventory:
+    _attributes: { phpName: Inventory }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    shop_id: { type: BIGINT, size: '20', required: false }
+    cms_item_id: { type: BIGINT, size: '20', required: false }
+    total: { type: BIGINT, size: '20', required: false, defaultValue: '0' }
+    sold: { type: BIGINT, size: '20', required: false, defaultValue: '0' }
+    book_out: { type: VARCHAR, size: '20', required: false, defaultValue: '0' }
+    returned: { type: VARCHAR, size: '20', required: false, defaultValue: '0' }
+    available: { type: VARCHAR, size: '20', required: false, defaultValue: '0' }
+    created_at: { type: VARCHAR, size: '255', required: true }
+    updated_at: { type: VARCHAR, size: '255', required: true }
+    item_id: { type: BIGINT, size: '20', required: false }
+    delivery_count: { type: BIGINT, size: '20', required: false }
+    stock_in: { type: VARCHAR, size: '255', required: false }
+    stock_out: { type: VARCHAR, size: '255', required: false }
+  items:
+    _attributes: { phpName: Items }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true, index: unique }
+    description1: { type: LONGVARCHAR, required: false }
+    description2: { type: LONGVARCHAR, required: false }
+    description3: { type: VARCHAR, size: '100', required: false }
+    supplier_number: { type: VARCHAR, size: '100', required: false }
+    supplier_item_number: { type: VARCHAR, size: '100', required: false }
+    ean: { type: VARCHAR, size: '100', required: false }
+    group: { type: VARCHAR, size: '255', required: false }
+    color: { type: VARCHAR, size: '255', required: false }
+    size: { type: VARCHAR, size: '255', required: false }
+    buying_price: { type: DOUBLE, required: false }
+    selling_price: { type: DOUBLE, required: false }
+    taxation_code: { type: INTEGER, size: '11', required: false }
+    small_pic: { type: VARCHAR, size: '100', required: false }
+    large_pic: { type: VARCHAR, size: '100', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    item_updated_at: { type: TIMESTAMP, required: false }
+    item_id: { type: VARCHAR, size: '100', required: false }
+    original_pic: { type: VARCHAR, size: '255', required: false }
+    image_update: { type: TINYINT, size: '1', required: false, defaultValue: '0' }
+    image_status: { type: TINYINT, size: '1', required: false, defaultValue: '0' }
+    image_update_date: { type: TIMESTAMP, required: false }
+    status_id: { type: INTEGER, size: '11', required: false, defaultValue: '3' }
+    updated_at: { type: TIMESTAMP, required: false }
+    _indexes: { fk_items_colors1_idx: [color], fk_items_groups1_idx: [group], fk_items_sizes1_idx: [size] }
+  items_log:
+    _attributes: { phpName: ItemsLog }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true, index: unique }
+    item_id: { type: VARCHAR, size: '255', required: false }
+    description1: { type: LONGVARCHAR, required: false }
+    description2: { type: LONGVARCHAR, required: false }
+    description3: { type: VARCHAR, size: '255', required: false }
+    supplier_number: { type: VARCHAR, size: '100', required: false }
+    supplier_item_number: { type: VARCHAR, size: '100', required: false }
+    ean: { type: VARCHAR, size: '100', required: false }
+    group: { type: VARCHAR, size: '255', required: false }
+    color: { type: VARCHAR, size: '255', required: false }
+    size: { type: VARCHAR, size: '255', required: false }
+    buying_price: { type: VARCHAR, size: '255', required: false }
+    selling_price: { type: VARCHAR, size: '255', required: false }
+    taxation_code: { type: VARCHAR, size: '255', required: false }
+    available_quantity: { type: VARCHAR, size: '255', required: false }
+    small_pic: { type: VARCHAR, size: '100', required: false }
+    large_pic: { type: VARCHAR, size: '100', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    item_status_id: { type: VARCHAR, size: '255', required: false }
+    updated_by: { type: BIGINT, size: '20', required: false }
+    image_name: { type: VARCHAR, size: '255', required: false }
+    image_status: { type: TINYINT, size: '1', required: false, defaultValue: '0' }
+  items_sync:
+    _attributes: { phpName: ItemsSync }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true, index: unique }
+    item_id: { type: BIGINT, size: '20', required: false }
+    description1: { type: LONGVARCHAR, required: false }
+    description2: { type: LONGVARCHAR, required: false }
+    description3: { type: VARCHAR, size: '255', required: false }
+    supplier_number: { type: VARCHAR, size: '100', required: false }
+    supplier_item_number: { type: VARCHAR, size: '100', required: false }
+    ean: { type: VARCHAR, size: '100', required: false }
+    group: { type: VARCHAR, size: '255', required: false }
+    color: { type: VARCHAR, size: '255', required: false }
+    size: { type: VARCHAR, size: '255', required: false }
+    buying_price: { type: DOUBLE, required: false }
+    selling_price: { type: DOUBLE, required: false }
+    taxation_code: { type: INTEGER, size: '11', required: false }
+    small_pic: { type: VARCHAR, size: '100', required: false }
+    large_pic: { type: VARCHAR, size: '100', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    synced_at: { type: TIMESTAMP, required: false }
+    shop_id: { type: BIGINT, size: '20', required: false }
+    is_synced: { type: TINYINT, size: '1', required: false, defaultValue: '0' }
+  journal:
+    _attributes: { phpName: Journal }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    shop_id: { type: BIGINT, size: '20', required: false }
+    day_starts_journal: { type: VARCHAR, size: '255', required: false }
+    journal_id: { type: BIGINT, size: '20', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: VARCHAR, size: '255', required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    created_date: { type: TIMESTAMP, required: false }
+  lang_type:
+    _attributes: { phpName: LangType }
+    id: { type: INTEGER, size: '200', primaryKey: true, autoIncrement: true, required: true }
+    name: { type: VARCHAR, size: '300', required: true }
+    code: { type: VARCHAR, size: '200', required: true }
+    status: { type: INTEGER, size: '2', required: true }
+  languages:
+    _attributes: { phpName: Languages }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    title: { type: VARCHAR, size: '255', required: true }
+  login_history:
+    _attributes: { phpName: LoginHistory }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    user_id: { type: BIGINT, size: '20', required: false, foreignTable: user, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    created_at: { type: TIMESTAMP, required: false }
+    ip_address: { type: VARCHAR, size: '20', required: true }
+    _indexes: { login_history_FI_1: [user_id] }
+  manufacturer:
+    _attributes: { phpName: Manufacturer }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    name: { type: VARCHAR, size: '255', required: true }
+  modules:
+    _attributes: { phpName: Modules }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    title: { type: VARCHAR, size: '250', required: true }
+    created_at: { type: TIMESTAMP, required: true, defaultValue: CURRENT_TIMESTAMP }
+  nationality:
+    _attributes: { phpName: Nationality }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    title: { type: VARCHAR, size: '225', required: true }
+  newupdate:
+    _attributes: { phpName: Newupdate }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    created_at: { type: TIMESTAMP, required: true }
+    message: { type: CLOB, required: true }
+    heading: { type: VARCHAR, size: '50', required: true }
+    starting_date: { type: DATE, required: true }
+    expire_date: { type: DATE, required: true }
+  order_payments:
+    _attributes: { phpName: OrderPayments }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    order_id: { type: BIGINT, size: '20', required: false }
+    payment_type_id: { type: INTEGER, size: '11', required: false }
+    amount: { type: DOUBLE, required: false }
+    shop_id: { type: BIGINT, size: '20', required: false }
+    shop_order_payment_id: { type: BIGINT, size: '20', required: false }
+    dyn_syn: { type: TINYINT, size: '1', required: false }
+    created_at: { type: TIMESTAMP, required: false, defaultValue: CURRENT_TIMESTAMP }
+    updated_at: { type: TIMESTAMP, required: false }
+    day_start_id: { type: BIGINT, size: '20', required: false }
+    shop_created_at: { type: TIMESTAMP, required: false }
+    shop_order_user_id: { type: BIGINT, size: '20', required: false }
+    cc_type_id: { type: INTEGER, size: '11', required: false }
+    change_value: { type: VARCHAR, size: '255', required: false }
+    change_type: { type: VARCHAR, size: '255', required: false }
+    shop_order_id: { type: BIGINT, size: '20', required: false }
+    promotion_ids: { type: VARCHAR, size: '255', required: false }
+    _indexes: { fk_order_payments_order_numbers1_idx: [order_id] }
+  order_status:
+    _attributes: { phpName: OrderStatus }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    name: { type: VARCHAR, size: '255', required: true }
+  orders:
+    _attributes: { phpName: Orders }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    created_at: { type: TIMESTAMP, required: false }
+    total_amount: { type: DOUBLE, required: false }
+    status_id: { type: INTEGER, size: '11', required: false }
+    total_sold_amount: { type: DOUBLE, required: false }
+    discount_value: { type: DOUBLE, required: false }
+    discount_type_id: { type: INTEGER, size: '11', required: false }
+    shop_user_id: { type: BIGINT, size: '20', required: false }
+    shop_order_id: { type: BIGINT, size: '20', required: false }
+    shop_id: { type: BIGINT, size: '20', required: false }
+    shop_receipt_number_id: { type: BIGINT, size: '20', required: false }
+    updated_at: { type: TIMESTAMP, required: false, defaultValue: CURRENT_TIMESTAMP }
+    day_start_id: { type: BIGINT, size: '20', required: false }
+    employee_id: { type: BIGINT, size: '20', required: false }
+    _indexes: { fk_order_numbers_statuses1_idx: [status_id], fk_orders_discount_types1_idx: [discount_type_id], fk_orders_users1_idx: [shop_user_id] }
+  package:
+    _attributes: { phpName: Package }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    name: { type: VARCHAR, size: '50', required: false }
+    billing_dur: { type: INTEGER, size: '11', required: true, defaultValue: '1' }
+    billing_due_days: { type: TINYINT, size: '4', required: false }
+    specificatoin_cost: { type: FLOAT, required: false }
+    R1_cost: { type: FLOAT, required: false }
+    R2_cost: { type: FLOAT, required: false }
+    activaton_cost: { type: FLOAT, required: false }
+    created_at: { type: TIMESTAMP, required: true, defaultValue: CURRENT_TIMESTAMP }
+    updated_at: { type: TIMESTAMP, required: false }
+  payment_types:
+    _attributes: { phpName: PaymentTypes }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    title: { type: VARCHAR, size: '100', required: false }
+  payments:
+    _attributes: { phpName: Payments }
+    id: { type: INTEGER, size: '6', primaryKey: true, autoIncrement: true, required: true }
+    txnid: { type: VARCHAR, size: '20', required: true }
+    payment_amount: { type: DECIMAL, size: '7', scale: '2', required: true }
+    payment_status: { type: VARCHAR, size: '25', required: true }
+    itemid: { type: VARCHAR, size: '25', required: true }
+    createdtime: { type: TIMESTAMP, required: true, defaultValue: CURRENT_TIMESTAMP }
+  permission:
+    _attributes: { phpName: Permission }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    module_id: { type: INTEGER, size: '11', required: true, foreignTable: modules, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    action_name: { type: VARCHAR, size: '50', required: true }
+    action_title: { type: VARCHAR, size: '250', required: true }
+    position: { type: INTEGER, size: '11', required: false, defaultValue: '0' }
+    _indexes: { module_id: [module_id] }
+  pos_modules:
+    _attributes: { phpName: PosModules }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    title: { type: VARCHAR, size: '250', required: true }
+    created_at: { type: TIMESTAMP, required: true, defaultValue: CURRENT_TIMESTAMP }
+  pos_permission:
+    _attributes: { phpName: PosPermission }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    pos_module_id: { type: INTEGER, size: '11', required: true, foreignTable: pos_modules, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    action_name: { type: VARCHAR, size: '50', required: true }
+    action_title: { type: VARCHAR, size: '250', required: true }
+    position: { type: INTEGER, size: '11', required: false, defaultValue: '0' }
+    _indexes: { pos_module_id: [pos_module_id] }
+  pos_role:
+    _attributes: { phpName: PosRole }
+    id: { type: BIGINT, size: '20', primaryKey: true, required: true }
+    name: { type: VARCHAR, size: '100', required: true }
+  pos_role_permission_ref:
+    _attributes: { phpName: PosRolePermissionRef }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    pos_role_id: { type: BIGINT, size: '20', required: true }
+    pos_permission_id: { type: INTEGER, size: '11', required: true }
+  pos_shop_role:
+    _attributes: { phpName: PosShopRole }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    pos_role_id: { type: BIGINT, size: '20', required: false }
+    shop_id: { type: BIGINT, size: '20', required: false }
+    created_at: { type: TIMESTAMP, required: true, defaultValue: CURRENT_TIMESTAMP }
+    updated_at: { type: TIMESTAMP, required: false }
+    status_id: { type: INTEGER, size: '11', required: false }
+  preferred_languages:
+    _attributes: { phpName: PreferredLanguages }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    language: { type: VARCHAR, size: '255', required: false }
+    language_code: { type: VARCHAR, size: '50', required: false }
+  promotion:
+    _attributes: { phpName: Promotion }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    promotion_title: { type: VARCHAR, size: '255', required: false }
+    start_date: { type: VARCHAR, size: '255', required: false }
+    end_date: { type: VARCHAR, size: '255', required: false }
+    on_all_item: { type: VARCHAR, size: '255', required: false }
+    promotion_value: { type: VARCHAR, size: '255', required: false }
+    promotion_type: { type: VARCHAR, size: '255', required: false }
+    on_all_branch: { type: VARCHAR, size: '255', required: false }
+    created_at: { type: TIMESTAMP, required: true, defaultValue: CURRENT_TIMESTAMP }
+    updated_by: { type: VARCHAR, size: '255', required: false }
+    promotion_status: { type: VARCHAR, size: '255', required: false }
+    updated_at: { type: TIMESTAMP, required: true, defaultValue: '0000-00-00 00:00:00' }
+    item_id_type: { type: VARCHAR, size: '255', required: false }
+    item_id: { type: BIGINT, size: '20', required: false }
+    item_id_to: { type: VARCHAR, size: '255', required: false }
+    item_id_from: { type: VARCHAR, size: '255', required: false }
+    description1: { type: VARCHAR, size: '255', required: false }
+    description2: { type: VARCHAR, size: '255', required: false }
+    description3: { type: VARCHAR, size: '255', required: false }
+    size: { type: VARCHAR, size: '255', required: false }
+    color: { type: VARCHAR, size: '255', required: false }
+    group_type: { type: VARCHAR, size: '255', required: false }
+    group_name: { type: VARCHAR, size: '255', required: false }
+    group_to: { type: VARCHAR, size: '255', required: false }
+    group_from: { type: VARCHAR, size: '255', required: false }
+    price_type: { type: VARCHAR, size: '255', required: false }
+    price_less: { type: VARCHAR, size: '255', required: false }
+    price_greater: { type: VARCHAR, size: '255', required: false }
+    price_to: { type: VARCHAR, size: '255', required: false }
+    price_from: { type: VARCHAR, size: '255', required: false }
+    supplier_number: { type: VARCHAR, size: '255', required: false }
+    supplier_item_number: { type: VARCHAR, size: '255', required: false }
+    branch_id: { type: BIGINT, size: '20', required: false }
+  province:
+    _attributes: { phpName: Province }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    country_id: { type: INTEGER, size: '11', required: true, foreignTable: enable_country, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    province: { type: VARCHAR, size: '255', required: false }
+    _indexes: { FK_province_en_country_id: [country_id] }
+  receipt_formats:
+    _attributes: { phpName: ReceiptFormats }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    title: { type: VARCHAR, size: '255', required: true }
+  return_notes:
+    _attributes: { phpName: ReturnNotes }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    item_id: { type: BIGINT, size: '20', required: false }
+    quantity: { type: INTEGER, size: '11', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    status_id: { type: INTEGER, size: '11', required: false }
+    comment: { type: VARCHAR, size: '500', required: false }
+    user_id: { type: BIGINT, size: '20', required: false }
+  role:
+    _attributes: { phpName: Role }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    name: { type: VARCHAR, size: '100', required: true }
+  role_permission_ref:
+    _attributes: { phpName: RolePermissionRef }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    role_id: { type: INTEGER, size: '11', required: true, foreignTable: role, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    permission_id: { type: INTEGER, size: '11', required: true, foreignTable: permission, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _indexes: { role_permission_ref_FI_1: [role_id], role_permission_ref_FI_2: [permission_id] }
+  sale_action:
+    _attributes: { phpName: SaleAction }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    name: { type: VARCHAR, size: '150', required: true }
+  shop_users:
+    _attributes: { phpName: ShopUsers }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    user_id: { type: BIGINT, size: '20', required: false, foreignTable: user, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    shop_id: { type: BIGINT, size: '20', required: false, foreignTable: shops, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    created_at: { type: TIMESTAMP, required: true, defaultValue: CURRENT_TIMESTAMP }
+    updated_at: { type: TIMESTAMP, required: false }
+    status_id: { type: INTEGER, size: '11', required: false }
+    log_histry: { type: LONGVARCHAR, required: false }
+    pos_role_id: { type: BIGINT, size: '20', required: false }
+    pos_super_user: { type: TINYINT, size: '1', required: false }
+    is_primary: { type: TINYINT, size: '1', required: false, defaultValue: '0' }
+    _indexes: { user_id: [user_id], shop_id: [shop_id] }
+  shops:
+    _attributes: { phpName: Shops }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    name: { type: VARCHAR, size: '45', required: false }
+    branch_number: { type: VARCHAR, size: '100', required: false }
+    company_number: { type: VARCHAR, size: '100', required: false }
+    is_configured: { type: TINYINT, size: '1', required: false, defaultValue: '0' }
+    created_by: { type: INTEGER, size: '11', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    configured_at: { type: TIMESTAMP, required: false }
+    first_login: { type: VARCHAR, size: '45', required: false }
+    password: { type: VARCHAR, size: '45', required: false }
+    status_id: { type: INTEGER, size: '11', required: false, defaultValue: '3' }
+    address: { type: LONGVARCHAR, required: false }
+    zip: { type: VARCHAR, size: '45', required: false }
+    place: { type: LONGVARCHAR, required: false }
+    country: { type: VARCHAR, size: '45', required: false }
+    tel: { type: VARCHAR, size: '45', required: false }
+    fax: { type: VARCHAR, size: '45', required: false }
+    item_sync_requested_at: { type: TIMESTAMP, required: false }
+    item_sync_synced_at: { type: TIMESTAMP, required: false }
+    pic_sync_requested_at: { type: TIMESTAMP, required: false }
+    pic_sync_synced_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: BIGINT, size: '20', required: false }
+    pin: { type: VARCHAR, size: '255', required: false }
+    user_sync_requested_at: { type: TIMESTAMP, required: false }
+    user_sync_synced_at: { type: TIMESTAMP, required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    negative_sale: { type: TINYINT, size: '1', required: false, defaultValue: '0' }
+    language_id: { type: INTEGER, size: '11', required: false, defaultValue: '1', foreignTable: languages, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    time_out: { type: VARCHAR, size: '45', required: false, defaultValue: '3' }
+    start_value_sale_receipt: { type: BIGINT, size: '20', required: false }
+    start_value_return_receipt: { type: BIGINT, size: '20', required: false }
+    sale_receipt_format_id: { type: INTEGER, size: '11', required: false, foreignTable: receipt_formats, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    return_receipt_format_id: { type: INTEGER, size: '11', required: false, foreignTable: receipt_formats, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    shop_setting_sync_requested_at: { type: TIMESTAMP, required: false }
+    shop_setting_sync_synced_at: { type: TIMESTAMP, required: false }
+    voucher_sync_requested_at: { type: TIMESTAMP, required: false }
+    voucher_sync_synced_at: { type: TIMESTAMP, required: false }
+    max_day_end_attempts: { type: INTEGER, size: '11', required: false }
+    discount_type_id: { type: INTEGER, size: '11', required: false }
+    discount_value: { type: DOUBLE, required: false }
+    gcm_key: { type: VARCHAR, size: '255', required: false }
+    receipt_header_position: { type: VARCHAR, size: '255', required: false }
+    receipt_tax_statment_one: { type: LONGVARCHAR, required: false }
+    receipt_tax_statment_two: { type: LONGVARCHAR, required: false }
+    receipt_tax_statment_three: { type: LONGVARCHAR, required: false }
+    receipt_auto_print: { type: TINYINT, size: '1', required: false }
+    start_value_bookout: { type: VARCHAR, size: '255', required: false }
+    bookout_format_id: { type: VARCHAR, size: '255', required: false }
+    values: { type: VARCHAR, size: '255', required: false }
+    vat_value: { type: VARCHAR, size: '255', required: false }
+    currency_id: { type: BIGINT, size: '20', required: false }
+    promotion_sync_requested_at: { type: VARCHAR, size: '255', required: false }
+    promotion_sync_synced_at: { type: VARCHAR, size: '255', required: false }
+    _indexes: { language_id: [language_id], sale_receipt_format_id: [sale_receipt_format_id], return_receipt_format_id: [return_receipt_format_id] }
+  sizes:
+    _attributes: { phpName: Sizes }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    title: { type: VARCHAR, size: '45', required: false }
+  status:
+    _attributes: { phpName: Status }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    name: { type: VARCHAR, size: '100', required: true }
+  statuses:
+    _attributes: { phpName: Statuses }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    title: { type: VARCHAR, size: '100', required: true }
+  stock_items:
+    _attributes: { phpName: StockItems }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    cms_item_id: { type: BIGINT, size: '20', required: false }
+    item_id: { type: BIGINT, size: '20', required: false }
+    total_qty: { type: VARCHAR, size: '255', required: false }
+    sold_qty: { type: VARCHAR, size: '255', required: false }
+    return_qty: { type: VARCHAR, size: '255', required: false }
+    remaining_qty: { type: VARCHAR, size: '255', required: false }
+    bookout_qty: { type: VARCHAR, size: '255', required: false }
+    stock_qty: { type: VARCHAR, size: '255', required: false }
+    stock_id: { type: BIGINT, size: '20', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: BIGINT, size: '20', required: false }
+  stocks:
+    _attributes: { phpName: Stocks }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    shop_id: { type: BIGINT, size: '20', required: false }
+    stock_id: { type: BIGINT, size: '20', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    updated_by: { type: BIGINT, size: '20', required: false }
+  system_config:
+    _attributes: { phpName: SystemConfig }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    keys: { type: VARCHAR, size: '255', required: true }
+    values: { type: VARCHAR, size: '50', required: true }
+    _uniques: { keys: [keys] }
+  test:
+    _attributes: { phpName: Test }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    name: { type: VARCHAR, size: '255', required: true }
+    cvr_number: { type: INTEGER, size: '11', required: true }
+    ean_number: { type: INTEGER, size: '11', required: false }
+    address: { type: VARCHAR, size: '255', required: true }
+    post_code: { type: INTEGER, size: '11', required: true }
+    country_id: { type: INTEGER, size: '11', required: false }
+    city_id: { type: INTEGER, size: '11', required: false }
+    contact_name: { type: VARCHAR, size: '150', required: true }
+    email: { type: VARCHAR, size: '255', required: true }
+    head_phone_number: { type: INTEGER, size: '11', required: true }
+    fax_number: { type: INTEGER, size: '11', required: true }
+    website: { type: VARCHAR, size: '255', required: false }
+    status_id: { type: INTEGER, size: '11', required: false }
+    company_size_id: { type: INTEGER, size: '11', required: false }
+    company_type_id: { type: INTEGER, size: '11', required: false }
+    customer_type_id: { type: INTEGER, size: '11', required: false }
+    cpr_number: { type: INTEGER, size: '11', required: false }
+    apartment_form_id: { type: INTEGER, size: '11', required: false }
+    invoice_method_id: { type: INTEGER, size: '11', required: false }
+    account_manager_id: { type: INTEGER, size: '11', required: false }
+    agent_company_id: { type: INTEGER, size: '11', required: false }
+    created_at: { type: TIMESTAMP, required: false, defaultValue: CURRENT_TIMESTAMP }
+    confirmed_at: { type: DATE, required: false }
+    sim_card_dispatch_date: { type: DATE, required: false }
+    package_id: { type: INTEGER, size: '11', required: true }
+    send_letter: { type: TINYINT, size: '1', required: true, defaultValue: '0' }
+    send_email: { type: TINYINT, size: '1', required: true, defaultValue: '1' }
+    send_specification: { type: TINYINT, size: '1', required: true, defaultValue: '0' }
+    _indexes: { company_FI_1: [country_id], company_FI_2: [city_id], company_FI_3: [status_id], company_FI_4: [company_size_id], company_FI_5: [company_type_id], company_FI_6: [customer_type_id], company_FI_7: [apartment_form_id], company_FI_8: [invoice_method_id], company_FI_9: [account_manager_id], company_FI_10: [agent_company_id], FK_company: [package_id] }
+  transaction_types:
+    _attributes: { phpName: TransactionTypes }
+    id: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    title: { type: VARCHAR, size: '100', required: false }
+  transactions:
+    _attributes: { phpName: Transactions }
+    id: { type: BIGINT, size: '20', primaryKey: true, autoIncrement: true, required: true }
+    transaction_type_id: { type: INTEGER, size: '11', required: false }
+    quantity: { type: INTEGER, size: '11', required: false }
+    item_id: { type: VARCHAR, size: '100', required: false }
+    shop_receipt_number_id: { type: VARCHAR, size: '250', required: false }
+    shop_order_number_id: { type: BIGINT, size: '20', required: false }
+    status_id: { type: INTEGER, size: '11', required: false }
+    created_at: { type: TIMESTAMP, required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    parent_type: { type: VARCHAR, size: '100', required: false }
+    parent_type_id: { type: BIGINT, size: '20', required: false }
+    sold_price: { type: DOUBLE, required: false }
+    discount_value: { type: DOUBLE, required: false }
+    discount_type_id: { type: INTEGER, size: '11', required: false }
+    shop_transaction_id: { type: BIGINT, size: '20', required: false }
+    shop_id: { type: BIGINT, size: '20', required: false }
+    description1: { type: LONGVARCHAR, required: false }
+    description2: { type: LONGVARCHAR, required: false }
+    description3: { type: LONGVARCHAR, required: false }
+    supplier_number: { type: VARCHAR, size: '100', required: false }
+    supplier_item_number: { type: VARCHAR, size: '100', required: false }
+    ean: { type: VARCHAR, size: '100', required: false }
+    group: { type: VARCHAR, size: '255', required: false }
+    color: { type: VARCHAR, size: '255', required: false }
+    size: { type: VARCHAR, size: '255', required: false }
+    buying_price: { type: DOUBLE, required: false }
+    selling_price: { type: DOUBLE, required: false }
+    taxation_code: { type: INTEGER, size: '11', required: false }
+    down_sync: { type: TINYINT, size: '1', required: false, defaultValue: '1' }
+    user_id: { type: BIGINT, size: '20', required: false }
+    cms_item_id: { type: BIGINT, size: '20', required: false }
+    order_id: { type: BIGINT, size: '20', required: false }
+    day_start_id: { type: BIGINT, size: '20', required: false }
+    promotion_ids: { type: VARCHAR, size: '255', required: false }
+    _indexes: { fk_transaction_transaction_types_idx: [transaction_type_id], fk_transaction_items1_idx: [item_id], fk_transactions_order_numbers1_idx: [shop_order_number_id], fk_transactions_statuses1_idx: [status_id], fk_transactions_discount_types1_idx: [discount_type_id] }
+  user:
+    _attributes: { phpName: User }
+    id: { type: BIGINT, size: '20', primaryKey: true, required: true }
+    name: { type: VARCHAR, size: '150', required: true }
+    email: { type: VARCHAR, size: '150', required: true }
+    password: { type: VARCHAR, size: '150', required: true }
+    role_id: { type: INTEGER, size: '11', required: false, foreignTable: role, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    is_super_user: { type: TINYINT, size: '1', required: false, defaultValue: '0' }
+    status_id: { type: INTEGER, size: '11', required: false, defaultValue: '3', foreignTable: statuses, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    created_at: { type: TIMESTAMP, required: false }
+    sur_name: { type: VARCHAR, size: '2555', required: false }
+    address: { type: LONGVARCHAR, required: false }
+    zip: { type: VARCHAR, size: '255', required: false }
+    city: { type: VARCHAR, size: '255', required: false }
+    country: { type: VARCHAR, size: '255', required: false }
+    tel: { type: VARCHAR, size: '255', required: false }
+    mobile: { type: VARCHAR, size: '255', required: false }
+    updated_at: { type: TIMESTAMP, required: false, defaultValue: CURRENT_TIMESTAMP }
+    pin: { type: VARCHAR, size: '255', required: false }
+    pos_user_role_id: { type: BIGINT, size: '20', required: false, foreignTable: pos_role, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    reset_password_token: { type: VARCHAR, size: '225', required: false }
+    updated_by: { type: BIGINT, size: '20', required: false }
+    branch_request_id: { type: VARCHAR, size: '255', required: false }
+    pos_super_user: { type: VARCHAR, size: '1', required: false, defaultValue: '0' }
+    pin_status: { type: VARCHAR, size: '11', required: false, defaultValue: '1' }
+    deliverynote_ok_email: { type: VARCHAR, size: '255', required: false }
+    bookout_ok_email: { type: VARCHAR, size: '255', required: false }
+    deliverynote_change_email: { type: VARCHAR, size: '255', required: false }
+    bookout_change_email: { type: VARCHAR, size: '255', required: false }
+    sale_email: { type: VARCHAR, size: '255', required: false }
+    bookout_sync_email: { type: VARCHAR, size: '255', required: false }
+    daystart_email: { type: VARCHAR, size: '255', required: false }
+    setting_email: { type: VARCHAR, size: '255', required: false }
+    dayend_email: { type: VARCHAR, size: '255', required: false }
+    _indexes: { user_FI_1: [role_id], NewIndex1: [pos_user_role_id], status_is_pk_index: [status_id] }
+  voucher:
+    _attributes: { phpName: Voucher }
+    id: { type: BIGINT, size: '20', primaryKey: true, required: true }
+    amount: { type: DOUBLE, required: true, defaultValue: '0' }
+    created_at: { type: TIMESTAMP, required: false }
+    updated_at: { type: TIMESTAMP, required: false }
+    used_amount: { type: DOUBLE, required: false, defaultValue: '0' }
+    created_shop_id: { type: BIGINT, size: '20', required: false }
+    used_shop_id: { type: BIGINT, size: '20', required: false }
+    created_shop_transaction_id: { type: BIGINT, size: '20', required: false }
+    used_shop_transaction_id: { type: BIGINT, size: '20', required: false }
+    parent_id: { type: LONGVARCHAR, required: false }
+    shop_created_at: { type: TIMESTAMP, required: false }
+    shop_updated_at: { type: TIMESTAMP, required: false }
+    shop_used_at: { type: TIMESTAMP, required: false }
+    is_used: { type: TINYINT, size: '1', required: false, defaultValue: '0' }
+    created_user_id: { type: BIGINT, size: '20', required: false }
+    used_user_id: { type: BIGINT, size: '20', required: false }
+    created_day_start_id: { type: BIGINT, size: '20', required: false }
+    used_day_start_id: { type: BIGINT, size: '20', required: false }
