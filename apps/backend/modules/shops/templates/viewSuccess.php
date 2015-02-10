@@ -401,7 +401,7 @@
 </h1>  
 <div>Please Select a DAY START date.<div id="test"></div></div>
 <br clear="all" />
-<div id="daily-cash-list"></div>
+<div id="daily-cash-list"> </div>
 
 <br clear="all" />
 <br clear="all" />
