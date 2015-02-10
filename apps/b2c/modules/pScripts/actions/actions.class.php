@@ -1389,7 +1389,11 @@ class pScriptsActions extends sfActions {
         $bookoutIds = '';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         //$book_string = '[{"branch_number":"3344980288","note_id":"400001\/104","item_id":"2002241600","user_id":"1311422864954","quantity":"10","comments":"book out send","bookout_date":"2015-02-05 17:32:46","company_number":"123654789"}]';
+=======
+        // $book_string = '[{"branch_number":"3344980288","note_id":"400001\/104","item_id":"2002241600","user_id":"1311422864954","quantity":"10","comments":"book out send","bookout_date":"2015-02-05 17:32:46","company_number":"123654789"}]';
+>>>>>>> b4f0e7733c8041b9ca5acf46c8fb1c69c6d52c18
         $book_string = $request->getParameter("server_json_bookout");
 =======
         $book_string = '[{"branch_number":"3344980288","note_id":"400001\/104","item_id":"2002241600","user_id":"1311422864954","quantity":"10","comments":"book out send","bookout_date":"2015-02-05 17:32:46","company_number":"123654789"}]';
