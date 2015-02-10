@@ -26,6 +26,7 @@ class BaseStockItemsForm extends BaseFormPropel
       'created_at'    => new sfWidgetFormDateTime(),
       'updated_at'    => new sfWidgetFormDateTime(),
       'updated_by'    => new sfWidgetFormInput(),
+      'shop_id'       => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -42,6 +43,7 @@ class BaseStockItemsForm extends BaseFormPropel
       'created_at'    => new sfValidatorDateTime(array('required' => false)),
       'updated_at'    => new sfValidatorDateTime(array('required' => false)),
       'updated_by'    => new sfValidatorInteger(array('required' => false)),
+      'shop_id'       => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('stock_items[%s]');
