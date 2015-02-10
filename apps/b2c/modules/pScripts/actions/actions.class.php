@@ -1387,8 +1387,8 @@ class pScriptsActions extends sfActions {
 
         $user_id = $this->getUser()->getAttribute('user_id', '', 'backendsession');
         $bookoutIds = '';
-        $book_string = '[{"branch_number":"3344980288","note_id":"400001\/104","item_id":"2002241600","user_id":"1311422864954","quantity":"10","comments":"book out send","bookout_date":"2015-02-05 17:32:46","company_number":"123654789"}]';
-        // $book_string = $request->getParameter("server_json_bookout");
+        //$book_string = '[{"branch_number":"3344980288","note_id":"400001\/104","item_id":"2002241600","user_id":"1311422864954","quantity":"10","comments":"book out send","bookout_date":"2015-02-05 17:32:46","company_number":"123654789"}]';
+        $book_string = $request->getParameter("server_json_bookout");
         $json_from_bookout = json_decode($book_string);
         $shop_id = $request->getParameter("shop_id");
 
