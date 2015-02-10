@@ -19,6 +19,7 @@ class BaseStocksFormFilter extends BaseFormFilterPropel
       'created_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_by' => new sfWidgetFormFilterInput(),
+      'stock_type' => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -27,6 +28,7 @@ class BaseStocksFormFilter extends BaseFormFilterPropel
       'created_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_by' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'stock_type' => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('stocks_filters[%s]');
@@ -50,6 +52,7 @@ class BaseStocksFormFilter extends BaseFormFilterPropel
       'created_at' => 'Date',
       'updated_at' => 'Date',
       'updated_by' => 'Number',
+      'stock_type' => 'Text',
     );
   }
 }
