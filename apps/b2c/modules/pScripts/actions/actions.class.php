@@ -1385,28 +1385,10 @@ class pScriptsActions extends sfActions {
         $dibsCall->setDecryptedData("server_json_bookout=" . $request->getParameter("server_json_bookout"));
         $dibsCall->save();
 
-        $user_id = $this->getUser()->getAttribute('user_id', '', 'backendsession');
+$user_id = $this->getUser()->getAttribute('user_id', '', 'backendsession');
         $bookoutIds = '';
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        //$book_string = '[{"branch_number":"3344980288","note_id":"400001\/104","item_id":"2002241600","user_id":"1311422864954","quantity":"10","comments":"book out send","bookout_date":"2015-02-05 17:32:46","company_number":"123654789"}]';
-=======
-        // $book_string = '[{"branch_number":"3344980288","note_id":"400001\/104","item_id":"2002241600","user_id":"1311422864954","quantity":"10","comments":"book out send","bookout_date":"2015-02-05 17:32:46","company_number":"123654789"}]';
->>>>>>> b4f0e7733c8041b9ca5acf46c8fb1c69c6d52c18
-        $book_string = $request->getParameter("server_json_bookout");
-=======
         $book_string = '[{"branch_number":"3344980288","note_id":"400001\/104","item_id":"2002241600","user_id":"1311422864954","quantity":"10","comments":"book out send","bookout_date":"2015-02-05 17:32:46","company_number":"123654789"}]';
-<<<<<<< HEAD
-        //$book_string = $request->getParameter("server_json_bookout");
->>>>>>> aca7f56813d756ed287ec5114b8683530bc6e53e
-=======
-        // $book_string = $request->getParameter("server_json_bookout");
->>>>>>> bd75e2853ffaeb0f08341b790a791e1a3ce3c787
-=======
-        //$book_string = '[{"branch_number":"3344980288","note_id":"400001\/104","item_id":"2002241600","user_id":"1311422864954","quantity":"10","comments":"book out send","bookout_date":"2015-02-05 17:32:46","company_number":"123654789"}]';
         $book_string = $request->getParameter("server_json_bookout");
->>>>>>> f54c73d756b35cef2342573891d578ffafe422b3
         $json_from_bookout = json_decode($book_string);
         $shop_id = $request->getParameter("shop_id");
 
