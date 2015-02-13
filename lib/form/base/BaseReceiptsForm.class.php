@@ -6,7 +6,10 @@
  * @package    zapnacrm
  * @subpackage form
  * @author     Your name here
+<<<<<<< HEAD
  * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
+=======
+>>>>>>> 112f257256bcbb3b96b97c7256726261c0e8cdb6
  */
 class BaseReceiptsForm extends BaseFormPropel
 {
