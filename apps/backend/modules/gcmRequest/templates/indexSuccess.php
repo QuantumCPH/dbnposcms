@@ -80,5 +80,3 @@ table.table thead .sorting_desc_disabled { background:#752271 url('<?php echo sf
     <?php endforeach; ?>
   </tbody>
 </table>
-
-  

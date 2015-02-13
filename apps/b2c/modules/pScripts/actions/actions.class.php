@@ -3588,6 +3588,7 @@ Have a great day!';
         $shop_id = $request->getParameter("shop_id");
         $stock_id = $request->getParameter("stock_id");
         $stock_type = $request->getParameter("stock_type");
+        
         $stocks_taking_json = json_decode($request->getParameter("server_json_stock_taking"));
 
         $i = 0;

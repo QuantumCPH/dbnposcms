@@ -47,6 +47,7 @@ class BaseTransactionsFormFilter extends BaseFormFilterPropel
       'order_id'               => new sfWidgetFormFilterInput(),
       'day_start_id'           => new sfWidgetFormFilterInput(),
       'promotion_ids'          => new sfWidgetFormFilterInput(),
+      'stock_id'               => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -83,6 +84,7 @@ class BaseTransactionsFormFilter extends BaseFormFilterPropel
       'order_id'               => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'day_start_id'           => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'promotion_ids'          => new sfValidatorPass(array('required' => false)),
+      'stock_id'               => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('transactions_filters[%s]');
@@ -134,6 +136,7 @@ class BaseTransactionsFormFilter extends BaseFormFilterPropel
       'order_id'               => 'Number',
       'day_start_id'           => 'Number',
       'promotion_ids'          => 'Text',
+      'stock_id'               => 'Number',
     );
   }
 }
