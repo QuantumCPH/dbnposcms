@@ -243,6 +243,7 @@ class shopsActions extends sfActions {
         $settingCurrency = SystemConfigPeer::retrieveByPK(7);
         //$shop->setCurrencyId($settingCurrency->getValues());
         ////////////////////////////////////////////////////////////////
+        die('Here');
         if ($shop->save()) {
             new GcmLib("shop_updated", array($shop->getGcmKey()),$shop);
         }
@@ -329,7 +330,7 @@ class shopsActions extends sfActions {
         $sus->addAnd(ShopUsersPeer::STATUS_ID, 3, Criteria::EQUAL);
         $countUserShops = ShopUsersPeer::doCount($sus);
         if ($countUserShops > 0) {
-//            die("Baran");
+//           die("Baran");
             $shopUser = ShopUsersPeer::doSelectOne($sus);
             $shopUser->setStatusId(5);
             if ($shopUser->save()) {
