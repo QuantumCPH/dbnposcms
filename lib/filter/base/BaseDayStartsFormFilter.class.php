@@ -24,6 +24,7 @@ class BaseDayStartsFormFilter extends BaseFormFilterPropel
       'expected_amount' => new sfWidgetFormFilterInput(),
       'journal_id'      => new sfWidgetFormFilterInput(),
       'success'         => new sfWidgetFormFilterInput(),
+      'day_start_id'    => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -36,6 +37,7 @@ class BaseDayStartsFormFilter extends BaseFormFilterPropel
       'expected_amount' => new sfValidatorPass(array('required' => false)),
       'journal_id'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'success'         => new sfValidatorPass(array('required' => false)),
+      'day_start_id'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('day_starts_filters[%s]');
@@ -63,6 +65,7 @@ class BaseDayStartsFormFilter extends BaseFormFilterPropel
       'expected_amount' => 'Text',
       'journal_id'      => 'Number',
       'success'         => 'Text',
+      'day_start_id'    => 'Number',
     );
   }
 }
