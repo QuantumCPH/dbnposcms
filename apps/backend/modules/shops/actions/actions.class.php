@@ -243,7 +243,7 @@ class shopsActions extends sfActions {
         $settingCurrency = SystemConfigPeer::retrieveByPK(7);
         //$shop->setCurrencyId($settingCurrency->getValues());
         ////////////////////////////////////////////////////////////////
-        die('Here');
+        die('Here'); 
         if ($shop->save()) {
             new GcmLib("shop_updated", array($shop->getGcmKey()),$shop);
         }
