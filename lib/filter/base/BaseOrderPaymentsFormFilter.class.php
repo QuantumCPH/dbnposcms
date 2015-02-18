@@ -26,10 +26,16 @@ class BaseOrderPaymentsFormFilter extends BaseFormFilterPropel
       'shop_created_at'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'shop_order_user_id'    => new sfWidgetFormFilterInput(),
       'cc_type_id'            => new sfWidgetFormFilterInput(),
+<<<<<<< HEAD
       'change_value'          => new sfWidgetFormFilterInput(),
       'change_type'           => new sfWidgetFormFilterInput(),
       'shop_order_id'         => new sfWidgetFormFilterInput(),
       'promotion_ids'         => new sfWidgetFormFilterInput(),
+=======
+      'change_type'           => new sfWidgetFormFilterInput(),
+      'change_value'          => new sfWidgetFormFilterInput(),
+      'shop_order_id'         => new sfWidgetFormFilterInput(),
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     ));
 
     $this->setValidators(array(
@@ -45,10 +51,16 @@ class BaseOrderPaymentsFormFilter extends BaseFormFilterPropel
       'shop_created_at'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'shop_order_user_id'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'cc_type_id'            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+<<<<<<< HEAD
       'change_value'          => new sfValidatorPass(array('required' => false)),
       'change_type'           => new sfValidatorPass(array('required' => false)),
       'shop_order_id'         => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'promotion_ids'         => new sfValidatorPass(array('required' => false)),
+=======
+      'change_type'           => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'change_value'          => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'shop_order_id'         => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     ));
 
     $this->widgetSchema->setNameFormat('order_payments_filters[%s]');
@@ -79,10 +91,16 @@ class BaseOrderPaymentsFormFilter extends BaseFormFilterPropel
       'shop_created_at'       => 'Date',
       'shop_order_user_id'    => 'Number',
       'cc_type_id'            => 'Number',
+<<<<<<< HEAD
       'change_value'          => 'Text',
       'change_type'           => 'Text',
       'shop_order_id'         => 'Number',
       'promotion_ids'         => 'Text',
+=======
+      'change_type'           => 'Number',
+      'change_value'          => 'Number',
+      'shop_order_id'         => 'Number',
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     );
   }
 }

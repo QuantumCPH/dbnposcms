@@ -16,7 +16,12 @@ class BaseDibsCallForm extends BaseFormPropel
       'callurl'        => new sfWidgetFormTextarea(),
       'created_at'     => new sfWidgetFormDateTime(),
       'decrypted_data' => new sfWidgetFormTextarea(),
+<<<<<<< HEAD
       'call_response'  => new sfWidgetFormInput(),
+=======
+      'call_response'  => new sfWidgetFormTextarea(),
+      'call_post_data' => new sfWidgetFormTextarea(),
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     ));
 
     $this->setValidators(array(
@@ -24,7 +29,12 @@ class BaseDibsCallForm extends BaseFormPropel
       'callurl'        => new sfValidatorString(array('required' => false)),
       'created_at'     => new sfValidatorDateTime(),
       'decrypted_data' => new sfValidatorString(array('required' => false)),
+<<<<<<< HEAD
       'call_response'  => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+=======
+      'call_response'  => new sfValidatorString(array('required' => false)),
+      'call_post_data' => new sfValidatorString(array('required' => false)),
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     ));
 
     $this->widgetSchema->setNameFormat('dibs_call[%s]');

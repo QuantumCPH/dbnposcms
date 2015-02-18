@@ -13,6 +13,7 @@ class BaseGcmRequestForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'             => new sfWidgetFormInputHidden(),
+<<<<<<< HEAD
       'branch_number'  => new sfWidgetFormInput(),
       'branch_name'    => new sfWidgetFormInput(),
       'user'           => new sfWidgetFormInput(),
@@ -30,10 +31,22 @@ class BaseGcmRequestForm extends BaseFormPropel
       'received_at'    => new sfWidgetFormDateTime(),
       'receive_count'  => new sfWidgetFormInput(),
       'updated_at'     => new sfWidgetFormDateTime(),
+=======
+      'shop_id'        => new sfWidgetFormInput(),
+      'user_id'        => new sfWidgetFormInput(),
+      'action_name'    => new sfWidgetFormInput(),
+      'created_at'     => new sfWidgetFormDateTime(),
+      'updated_at'     => new sfWidgetFormDateTime(),
+      'received_at'    => new sfWidgetFormDateTime(),
+      'request_status' => new sfWidgetFormInput(),
+      'sent_count'     => new sfWidgetFormInput(),
+      'receive_count'  => new sfWidgetFormInput(),
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     ));
 
     $this->setValidators(array(
       'id'             => new sfValidatorPropelChoice(array('model' => 'GcmRequest', 'column' => 'id', 'required' => false)),
+<<<<<<< HEAD
       'branch_number'  => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'branch_name'    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'user'           => new sfValidatorString(array('max_length' => 255, 'required' => false)),
@@ -51,6 +64,17 @@ class BaseGcmRequestForm extends BaseFormPropel
       'received_at'    => new sfValidatorDateTime(array('required' => false)),
       'receive_count'  => new sfValidatorInteger(array('required' => false)),
       'updated_at'     => new sfValidatorDateTime(array('required' => false)),
+=======
+      'shop_id'        => new sfValidatorInteger(array('required' => false)),
+      'user_id'        => new sfValidatorInteger(array('required' => false)),
+      'action_name'    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'created_at'     => new sfValidatorDateTime(array('required' => false)),
+      'updated_at'     => new sfValidatorDateTime(),
+      'received_at'    => new sfValidatorDateTime(array('required' => false)),
+      'request_status' => new sfValidatorInteger(array('required' => false)),
+      'sent_count'     => new sfValidatorInteger(array('required' => false)),
+      'receive_count'  => new sfValidatorInteger(array('required' => false)),
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     ));
 
     $this->widgetSchema->setNameFormat('gcm_request[%s]');

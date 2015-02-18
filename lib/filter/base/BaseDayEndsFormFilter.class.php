@@ -37,10 +37,17 @@ class BaseDayEndsFormFilter extends BaseFormFilterPropel
       'total_amount'    => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'success'         => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'expected_amount' => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+<<<<<<< HEAD
       'cash'            => new sfValidatorPass(array('required' => false)),
       'card'            => new sfValidatorPass(array('required' => false)),
       'voucher'         => new sfValidatorPass(array('required' => false)),
       'sale'            => new sfValidatorPass(array('required' => false)),
+=======
+      'cash'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'card'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'voucher'         => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'sale'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     ));
 
     $this->widgetSchema->setNameFormat('day_ends_filters[%s]');
@@ -67,10 +74,17 @@ class BaseDayEndsFormFilter extends BaseFormFilterPropel
       'total_amount'    => 'Number',
       'success'         => 'Boolean',
       'expected_amount' => 'Number',
+<<<<<<< HEAD
       'cash'            => 'Text',
       'card'            => 'Text',
       'voucher'         => 'Text',
       'sale'            => 'Text',
+=======
+      'cash'            => 'Number',
+      'card'            => 'Number',
+      'voucher'         => 'Number',
+      'sale'            => 'Number',
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     );
   }
 }

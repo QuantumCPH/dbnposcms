@@ -25,10 +25,16 @@ class BaseOrderPaymentsForm extends BaseFormPropel
       'shop_created_at'       => new sfWidgetFormDateTime(),
       'shop_order_user_id'    => new sfWidgetFormInput(),
       'cc_type_id'            => new sfWidgetFormInput(),
+<<<<<<< HEAD
       'change_value'          => new sfWidgetFormInput(),
       'change_type'           => new sfWidgetFormInput(),
       'shop_order_id'         => new sfWidgetFormInput(),
       'promotion_ids'         => new sfWidgetFormInput(),
+=======
+      'change_type'           => new sfWidgetFormInput(),
+      'change_value'          => new sfWidgetFormInput(),
+      'shop_order_id'         => new sfWidgetFormInput(),
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     ));
 
     $this->setValidators(array(
@@ -45,10 +51,16 @@ class BaseOrderPaymentsForm extends BaseFormPropel
       'shop_created_at'       => new sfValidatorDateTime(array('required' => false)),
       'shop_order_user_id'    => new sfValidatorInteger(array('required' => false)),
       'cc_type_id'            => new sfValidatorInteger(array('required' => false)),
+<<<<<<< HEAD
       'change_value'          => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'change_type'           => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'shop_order_id'         => new sfValidatorInteger(array('required' => false)),
       'promotion_ids'         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+=======
+      'change_type'           => new sfValidatorInteger(array('required' => false)),
+      'change_value'          => new sfValidatorNumber(array('required' => false)),
+      'shop_order_id'         => new sfValidatorInteger(array('required' => false)),
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     ));
 
     $this->widgetSchema->setNameFormat('order_payments[%s]');

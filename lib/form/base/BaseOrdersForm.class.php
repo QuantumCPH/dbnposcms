@@ -39,7 +39,7 @@ class BaseOrdersForm extends BaseFormPropel
       'shop_user_id'           => new sfValidatorInteger(array('required' => false)),
       'shop_order_id'          => new sfValidatorInteger(array('required' => false)),
       'shop_id'                => new sfValidatorInteger(array('required' => false)),
-      'shop_receipt_number_id' => new sfValidatorInteger(array('required' => false)),
+      'shop_receipt_number_id' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'updated_at'             => new sfValidatorDateTime(array('required' => false)),
       'day_start_id'           => new sfValidatorInteger(array('required' => false)),
       'employee_id'            => new sfValidatorInteger(array('required' => false)),

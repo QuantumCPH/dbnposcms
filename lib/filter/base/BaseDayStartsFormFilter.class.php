@@ -22,8 +22,11 @@ class BaseDayStartsFormFilter extends BaseFormFilterPropel
       'total_amount'    => new sfWidgetFormFilterInput(),
       'expected_amount' => new sfWidgetFormFilterInput(),
       'journal_id'      => new sfWidgetFormFilterInput(),
+<<<<<<< HEAD
       'success'         => new sfWidgetFormFilterInput(),
       'day_start_id'    => new sfWidgetFormFilterInput(),
+=======
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     ));
 
     $this->setValidators(array(
@@ -33,10 +36,16 @@ class BaseDayStartsFormFilter extends BaseFormFilterPropel
       'is_day_closed'   => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'total_amount'    => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+<<<<<<< HEAD
       'expected_amount' => new sfValidatorPass(array('required' => false)),
       'journal_id'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'success'         => new sfValidatorPass(array('required' => false)),
       'day_start_id'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+=======
+      'success'         => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'expected_amount' => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'journal_id'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     ));
 
     $this->widgetSchema->setNameFormat('day_starts_filters[%s]');
@@ -61,10 +70,16 @@ class BaseDayStartsFormFilter extends BaseFormFilterPropel
       'is_day_closed'   => 'Boolean',
       'created_at'      => 'Date',
       'total_amount'    => 'Number',
+<<<<<<< HEAD
       'expected_amount' => 'Text',
       'journal_id'      => 'Number',
       'success'         => 'Text',
       'day_start_id'    => 'Number',
+=======
+      'success'         => 'Boolean',
+      'expected_amount' => 'Number',
+      'journal_id'      => 'Number',
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     );
   }
 }

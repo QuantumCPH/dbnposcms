@@ -41,8 +41,13 @@ class BaseInventoryFormFilter extends BaseFormFilterPropel
       'updated_at'     => new sfValidatorPass(array('required' => false)),
       'item_id'        => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'delivery_count' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+<<<<<<< HEAD
       'stock_in'       => new sfValidatorPass(array('required' => false)),
       'stock_out'      => new sfValidatorPass(array('required' => false)),
+=======
+      'stock_in'       => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'stock_out'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     ));
 
     $this->widgetSchema->setNameFormat('inventory_filters[%s]');
@@ -72,8 +77,13 @@ class BaseInventoryFormFilter extends BaseFormFilterPropel
       'updated_at'     => 'Text',
       'item_id'        => 'Number',
       'delivery_count' => 'Number',
+<<<<<<< HEAD
       'stock_in'       => 'Text',
       'stock_out'      => 'Text',
+=======
+      'stock_in'       => 'Number',
+      'stock_out'      => 'Number',
+>>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
     );
   }
 }
