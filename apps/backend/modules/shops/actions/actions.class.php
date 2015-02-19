@@ -112,7 +112,7 @@ class shopsActions extends sfActions {
 
 
         $cu = new Criteria();
-            $cu->add(UserPeer::ID,$current_user_id);
+//            $cu->add(UserPeer::ID,$current_user_id);
         $cu->addJoin(ShopUsersPeer::USER_ID, UserPeer::ID, Criteria::LEFT_JOIN);
         $cu->addAnd(ShopUsersPeer::SHOP_ID, $request->getParameter('id'));
         $cu->addAnd(ShopUsersPeer::STATUS_ID, 5, Criteria::NOT_EQUAL);
