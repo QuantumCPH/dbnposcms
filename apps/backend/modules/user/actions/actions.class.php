@@ -503,7 +503,7 @@ class userActions extends sfActions {
 //        $this->processForm($request, $this->form);
         $this->getUser()->setFlash('message', 'User info updated');
 
-        if ($request->getParameter("redirect_shop_id") == "") {
+        if ($request->getParameter("redirect_shop_id") != "") {
             
             $this->redirect(sfConfig::get("app_admin_url") . 'shops/view?id=' . $request->getParameter("redirect_shop_id"));
         } else {
