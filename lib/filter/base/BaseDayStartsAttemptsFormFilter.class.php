@@ -19,18 +19,18 @@ class BaseDayStartsAttemptsFormFilter extends BaseFormFilterPropel
       'expected_amount' => new sfWidgetFormFilterInput(),
       'day_start_id'    => new sfWidgetFormFilterInput(),
       'is_synce'        => new sfWidgetFormFilterInput(),
-      'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_by'      => new sfWidgetFormFilterInput(),
       'shop_id'         => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
-      'total_amount'    => new sfValidatorPass(array('required' => false)),
-      'expected_amount' => new sfValidatorPass(array('required' => false)),
+      'total_amount'    => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'expected_amount' => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'day_start_id'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'is_synce'        => new sfValidatorPass(array('required' => false)),
+      'is_synce'        => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-      'updated_by'      => new sfValidatorPass(array('required' => false)),
+      'updated_by'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'shop_id'         => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
@@ -50,12 +50,12 @@ class BaseDayStartsAttemptsFormFilter extends BaseFormFilterPropel
   {
     return array(
       'id'              => 'Number',
-      'total_amount'    => 'Text',
-      'expected_amount' => 'Text',
+      'total_amount'    => 'Number',
+      'expected_amount' => 'Number',
       'day_start_id'    => 'Number',
-      'is_synce'        => 'Text',
+      'is_synce'        => 'Number',
       'created_at'      => 'Date',
-      'updated_by'      => 'Text',
+      'updated_by'      => 'Number',
       'shop_id'         => 'Number',
     );
   }

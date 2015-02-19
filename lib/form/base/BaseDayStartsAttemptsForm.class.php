@@ -25,12 +25,12 @@ class BaseDayStartsAttemptsForm extends BaseFormPropel
 
     $this->setValidators(array(
       'id'              => new sfValidatorPropelChoice(array('model' => 'DayStartsAttempts', 'column' => 'id', 'required' => false)),
-      'total_amount'    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'expected_amount' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'total_amount'    => new sfValidatorNumber(array('required' => false)),
+      'expected_amount' => new sfValidatorNumber(array('required' => false)),
       'day_start_id'    => new sfValidatorInteger(array('required' => false)),
-      'is_synce'        => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'created_at'      => new sfValidatorDateTime(),
-      'updated_by'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'is_synce'        => new sfValidatorInteger(array('required' => false)),
+      'created_at'      => new sfValidatorDateTime(array('required' => false)),
+      'updated_by'      => new sfValidatorInteger(array('required' => false)),
       'shop_id'         => new sfValidatorInteger(array('required' => false)),
     ));
 

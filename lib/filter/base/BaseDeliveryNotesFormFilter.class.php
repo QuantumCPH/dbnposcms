@@ -37,6 +37,7 @@ class BaseDeliveryNotesFormFilter extends BaseFormFilterPropel
       'updated_by'            => new sfWidgetFormFilterInput(),
       'synced_day_start_id'   => new sfWidgetFormFilterInput(),
       'received_day_start_id' => new sfWidgetFormFilterInput(),
+      'delivery_note_type_id' => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -62,6 +63,7 @@ class BaseDeliveryNotesFormFilter extends BaseFormFilterPropel
       'updated_by'            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'synced_day_start_id'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'received_day_start_id' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'delivery_note_type_id' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('delivery_notes_filters[%s]');
@@ -102,6 +104,7 @@ class BaseDeliveryNotesFormFilter extends BaseFormFilterPropel
       'updated_by'            => 'Number',
       'synced_day_start_id'   => 'Number',
       'received_day_start_id' => 'Number',
+      'delivery_note_type_id' => 'Number',
     );
   }
 }

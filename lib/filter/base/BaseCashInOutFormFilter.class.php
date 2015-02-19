@@ -15,27 +15,27 @@ class BaseCashInOutFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'created_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'day_start_id'  => new sfWidgetFormFilterInput(),
+      'is_synced'     => new sfWidgetFormFilterInput(),
+      'description'   => new sfWidgetFormFilterInput(),
+      'amount'        => new sfWidgetFormFilterInput(),
+      'created_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_by'    => new sfWidgetFormFilterInput(),
       'shop_id'       => new sfWidgetFormFilterInput(),
       'cash_inout_id' => new sfWidgetFormFilterInput(),
-      'day_start_id'  => new sfWidgetFormFilterInput(),
-      'amount'        => new sfWidgetFormFilterInput(),
-      'description'   => new sfWidgetFormFilterInput(),
-      'is_synced'     => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
+      'day_start_id'  => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'is_synced'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'description'   => new sfValidatorPass(array('required' => false)),
+      'amount'        => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'created_at'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-      'updated_by'    => new sfValidatorPass(array('required' => false)),
+      'updated_by'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'shop_id'       => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'cash_inout_id' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'day_start_id'  => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'amount'        => new sfValidatorPass(array('required' => false)),
-      'description'   => new sfValidatorPass(array('required' => false)),
-      'is_synced'     => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('cash_in_out_filters[%s]');
@@ -54,15 +54,15 @@ class BaseCashInOutFormFilter extends BaseFormFilterPropel
   {
     return array(
       'id'            => 'Number',
+      'day_start_id'  => 'Number',
+      'is_synced'     => 'Number',
+      'description'   => 'Text',
+      'amount'        => 'Number',
       'created_at'    => 'Date',
       'updated_at'    => 'Date',
-      'updated_by'    => 'Text',
+      'updated_by'    => 'Number',
       'shop_id'       => 'Number',
       'cash_inout_id' => 'Number',
-      'day_start_id'  => 'Number',
-      'amount'        => 'Text',
-      'description'   => 'Text',
-      'is_synced'     => 'Text',
     );
   }
 }

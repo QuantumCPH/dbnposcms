@@ -47,7 +47,6 @@ class BaseTransactionsForm extends BaseFormPropel
       'order_id'               => new sfWidgetFormInput(),
       'day_start_id'           => new sfWidgetFormInput(),
       'promotion_ids'          => new sfWidgetFormInput(),
-      'stock_id'               => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -84,8 +83,7 @@ class BaseTransactionsForm extends BaseFormPropel
       'cms_item_id'            => new sfValidatorInteger(array('required' => false)),
       'order_id'               => new sfValidatorInteger(array('required' => false)),
       'day_start_id'           => new sfValidatorInteger(array('required' => false)),
-      'promotion_ids'          => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'stock_id'               => new sfValidatorInteger(array('required' => false)),
+      'promotion_ids'          => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('transactions[%s]');

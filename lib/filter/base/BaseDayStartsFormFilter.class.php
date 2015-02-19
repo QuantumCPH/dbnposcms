@@ -21,10 +21,9 @@ class BaseDayStartsFormFilter extends BaseFormFilterPropel
       'is_day_closed'   => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'total_amount'    => new sfWidgetFormFilterInput(),
+      'success'         => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'expected_amount' => new sfWidgetFormFilterInput(),
       'journal_id'      => new sfWidgetFormFilterInput(),
-      'success'         => new sfWidgetFormFilterInput(),
-      'day_start_id'    => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -34,10 +33,9 @@ class BaseDayStartsFormFilter extends BaseFormFilterPropel
       'is_day_closed'   => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'total_amount'    => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
-      'expected_amount' => new sfValidatorPass(array('required' => false)),
+      'success'         => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'expected_amount' => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'journal_id'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'success'         => new sfValidatorPass(array('required' => false)),
-      'day_start_id'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('day_starts_filters[%s]');
@@ -62,10 +60,9 @@ class BaseDayStartsFormFilter extends BaseFormFilterPropel
       'is_day_closed'   => 'Boolean',
       'created_at'      => 'Date',
       'total_amount'    => 'Number',
-      'expected_amount' => 'Text',
+      'success'         => 'Boolean',
+      'expected_amount' => 'Number',
       'journal_id'      => 'Number',
-      'success'         => 'Text',
-      'day_start_id'    => 'Number',
     );
   }
 }

@@ -38,10 +38,10 @@ class BaseDayEndsForm extends BaseFormPropel
       'total_amount'    => new sfValidatorNumber(array('required' => false)),
       'success'         => new sfValidatorBoolean(array('required' => false)),
       'expected_amount' => new sfValidatorNumber(array('required' => false)),
-      'cash'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'card'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'voucher'         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'sale'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'cash'            => new sfValidatorNumber(array('required' => false)),
+      'card'            => new sfValidatorNumber(array('required' => false)),
+      'voucher'         => new sfValidatorNumber(array('required' => false)),
+      'sale'            => new sfValidatorNumber(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('day_ends[%s]');

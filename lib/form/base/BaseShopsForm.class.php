@@ -59,14 +59,12 @@ class BaseShopsForm extends BaseFormPropel
       'receipt_tax_statment_two'       => new sfWidgetFormTextarea(),
       'receipt_tax_statment_three'     => new sfWidgetFormTextarea(),
       'receipt_auto_print'             => new sfWidgetFormInputCheckbox(),
-      'start_value_bookout'            => new sfWidgetFormInput(),
       'bookout_format_id'              => new sfWidgetFormInput(),
-      'values'                         => new sfWidgetFormInput(),
+      'start_value_bookout'            => new sfWidgetFormInput(),
+      'promotion_sync_requested_at'    => new sfWidgetFormDateTime(),
+      'promotion_sync_synced_at'       => new sfWidgetFormDateTime(),
       'vat_value'                      => new sfWidgetFormInput(),
       'currency_id'                    => new sfWidgetFormInput(),
-      'promotion_sync_requested_at'    => new sfWidgetFormInput(),
-      'promotion_sync_synced_at'       => new sfWidgetFormInput(),
-      'shop_id'                        => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -116,14 +114,12 @@ class BaseShopsForm extends BaseFormPropel
       'receipt_tax_statment_two'       => new sfValidatorString(array('required' => false)),
       'receipt_tax_statment_three'     => new sfValidatorString(array('required' => false)),
       'receipt_auto_print'             => new sfValidatorBoolean(array('required' => false)),
-      'start_value_bookout'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'bookout_format_id'              => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'values'                         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'bookout_format_id'              => new sfValidatorInteger(array('required' => false)),
+      'start_value_bookout'            => new sfValidatorInteger(array('required' => false)),
+      'promotion_sync_requested_at'    => new sfValidatorDateTime(array('required' => false)),
+      'promotion_sync_synced_at'       => new sfValidatorDateTime(array('required' => false)),
       'vat_value'                      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'currency_id'                    => new sfValidatorInteger(array('required' => false)),
-      'promotion_sync_requested_at'    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'promotion_sync_synced_at'       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'shop_id'                        => new sfValidatorInteger(array('required' => false)),
+      'currency_id'                    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('shops[%s]');

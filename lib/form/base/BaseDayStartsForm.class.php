@@ -20,10 +20,9 @@ class BaseDayStartsForm extends BaseFormPropel
       'is_day_closed'   => new sfWidgetFormInputCheckbox(),
       'created_at'      => new sfWidgetFormDateTime(),
       'total_amount'    => new sfWidgetFormInput(),
+      'success'         => new sfWidgetFormInputCheckbox(),
       'expected_amount' => new sfWidgetFormInput(),
       'journal_id'      => new sfWidgetFormInput(),
-      'success'         => new sfWidgetFormInput(),
-      'day_start_id'    => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -34,10 +33,9 @@ class BaseDayStartsForm extends BaseFormPropel
       'is_day_closed'   => new sfValidatorBoolean(array('required' => false)),
       'created_at'      => new sfValidatorDateTime(array('required' => false)),
       'total_amount'    => new sfValidatorNumber(array('required' => false)),
-      'expected_amount' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'success'         => new sfValidatorBoolean(array('required' => false)),
+      'expected_amount' => new sfValidatorNumber(array('required' => false)),
       'journal_id'      => new sfValidatorInteger(array('required' => false)),
-      'success'         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'day_start_id'    => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('day_starts[%s]');
