@@ -2017,7 +2017,7 @@ Have a great day!';
 //        $data_string ='[{"total_amount":"0.5","transactions":[{"promotion_ids":"","supplier_number":"","description1":"","description3":"","pos_id":1,"description2":"","order_number_id":"2","parent_type_id":"10401423048037717","transaction_type_id":"8","discount_value":"","buying_price":"","parent_type":"Day Start","selling_price":"","created_at":"2015-02-04 16:07:18","quantity":"","user_id":"1311422864954","item_cms_id":"","day_start_id":"10401423048037717","taxation_code":"","discount_type_id":"","supplier_item_number":"","status_id":"3","size":"","ean":"","shop_receipt_id":"0","updated_at":"2015-02-04 16:07:18","sold_price":"0.5","color":"","item_id":"","group":""}],"shop_receipt_id":"0","day_start_id":"10401423048037717","shop_user_id":"1311422864954","sold_total_amount":"0.5","payments":[{"total_amount":"0.5","cc_type_id":"","day_start_id":"10401423048037717","shop_receipt_id":"0","change_value":"","created_at":"2015-02-04 16:07:18","shop_order_payment_id":1,"shop_order_user_id":"1311422864954","change_type":"","shop_order_id":"2","payment_type_id":"7"}],"status_id":"3","created_at":"2015-02-04 16:07:18","order_discount_value":"","employee_id":"","shop_order_id":"2","order_discount_type":""}]';
         $shop_id = 1;
         $orderjson=str_replace("?","0",$data_string);
-        $json_from_orders = json_decode($data_string);
+        $json_from_orders = json_decode($orderjson);
 //        var_dump($json_from_orders);
 
         $i = 0;
