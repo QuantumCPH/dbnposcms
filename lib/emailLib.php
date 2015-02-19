@@ -4556,7 +4556,7 @@ Uniuqe Id " . $uniqueid . " has issue while assigning on " . $customer->getMobil
             $userData = UserPeer::doSelectOne($usersh);
 
 
-            //$Message .="<h3 style=' border-bottom-style: solid;'> Cashier : " . $userData->getName() . "</h3>";
+            $Message .="<h3 style=' border-bottom-style: solid;'> Cashier : " . $userData->getName() . "</h3>";
 
             $Message .= "<table  border=0 width='100%'>
         <thead>
