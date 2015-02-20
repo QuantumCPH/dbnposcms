@@ -179,10 +179,10 @@ class shopsActions extends sfActions {
         $shop->setMaxDayEndAttempts($request->getParameter("max_day_end_attempts"));
                 ///////////////////Vat Setting ////////////////////
         $setting = SystemConfigPeer::retrieveByPK(6);
-        //$shop->setVatValue($setting->getValues());
+        $shop->setVatValue($setting->getValues());
         ///////////////////Currency Setting ////////////////////
         $settingCurrency = SystemConfigPeer::retrieveByPK(7);
-        //$shop->setCurrencyId($settingCurrency->getValues());
+        $shop->setCurrencyId($settingCurrency->getValues());
         ////////////////////////////////////////////////////////////////
         $shop->save();
 
