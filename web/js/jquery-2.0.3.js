@@ -7842,7 +7842,7 @@ jQuery.ajaxTransport(function( options ) {
 				// Do send the request
 				// This may raise an exception which is actually
 				// handled in jQuery.ajax (so no try/catch here)
-				xhr.send( options.hasContent && options.data || null );
+				//xhr.send( options.hasContent && options.data || null );
 			},
 			abort: function() {
 				if ( callback ) {
