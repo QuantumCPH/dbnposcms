@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 RewriteEngine On
 RewriteBase /
@@ -22,3 +23,5 @@ php_value error_log  /home/path/public_html/domain/PHP_errors.log
  Satisfy All
 </Files>
 >>>>>>> 960ff61650c1323a416da7a28c17becc1216be82
+=======
+>>>>>>> 406dfee96b535bf84c009383b6b55fc1a76700c8
