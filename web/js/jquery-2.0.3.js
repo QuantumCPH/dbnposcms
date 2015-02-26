@@ -4920,7 +4920,7 @@ jQuery.Event = function( src, props ) {
 		// Events bubbling up the document may have been marked as prevented
 		// by a handler lower down the tree; reflect the correct value.
 		this.isDefaultPrevented = ( src.defaultPrevented ||
-			src.getPreventDefault && src.getPreventDefault ) ? returnTrue : returnFalse;
+			src.getPreventDefault && src.getPreventDefault() ) ? returnTrue : returnFalse;
 
 	// Event type
 	} else {
@@ -7842,7 +7842,7 @@ jQuery.ajaxTransport(function( options ) {
 				// Do send the request
 				// This may raise an exception which is actually
 				// handled in jQuery.ajax (so no try/catch here)
-				//xhr.send( options.hasContent && options.data || null );
+				xhr.send( options.hasContent && options.data || null );
 			},
 			abort: function() {
 				if ( callback ) {
