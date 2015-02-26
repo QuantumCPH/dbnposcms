@@ -815,7 +815,7 @@ jQuery.extend({
 		return ret;
 	}
 });
-
+$.fn.dataTableExt.sErrMode = 'throw';
 jQuery.ready.promise = function( obj ) {
 	if ( !readyList ) {
 
