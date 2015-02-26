@@ -42,18 +42,8 @@ class BaseInventoryForm extends BaseFormPropel
       'updated_at'     => new sfValidatorDateTime(),
       'item_id'        => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'delivery_count' => new sfValidatorInteger(array('required' => false)),
-<<<<<<< HEAD
       'stock_in'       => new sfValidatorInteger(array('required' => false)),
       'stock_out'      => new sfValidatorInteger(array('required' => false)),
-=======
-<<<<<<< HEAD
-      'stock_in'       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'stock_out'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-=======
-      'stock_in'       => new sfValidatorInteger(array('required' => false)),
-      'stock_out'      => new sfValidatorInteger(array('required' => false)),
->>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
->>>>>>> b7ab7e902388d4ed3cc2a72d76c598b91bc5b602
     ));
 
     $this->widgetSchema->setNameFormat('inventory[%s]');

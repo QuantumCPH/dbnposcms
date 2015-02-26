@@ -15,18 +15,8 @@ class BaseReturnReceiptsForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
       'shop_id'    => new sfWidgetFormInput(),
-<<<<<<< HEAD
       'updated_at' => new sfWidgetFormDateTime(),
       'created_at' => new sfWidgetFormDateTime(),
-=======
-<<<<<<< HEAD
-      'created_at' => new sfWidgetFormDateTime(),
-      'updated_at' => new sfWidgetFormDateTime(),
-=======
-      'updated_at' => new sfWidgetFormDateTime(),
-      'created_at' => new sfWidgetFormDateTime(),
->>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
->>>>>>> b7ab7e902388d4ed3cc2a72d76c598b91bc5b602
       'updated_by' => new sfWidgetFormInput(),
       'receipt_id' => new sfWidgetFormInput(),
     ));
@@ -34,21 +24,9 @@ class BaseReturnReceiptsForm extends BaseFormPropel
     $this->setValidators(array(
       'id'         => new sfValidatorPropelChoice(array('model' => 'ReturnReceipts', 'column' => 'id', 'required' => false)),
       'shop_id'    => new sfValidatorInteger(array('required' => false)),
-<<<<<<< HEAD
       'updated_at' => new sfValidatorDateTime(),
       'created_at' => new sfValidatorDateTime(array('required' => false)),
       'updated_by' => new sfValidatorInteger(array('required' => false)),
-=======
-<<<<<<< HEAD
-      'created_at' => new sfValidatorDateTime(array('required' => false)),
-      'updated_at' => new sfValidatorDateTime(array('required' => false)),
-      'updated_by' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-=======
-      'updated_at' => new sfValidatorDateTime(),
-      'created_at' => new sfValidatorDateTime(array('required' => false)),
-      'updated_by' => new sfValidatorInteger(array('required' => false)),
->>>>>>> b799f6effd83b9aae0363e84c6d3a2dc50eae23c
->>>>>>> b7ab7e902388d4ed3cc2a72d76c598b91bc5b602
       'receipt_id' => new sfValidatorInteger(array('required' => false)),
     ));
 

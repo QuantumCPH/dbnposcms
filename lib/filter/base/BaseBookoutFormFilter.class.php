@@ -8,10 +8,7 @@ require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.clas
  * @package    zapnacrm
  * @subpackage filter
  * @author     Your name here
-<<<<<<< HEAD
  * @version    SVN: $Id: sfPropelFormFilterGeneratedTemplate.php 13459 2008-11-28 14:48:12Z fabien $
-=======
->>>>>>> b7ab7e902388d4ed3cc2a72d76c598b91bc5b602
  */
 class BaseBookoutFormFilter extends BaseFormFilterPropel
 {
