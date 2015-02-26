@@ -8827,4 +8827,3 @@ if ( typeof window === "object" && typeof window.document === "object" ) {
 }
 
 })( window );
-user_pref("capability.policy.default.Window.alert", "noAccess");
