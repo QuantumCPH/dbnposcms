@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #global_setting:
 <<<<<<< HEAD
  # class: sfPropelRouteCollection
@@ -16,6 +17,16 @@
 #    column:               id
 #    with_wildcard_routes: true
 >>>>>>> 2fe72acba4e1b33c92222f1ab2b5a835ebd20843
+=======
+global_setting:
+  class: sfPropelRouteCollection
+  options:
+    model:                GlobalSetting
+    module:               global_setting
+    prefix_path:          global_setting
+    column:               id
+    with_wildcard_routes: true
+>>>>>>> 9aa3750ec4914e729ae55b88f9ac63af541530e5
 
 #ADMIN PANAL FOR USER
 # default rules
