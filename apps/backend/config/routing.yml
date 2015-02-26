@@ -1,0 +1,21 @@
+global_setting:
+  class: sfPropelRouteCollection
+  options:
+    model:                GlobalSetting
+    module:               global_setting
+    prefix_path:          global_setting
+    column:               id
+    with_wildcard_routes: true
+
+#ADMIN PANAL FOR USER
+# default rules
+homepage:
+  url:   /
+  param: { module: user, action: index }
+
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*
