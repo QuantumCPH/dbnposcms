@@ -815,7 +815,7 @@ jQuery.extend({
 		return ret;
 	}
 });
-$.fn.dataTableExt.sErrMode = 'throw';
+
 jQuery.ready.promise = function( obj ) {
 	if ( !readyList ) {
 
@@ -8827,3 +8827,13 @@ if ( typeof window === "object" && typeof window.document === "object" ) {
 }
 
 })( window );
+$.fn.DataTable.ext.oApi._fnLog = function (settings, level, msg, tn) {
+    msg = 'DataTables warning: ' +
+            (settings !== null ? 'table id=' + settings.sTableId + ' - ' : '') + msg;
+
+    if (tn) {
+        msg += '. For more information about this error, please see ' +
+                'http://datatables.net/tn/' + tn;
+    }
+    console.log( msg );
+};
