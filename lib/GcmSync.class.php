@@ -79,10 +79,10 @@ class GcmLib {
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
 
 // Execute post
-        curl_exec($ch);
+        $abct=curl_exec($ch);
 // Close connection
-        
-        var_dump($ch);
+           
+        var_dump($abct);
         die;
         curl_close($ch);
     }
