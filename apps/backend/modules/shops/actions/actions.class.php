@@ -109,8 +109,6 @@ class shopsActions extends sfActions {
         $this->ids = $request->getParameter('id');
         $this->shops = ShopsPeer::retrieveByPK($request->getParameter('id'));
 
-
-
         $cu = new Criteria();
 //            $cu->add(UserPeer::ID,$current_user_id);
         $cu->addJoin(ShopUsersPeer::USER_ID, UserPeer::ID, Criteria::LEFT_JOIN);
