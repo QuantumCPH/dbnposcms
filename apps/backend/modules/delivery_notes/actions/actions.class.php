@@ -130,8 +130,8 @@ class delivery_notesActions extends sfActions {
 //        print_r($ids);
 //        die;
         $shop = ShopsPeer::retrieveByPK($shop_id);
-        //$branchNumber = $shop->getBranchNumber();
-       // $companyNumber = $shop->getCompanyNumber();
+        $branchNumber = $shop->getBranchNumber();
+        $companyNumber = $shop->getCompanyNumber();
         $user_id = $this->getUser()->getAttribute('user_id', '', 'backendsession');
         if ($request->isMethod('post')) {
             $cd = new Criteria();
