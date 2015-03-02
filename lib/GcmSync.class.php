@@ -62,6 +62,7 @@ class GcmLib {
             'Authorization: key='.$keygcm,
             'Content-Type: application/json'
         );
+        var_dump($headers);
 // Open connection
         $ch = curl_init();
 
