@@ -64,6 +64,9 @@ class GcmLib {
         );
         var_dump($headers);
         
+        
+        
+        
 // Open connection
         $ch = curl_init();
 
