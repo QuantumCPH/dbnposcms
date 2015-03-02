@@ -130,7 +130,7 @@ class delivery_notesActions extends sfActions {
 //        print_r($ids);
 //        die;
         $shop = ShopsPeer::retrieveByPK($shop_id);
-        $branchNumber = $shop->getBranchNumber();
+        $branchNumber = '7788';
         $companyNumber = $shop->getCompanyNumber();
         $user_id = $this->getUser()->getAttribute('user_id', '', 'backendsession');
         if ($request->isMethod('post')) {
