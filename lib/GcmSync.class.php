@@ -81,6 +81,9 @@ class GcmLib {
 // Execute post
         curl_exec($ch);
 // Close connection
+        
+        var_dump($ch);
+        die;
         curl_close($ch);
     }
 
