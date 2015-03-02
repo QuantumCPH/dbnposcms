@@ -62,11 +62,6 @@ class GcmLib {
             'Content-Type: application/json'
         );
 // Open connection
-        
-        
-        
-             
-        
         $ch = curl_init();
 
 // Set the url, number of POST vars, POST data
