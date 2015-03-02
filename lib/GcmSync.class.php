@@ -57,12 +57,11 @@ class GcmLib {
         );
 //old =   AIzaSyBjhoSXE3gYU1_hKxxRIT0PpA2dzS89vgU
 // new = AIzaSyBUvFW57_LEh8i__BoHQqoIHYCjMsXuSf8    
-       // $keygcm='AIzaSyCsCt3hhqt_lc-fIQ5OMN-oZzX5l-cG2U8';
+        $keygcm='AIzaSyC_0g2r75PRFn-IDh_SShn9yCFn05-KU84';
   $headers = array(
-            'Authorization: key=AIzaSyC_0g2r75PRFn-IDh_SShn9yCFn05-KU84',
+            'Authorization: key='.$keygcm,
             'Content-Type: application/json'
         );
-  
 // Open connection
         $ch = curl_init();
 
@@ -79,11 +78,8 @@ class GcmLib {
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
 
 // Execute post
-        $abct=curl_exec($ch);
+        curl_exec($ch);
 // Close connection
-           
-        var_dump($abct);
-        die;
         curl_close($ch);
     }
 
