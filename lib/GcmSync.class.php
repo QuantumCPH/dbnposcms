@@ -63,6 +63,7 @@ class GcmLib {
             'Content-Type: application/json'
         );
         var_dump($headers);
+        
 // Open connection
         $ch = curl_init();
 
