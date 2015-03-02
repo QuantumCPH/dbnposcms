@@ -56,21 +56,10 @@ class GcmLib {
             'data' => $message,
         );
 //old =   AIzaSyBjhoSXE3gYU1_hKxxRIT0PpA2dzS89vgU
-// new = AIzaSyBUvFW57_LEh8i__BoHQqoIHYCjMsXuSf8        
-        $headers = array(
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-            'Authorization: key=AIzaSyD00id0izkQJ2McnG1uSL2FoFS4S_sf2-c',
-=======
-            'Authorization: key=AIzaSyArhFhF9J78Y4tVIhl-CwiRU6mGvDtUhEs',
->>>>>>> 30a39088ee0abc890db92857dca9be79f266831e
-=======
-            'Authorization: key=AIzaSyDXhuGbk-nrGEzWaJ-V4UgvF5L_VWSMOaA',
->>>>>>> f8068c2b972a2b860f322d1ee1ab521e4bb0b875
-=======
-            'Authorization: key=AIzaSyCsCt3hhqt_lc-fIQ5OMN-oZzX5l-cG2U8',
->>>>>>> 4b2eda6f67a11f69e7a435ff89b22cad726e8644
+// new = AIzaSyBUvFW57_LEh8i__BoHQqoIHYCjMsXuSf8    
+        $keygcm='AIzaSyCsCt3hhqt_lc-fIQ5OMN-oZzX5l-cG2U8';
+  $headers = array(
+            'Authorization: key='.$keygcm,
             'Content-Type: application/json'
         );
 // Open connection
