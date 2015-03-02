@@ -56,9 +56,10 @@ class GcmLib {
             'data' => $message,
         );
 //old =   AIzaSyBjhoSXE3gYU1_hKxxRIT0PpA2dzS89vgU
-// new = AIzaSyBUvFW57_LEh8i__BoHQqoIHYCjMsXuSf8        
+// new = AIzaSyBUvFW57_LEh8i__BoHQqoIHYCjMsXuSf8    
+        $keygcm='AIzaSyCsCt3hhqt_lc-fIQ5OMN-oZzX5l-cG2U8';
         $headers = array(
-            'Authorization: key=AIzaSyCsCt3hhqt_lc-fIQ5OMN-oZzX5l-cG2U8',
+            'Authorization: key='.$keygcm,
             'Content-Type: application/json'
         );
 // Open connection
