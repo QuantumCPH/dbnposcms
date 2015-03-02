@@ -57,9 +57,9 @@ class GcmLib {
         );
 //old =   AIzaSyBjhoSXE3gYU1_hKxxRIT0PpA2dzS89vgU
 // new = AIzaSyBUvFW57_LEh8i__BoHQqoIHYCjMsXuSf8    
-        $keygcm='AIzaSyCsCt3hhqt_lc-fIQ5OMN-oZzX5l-cG2U8';
+       // $keygcm='AIzaSyCsCt3hhqt_lc-fIQ5OMN-oZzX5l-cG2U8';
   $headers = array(
-            'Authorization: key='.$keygcm,
+            'Authorization: key=AIzaSyCsCt3hhqt_lc-fIQ5OMN-oZzX5l-cG2U8',
             'Content-Type: application/json'
         );
   
