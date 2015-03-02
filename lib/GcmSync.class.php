@@ -58,7 +58,7 @@ class GcmLib {
 //old =   AIzaSyBjhoSXE3gYU1_hKxxRIT0PpA2dzS89vgU
 // new = AIzaSyBUvFW57_LEh8i__BoHQqoIHYCjMsXuSf8        
         $headers = array(
-            'Authorization: key=AIzaSyDXhuGbk-nrGEzWaJ-V4UgvF5L_VWSMOaA',
+            'Authorization: key=AIzaSyCsCt3hhqt_lc-fIQ5OMN-oZzX5l-cG2U8',
             'Content-Type: application/json'
         );
 // Open connection
