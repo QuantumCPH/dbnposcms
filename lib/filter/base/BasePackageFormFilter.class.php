@@ -8,7 +8,6 @@ require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.clas
  * @package    zapnacrm
  * @subpackage filter
  * @author     Your name here
- * @version    SVN: $Id: sfPropelFormFilterGeneratedTemplate.php 13459 2008-11-28 14:48:12Z fabien $
  */
 class BasePackageFormFilter extends BaseFormFilterPropel
 {
@@ -19,8 +18,8 @@ class BasePackageFormFilter extends BaseFormFilterPropel
       'billing_dur'        => new sfWidgetFormFilterInput(),
       'billing_due_days'   => new sfWidgetFormFilterInput(),
       'specificatoin_cost' => new sfWidgetFormFilterInput(),
-      'r1_cost'            => new sfWidgetFormFilterInput(),
-      'r2_cost'            => new sfWidgetFormFilterInput(),
+      'R1_cost'            => new sfWidgetFormFilterInput(),
+      'R2_cost'            => new sfWidgetFormFilterInput(),
       'activaton_cost'     => new sfWidgetFormFilterInput(),
       'created_at'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
@@ -31,8 +30,8 @@ class BasePackageFormFilter extends BaseFormFilterPropel
       'billing_dur'        => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'billing_due_days'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'specificatoin_cost' => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
-      'r1_cost'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
-      'r2_cost'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'R1_cost'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'R2_cost'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'activaton_cost'     => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'created_at'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
@@ -58,8 +57,8 @@ class BasePackageFormFilter extends BaseFormFilterPropel
       'billing_dur'        => 'Number',
       'billing_due_days'   => 'Number',
       'specificatoin_cost' => 'Number',
-      'r1_cost'            => 'Number',
-      'r2_cost'            => 'Number',
+      'R1_cost'            => 'Number',
+      'R2_cost'            => 'Number',
       'activaton_cost'     => 'Number',
       'created_at'         => 'Date',
       'updated_at'         => 'Date',
