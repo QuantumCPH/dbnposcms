@@ -2008,12 +2008,14 @@ Have a great day!';
         $i = 0;
         $a = "";
         $orderIdArr = "";
-         foreach ($json_from_orders as $json_form_order) {
-            echo  "<br/>".$json_form_order->shop_order_id;
-         }
-           die('no execution');
+        // foreach ($json_from_orders as $json_form_order) {
+         //   echo  "<br/>".$json_form_order->shop_order_id;
+        // }
+         //  die('no execution');
         foreach ($json_from_orders as $json_form_order) {
 
+             echo  "<hr/>".$json_form_order->shop_order_id;
+             
             $co = new Criteria();
             $co->add(OrdersPeer::SHOP_ORDER_ID, $json_form_order->shop_order_id);
             $co->add(OrdersPeer::SHOP_ID, $shop_id);
@@ -2024,8 +2026,9 @@ Have a great day!';
             }
 
             $orderIdArr = explode("~", $orderId);
+  echo  "<br/>".$orderIdArr;
 
-
+  
             $orderPaymentId = "";
             foreach ($json_form_order->payments as $orderPaymentObject) {
                 if ($orderPaymentObject->shop_order_payment_id) {
