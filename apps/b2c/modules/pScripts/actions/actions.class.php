@@ -2020,10 +2020,10 @@ Have a great day!';
         $i = 0;
         $a = "";
         $orderIdArr = "";
-//         foreach ($json_from_orders as $json_form_order) {
-//            echo  "<br/>".$json_form_order->shop_order_id;
-//         }
-        //   die('no execution');
+         foreach ($json_from_orders as $json_form_order) {
+            echo  "<br/>".$json_form_order->shop_order_id;
+         }
+           die('no execution');
         foreach ($json_from_orders as $json_form_order) {
 
             $co = new Criteria();
@@ -2234,7 +2234,7 @@ Have a great day!';
         }
         return sfView::NONE;
     }
-die('Here');
+
     public function executeSyncBranchSettings(sfWebRequest $request) {
         $urlval = "SyncBranchSettings-" . $request->getURI();
         $dibsCall = new DibsCall();
